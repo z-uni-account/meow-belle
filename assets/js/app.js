@@ -368,6 +368,7 @@
       <div class="wrap hero__grid">
         <div class="hero__copy">
           <span class="eyebrow hero__eyebrow">🐾 Fresh · Vet-formulated · <b>Now in Bangladesh</b></span>
+          <div class="hero__salepill"><span class="pill pill-sale">🔥 Launch sale · 20% OFF</span><span class="hero__code">with code <b>MEOW20</b></span></div>
           <h1>Real food.<br>Real <span class="accent">happy</span> cats.</h1>
           <p class="hero__sub">Meow Belle is everyday nutrition your cat actually craves — real meat first, zero fillers, delivered to your door.</p>
           <div class="hero__cta">
@@ -381,8 +382,6 @@
         </div>
         <div class="hero__stage hero__stage--img">
           <img class="hero__img" src="hero.png" alt="Meow Belle — a black cat peeking out of a food bag on a mountain of kibble" fetchpriority="high">
-          <div class="hero__badge"><b>20%</b><span>OFF LAUNCH</span></div>
-          <div class="hero__mini"><div class="dot">🐟</div><div><b>No fillers</b><small>Real meat, always #1</small></div></div>
         </div>
       </div>
     </section>
