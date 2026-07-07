@@ -334,7 +334,8 @@ p { margin: 0 0 1em; }
 .card__stock .bar i { display: block; height: 100%; background: var(--coral); border-radius: 4px; }
 
 /* placeholder media tile */
-.media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 7%; background: #fff; z-index: 1; }
+.line__media .media-img, .cart-row__media .media-img { padding: 6%; }
 .ph {
   position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px;
   background:

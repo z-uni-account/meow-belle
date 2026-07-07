@@ -362,7 +362,7 @@
      ============================================================ */
   function renderHome(main) {
     const hero = PRODUCTS.find((p) => p.hero);
-    const feat = PRODUCTS.filter((p) => p.id !== "full-bowl-bundle").slice(0, 3);
+    const feat = PRODUCTS.slice(0, 3);
     main.innerHTML = `
     <section class="hero">${PAWS_BG}
       <div class="wrap hero__grid">
@@ -370,9 +370,9 @@
           <span class="eyebrow hero__eyebrow">🐾 Fresh · Vet-formulated · <b>Now in Bangladesh</b></span>
           <div class="hero__salepill"><span class="pill pill-sale">🔥 Launch sale · 20% OFF</span><span class="hero__code">with code <b>MEOW20</b></span></div>
           <h1>Real food.<br>Real <span class="accent">happy</span> cats.</h1>
-          <p class="hero__sub">Meow Belle is everyday nutrition your cat actually craves — real meat first, zero fillers, delivered to your door.</p>
+          <p class="hero__sub">Premium cat food cats actually crave — Reflex Plus & Prostar, real meat first, delivered across Bangladesh.</p>
           <div class="hero__cta">
-            <a class="btn btn-amber btn-lg" href="product.html?id=${hero.id}">Shop Belle's Daily →</a>
+            <a class="btn btn-amber btn-lg" href="product.html?id=${hero.id}">Shop the bestseller →</a>
             <a class="btn btn-ghost btn-lg" href="shop.html" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)">See the menu</a>
           </div>
           <div class="hero__trust">
@@ -416,14 +416,14 @@
     </section>
 
     <section class="section"><div class="wrap"><div class="bundle reveal">${PAWS_BG}
-      <div class="bundle__media">${media("images/products/full-bowl-bundle.jpg", "The Full Bowl Bundle")}</div>
+      <div class="bundle__media" style="background:#fff">${media(hero.image, hero.name)}</div>
       <div class="bundle__body">
-        <span class="pill pill-save">Save ৳801 today</span>
-        <h2>The Full Bowl Bundle</h2>
-        <p style="color:rgba(255,255,255,.9);font-size:1.1rem">Everything a happy cat needs in one box — dry food, wet pouches and treats. The easiest way to switch your cat to Meow Belle.</p>
-        <ul><li>1 kg Belle's Daily dry food</li><li>24 Purr Wet Pack gravy pouches</li><li>1 tub of Belle Bites treats</li></ul>
-        <div class="bundle__price"><span class="now">${money(2999)}</span><span class="was">${money(3800)}</span></div>
-        <button class="btn btn-amber btn-lg" data-add="full-bowl-bundle">Add bundle to cart →</button>
+        <span class="pill pill-best">★ #1 Bestseller</span>
+        <h2>${hero.name}</h2>
+        <p style="color:rgba(255,255,255,.9);font-size:1.1rem">${hero.short}</p>
+        <ul>${hero.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul>
+        <div class="bundle__price"><span class="now">${money(hero.price)}</span><span class="was">${money(hero.compareAt)}</span><span style="font-weight:600;color:#fff">/ ${hero.variants[0].label}</span></div>
+        <a class="btn btn-amber btn-lg" href="product.html?id=${hero.id}">Shop now →</a>
       </div>
     </div></div></section>
 
@@ -450,7 +450,6 @@
 
     wireCardAdds(main);
     $("#newsForm")?.addEventListener("submit", (e) => { e.preventDefault(); e.target.reset(); toast("💌", "You're in!", "Check your inbox for 10% off"); });
-    document.querySelector('[data-add="full-bowl-bundle"]')?.addEventListener("click", () => addToCart("full-bowl-bundle"));
   }
 
   function reviewHTML(r) {
@@ -465,7 +464,7 @@
      ============================================================ */
   function renderShop(main) {
     main.innerHTML = `
-    <section class="page-hero">${PAWS_BG}<div class="wrap"><span class="eyebrow" style="color:#fff">The full menu</span><h1>Shop Meow Belle</h1><p>Six recipes, one mission: a happier, healthier cat. Everything's on launch sale right now.</p></div></section>
+    <section class="page-hero">${PAWS_BG}<div class="wrap"><span class="eyebrow" style="color:#fff">The full menu</span><h1>Shop Meow Belle</h1><p>Premium Reflex Plus & Prostar cat food — every bag on launch sale, delivered across Bangladesh.</p></div></section>
     <section class="section"><div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:28px">
         <p style="margin:0;font-weight:700">${PRODUCTS.length} products</p>

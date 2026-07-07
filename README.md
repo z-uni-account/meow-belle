@@ -14,17 +14,23 @@ Bangladeshi Taka (BDT). Built as a self-contained static site — no backend, no
 
 | | |
 |---|---|
-| **Stage** | Design + copy build complete, hosted for preview. Not taking real orders yet. |
+| **Stage** | Real catalogue loaded (13 products, real photos, Taka pricing). Design + copy complete, hosted for preview. Not taking real orders yet. |
+| **Catalogue** | 13 products — Reflex Plus (9) + Prostar (4), sizes as variants. Loaded from Z's Excel (`Product catalog Excel Final.xlsx`); photos extracted from the same file. |
 | **Live preview** | https://z-uni-account.github.io/meow-belle/ (GitHub Pages) |
 | **GitHub repo** | https://github.com/z-uni-account/meow-belle (public, so free Pages works) |
 | **Hosting** | GitHub Pages, `main` branch root. Push to `main` → auto-redeploys in ~15–60s. |
 
-### Pending (Z is gathering these)
-- **Real product list + pricing** — current 6 products and Taka prices are placeholders
-  Z chose to demo the layout. Swap the real catalogue in when ready (see below).
-- **Real product photos** — site shows branded placeholder tiles until photos are added.
+### Pricing note
+Each product's `price` is the live selling price from Z's catalogue. A `compareAt`
+(regular) price ~15–18% higher is set on each so the storefront shows a genuine discount +
+countdown (the sales mechanics Z asked for). Adjust or remove `compareAt` in
+`assets/js/products.js` any time.
+
+### Pending
 - **Shopify port** — take the look + sales mechanics live on a real Shopify store so it
-  accepts orders. Not started; do when the product/pricing list is final.
+  accepts orders. Not started; do when Z gives the go.
+- **One image to improve** — `reflex-adult-chicken.png` is a dark group shot; swap for a
+  clean single-bag photo when available (see `images/README.md`).
 
 ---
 
@@ -72,8 +78,8 @@ Meow Belle - Cat food store/
 Launch-sale announcement bar · countdown timer · compare-at pricing + % off badges ·
 Subscribe & Save 15% · buy-more-save-more tiers · free-shipping progress bar · low-stock
 scarcity · star ratings + reviews · live "just bought" popups · trust badges · sticky
-add-to-cart · cart drawer with promo codes · bundle upsell. Fully responsive (verified on
-real mobile).
+add-to-cart · cart drawer with promo codes · bestseller spotlight. Fully responsive
+(verified on real mobile).
 
 ## Going live on Shopify (when ready)
 This repo is the design + copy source. To launch: create the final products in Shopify
