@@ -24,6 +24,18 @@
   };
   const rand = (a) => a[Math.floor(Math.random() * a.length)];
 
+  /* nutrition rendering (real, sourced data only) */
+  function nutriHighlights(p) {
+    if (!p.analytical || !p.analytical.length) return "";
+    const pick = (k) => p.analytical.find((a) => a.name.toLowerCase().includes(k));
+    const cells = [["Protein", "protein"], ["Fat", "fat"], ["Fibre", "fibre"]]
+      .map(([label, key]) => { const a = pick(key); return a ? `<div class="nutri-pill"><b>${a.value}</b><span>${label}</span></div>` : ""; }).join("");
+    return cells ? `<div class="nutri-pills" title="Guaranteed analysis">${cells}</div>` : "";
+  }
+  function nutriTable(rows) {
+    return `<table class="nutri-table"><tbody>${rows.map((r) => `<tr><td>${r.name}</td><td>${r.value}</td></tr>`).join("")}</tbody></table>`;
+  }
+
   /* ---------- media (photo or intentional placeholder) ---------- */
   function media(imgPath, label, cls = "") {
     return `<div class="media-wrap ${cls}" style="position:absolute;inset:0">
@@ -526,6 +538,7 @@
           </div>
 
           <p>${p.short}</p>
+          ${nutriHighlights(p)}
 
           ${hasVariants ? `<div class="opt"><div class="opt__label">Size <span>Pick your bag</span></div><div class="chips" id="variantChips">
             ${p.variants.map((v, i) => `<button class="chip" data-vi="${i}" aria-pressed="${i === 0}">${v.label}<small>${money(v.price)} · ${v.sub}</small></button>`).join("")}
@@ -566,9 +579,11 @@
 
           <div class="pdp__acc">
             <details class="acc-item" open><summary>Why cats love it</summary><div class="acc-item__body"><ul>${p.features.map((f) => `<li>${f}</li>`).join("")}</ul></div></details>
-            <details class="acc-item"><summary>Ingredients</summary><div class="acc-item__body">${p.ingredients}</div></details>
+            <details class="acc-item"><summary>Ingredients</summary><div class="acc-item__body">${p.ingredients || "Full ingredient list coming soon — message us and we'll share the pack details."}</div></details>
+            ${p.analytical && p.analytical.length ? `<details class="acc-item"><summary>Guaranteed analysis</summary><div class="acc-item__body">${nutriTable(p.analytical)}</div></details>` : ""}
+            ${p.additives && p.additives.length ? `<details class="acc-item"><summary>Added vitamins & minerals</summary><div class="acc-item__body">${nutriTable(p.additives)}</div></details>` : ""}
             <details class="acc-item"><summary>Feeding guide</summary><div class="acc-item__body">${p.feeding}</div></details>
-            <details class="acc-item"><summary>Delivery & returns</summary><div class="acc-item__body">Delivered across Bangladesh in 1–3 days. Free over ৳2,000, otherwise a flat ৳80. Not the right fit? Return within 30 days for a full refund — even if the bag is open.</div></details>
+            <details class="acc-item"><summary>Delivery & returns</summary><div class="acc-item__body">Delivered across Bangladesh in 1–3 days. Free over ৳2,000, otherwise a flat ৳120. Not the right fit? Return within 30 days for a full refund — even if the bag is open.</div></details>
           </div>
         </div>
       </div>

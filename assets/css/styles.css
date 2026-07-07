@@ -581,6 +581,16 @@ p { margin: 0 0 1em; }
 .pdp__trust div { display: flex; gap: 10px; align-items: center; font-size: .9rem; font-weight: 600; }
 .pdp__trust .t-ic { width: 38px; height: 38px; border-radius: 11px; background: var(--blue-tint); display: grid; place-items: center; font-size: 1.1rem; }
 
+/* nutrition highlights + tables */
+.nutri-pills { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0 6px; }
+.nutri-pill { background: var(--blue-tint); border-radius: 14px; padding: 10px 18px; text-align: center; min-width: 78px; }
+.nutri-pill b { display: block; font-family: var(--display); font-weight: 700; font-size: 1.3rem; color: var(--blue-deep); line-height: 1.05; }
+.nutri-pill span { font-size: .72rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .07em; }
+.nutri-table { width: 100%; border-collapse: collapse; }
+.nutri-table td { padding: 9px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.nutri-table td:last-child { text-align: right; font-family: var(--data); font-weight: 700; color: var(--ink); white-space: nowrap; }
+.nutri-table tr:last-child td { border-bottom: 0; }
+
 .pdp__acc { border-top: 1px solid var(--line); }
 .acc-item { border-bottom: 1px solid var(--line); }
 .acc-item summary { list-style: none; cursor: pointer; padding: 18px 0; font-family: var(--display); font-weight: 600; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }

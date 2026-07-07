@@ -20,6 +20,14 @@ Bangladeshi Taka (BDT). Built as a self-contained static site — no backend, no
 | **GitHub repo** | https://github.com/z-uni-account/meow-belle (public, so free Pages works) |
 | **Hosting** | GitHub Pages, `main` branch root. Push to `main` → auto-redeploys in ~15–60s. |
 
+### Nutrition data
+Real ingredient lists, guaranteed analysis (protein/fat/fibre/ash + calcium/phosphorus)
+and added vitamins/minerals are shown on each product page. All of it is sourced from the
+manufacturer (reflexmama.com) and retailer listings — **nothing is invented**. Each
+product carries its `sources` URL in `assets/js/products.js`. The two **Prostar Sterilised
+Salmon** SKUs have no published nutrition anywhere online, so those fields are intentionally
+left empty (the page just omits those sections) until a label is available.
+
 ### Pricing note
 Each product's `price` is the live selling price from Z's catalogue. A `compareAt`
 (regular) price ~15–18% higher is set on each so the storefront shows a genuine discount +
