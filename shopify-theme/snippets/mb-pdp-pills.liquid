@@ -1,0 +1,60 @@
+{%- comment -%} Nutrition highlight pills. Expects `product`. Renders only if we have data. {%- endcomment -%}
+{%- liquid
+  assign h = product.handle
+  assign protein = ''
+  assign fat = ''
+  assign fibre = ''
+  case h
+    when 'reflex-kitten-chicken'
+      assign protein = '37%'
+      assign fat = '20%'
+      assign fibre = '3%'
+    when 'reflex-adult-chicken'
+      assign protein = '33%'
+      assign fat = '14%'
+      assign fibre = '2%'
+    when 'reflex-adult-urinary-chicken'
+      assign protein = '34%'
+      assign fat = '14%'
+      assign fibre = '4%'
+    when 'reflex-adult-hairball-salmon'
+      assign protein = '34%'
+      assign fat = '14%'
+      assign fibre = '5%'
+    when 'reflex-kitten-salmon'
+      assign protein = '36%'
+      assign fat = '18%'
+      assign fibre = '2%'
+    when 'reflex-mother-baby'
+      assign protein = '32%'
+      assign fat = '22%'
+      assign fibre = '2.5%'
+    when 'reflex-sterilized-chicken'
+      assign protein = '34%'
+      assign fat = '12%'
+      assign fibre = '4%'
+    when 'reflex-adult-skincare-salmon'
+      assign protein = '34%'
+      assign fat = '16%'
+      assign fibre = '3%'
+    when 'reflex-adult-choosy-salmon'
+      assign protein = '34%'
+      assign fat = '14%'
+      assign fibre = '4%'
+    when 'prostar-adult-chicken'
+      assign protein = '26%'
+      assign fat = '14%'
+      assign fibre = '6%'
+    when 'prostar-kitten-chicken'
+      assign protein = '30%'
+      assign fat = '16%'
+      assign fibre = '3%'
+  endcase
+-%}
+{%- if protein != '' -%}
+<div class="mb-nutri-pills">
+  <div class="mb-nutri-pill"><b>{{ protein }}</b><span>Protein</span></div>
+  <div class="mb-nutri-pill"><b>{{ fat }}</b><span>Fat</span></div>
+  <div class="mb-nutri-pill"><b>{{ fibre }}</b><span>Fibre</span></div>
+</div>
+{%- endif -%}

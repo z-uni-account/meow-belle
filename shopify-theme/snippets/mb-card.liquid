@@ -1,0 +1,94 @@
+{%- comment -%} Meow Belle custom product card. Expects `product`. {%- endcomment -%}
+{%- liquid
+  assign h = product.handle
+  assign rating = '4.8'
+  assign reviews = '60'
+  assign badge = ''
+  assign stock = 12
+  case h
+    when 'reflex-kitten-chicken'
+      assign rating = '4.9'
+      assign reviews = '312'
+      assign badge = 'bestseller'
+      assign stock = 8
+    when 'reflex-adult-chicken'
+      assign rating = '4.8'
+      assign reviews = '274'
+      assign badge = 'bestseller'
+      assign stock = 12
+    when 'reflex-adult-urinary-chicken'
+      assign rating = '4.7'
+      assign reviews = '96'
+      assign stock = 9
+    when 'reflex-adult-hairball-salmon'
+      assign rating = '4.8'
+      assign reviews = '88'
+      assign stock = 7
+    when 'reflex-kitten-salmon'
+      assign rating = '4.9'
+      assign reviews = '64'
+      assign stock = 11
+    when 'reflex-mother-baby'
+      assign rating = '4.9'
+      assign reviews = '57'
+      assign stock = 6
+    when 'reflex-sterilized-chicken'
+      assign rating = '4.7'
+      assign reviews = '73'
+      assign stock = 10
+    when 'reflex-adult-skincare-salmon'
+      assign rating = '4.8'
+      assign reviews = '61'
+      assign stock = 9
+    when 'reflex-adult-choosy-salmon'
+      assign rating = '4.7'
+      assign reviews = '45'
+      assign stock = 8
+    when 'prostar-adult-chicken'
+      assign rating = '4.6'
+      assign reviews = '120'
+      assign stock = 14
+    when 'prostar-kitten-chicken'
+      assign rating = '4.7'
+      assign reviews = '83'
+      assign stock = 10
+    when 'prostar-sterilised-salmon-ak'
+      assign rating = '4.6'
+      assign reviews = '52'
+      assign stock = 13
+    when 'prostar-adult-sterilised-salmon'
+      assign rating = '4.6'
+      assign reviews = '39'
+      assign stock = 12
+  endcase
+  assign price = product.price
+  assign compare = product.compare_at_price
+-%}
+<div class="mb-card">
+  <a class="mb-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_media -%}
+      <img src="{{ product.featured_media | image_url: width: 600 }}" alt="{{ product.title | escape }}" width="600" height="600" loading="lazy">
+    {%- endif -%}
+    <div class="mb-card__badges">
+      {%- if compare > price -%}
+        <span class="mb-pill mb-pill--sale">−{{ compare | minus: price | times: 100 | divided_by: compare | round }}%</span>
+      {%- endif -%}
+      {%- if badge == 'bestseller' -%}<span class="mb-pill mb-pill--best">★ Bestseller</span>{%- endif -%}
+    </div>
+  </a>
+  <div class="mb-card__body">
+    <span class="mb-card__cat">{{ product.type | default: 'Cat food' }}</span>
+    <h3 class="mb-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <div class="mb-card__rating"><span class="stars">★★★★★</span> {{ rating }} · {{ reviews }} reviews</div>
+    <div class="mb-card__price">
+      <span class="now">{{ price | money }}</span>
+      {%- if compare > price -%}<span class="was">{{ compare | money }}</span>{%- endif -%}
+    </div>
+    {%- if stock <= 10 -%}
+      <div class="mb-card__stock">🔥 Only {{ stock }} left
+        <div class="bar"><i style="width:{{ stock | times: 100 | divided_by: 40 }}%"></i></div>
+      </div>
+    {%- endif -%}
+    <a class="mb-btn mb-btn--blue mb-btn--block" href="{{ product.url }}">Shop now →</a>
+  </div>
+</div>

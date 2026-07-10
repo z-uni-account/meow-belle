@@ -1,0 +1,35 @@
+{%- assign p = all_products[section.settings.product] -%}
+<div class="mb-section">
+  <div class="page-width">
+    <div class="mb-spotlight">
+      <div class="mb-spotlight__media">
+        {%- if p != blank and p.featured_media -%}
+          <img src="{{ p.featured_media | image_url: width: 900 }}" alt="{{ p.title | escape }}" width="900" height="900" loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="mb-spotlight__body">
+        <span class="mb-pill mb-pill--best">★ #1 Bestseller</span>
+        <h2>{{ p.title | default: 'Our bestseller' }}</h2>
+        <p>{% if section.settings.blurb != blank %}{{ section.settings.blurb }}{% else %}{{ p.description | strip_html | truncatewords: 34 }}{% endif %}</p>
+        {%- if p != blank -%}
+          <div class="mb-spotlight__price">
+            <span class="now">{{ p.price | money }}</span>
+            {%- if p.compare_at_price > p.price -%}<span class="was">{{ p.compare_at_price | money }}</span>{%- endif -%}
+          </div>
+          <a class="mb-btn mb-btn--amber mb-btn--lg" href="{{ p.url }}">Shop now →</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "MB Spotlight",
+  "tag": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Featured product" },
+    { "type": "textarea", "id": "blurb", "label": "Blurb (blank = product description)" }
+  ],
+  "presets": [{ "name": "MB Spotlight" }]
+}
+{% endschema %}

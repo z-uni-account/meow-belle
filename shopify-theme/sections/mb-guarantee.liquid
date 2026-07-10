@@ -1,0 +1,43 @@
+<div class="mb-section">
+  <div class="page-width">
+    <div class="mb-guarantee">
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          <div class="g-ic">{{ block.settings.icon }}</div>
+          <b>{{ block.settings.title }}</b>
+          <small>{{ block.settings.text }}</small>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "MB Guarantee",
+  "tag": "section",
+  "max_blocks": 4,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji)", "default": "🩺" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Vet-approved" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Formulated with feline vets" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MB Guarantee",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "🩺", "title": "Vet-approved", "text": "Formulated with feline vets" } },
+        { "type": "item", "settings": { "icon": "↩️", "title": "30-day guarantee", "text": "Not loved? Full refund" } },
+        { "type": "item", "settings": { "icon": "🇧🇩", "title": "Made for BD", "text": "Priced & delivered locally" } },
+        { "type": "item", "settings": { "icon": "🔒", "title": "Secure checkout", "text": "bKash · Nagad · Card · COD" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

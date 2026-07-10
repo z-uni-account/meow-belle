@@ -17,7 +17,7 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "🐾 Free delivery on orders over ৳2,000 — save 15% with code MEOW20",
+            "text": "🐾 Free delivery on orders over ৳2,000, save 15% with code MEOW20",
             "text_alignment": "center",
             "color_scheme": "scheme-4",
             "link": ""

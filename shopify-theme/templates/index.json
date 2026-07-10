@@ -4,9 +4,9 @@
       "type": "mb-hero",
       "settings": {
         "eyebrow": "🐾 Fresh · Vet-formulated · Now in Bangladesh",
-        "pill": "🔥 Launch sale · 20% OFF — code MEOW20",
+        "pill": "🔥 Launch sale · 20% OFF, code MEOW20",
         "heading": "Real food. Real happy cats.",
-        "subheading": "Premium Reflex Plus & Prostar cat food — real meat first, delivered across Bangladesh.",
+        "subheading": "Premium Reflex Plus & Prostar cat food, real meat first, delivered across Bangladesh.",
         "button_label": "Shop the range",
         "button_link": "shopify://collections/all",
         "show_trust": true,
@@ -15,75 +15,57 @@
         "trust_2": "premium recipes"
       }
     },
-    "value_props": {
-      "type": "multicolumn",
+    "mb_marquee": { "type": "mb-marquee", "settings": {} },
+    "mb_featured": {
+      "type": "mb-featured",
+      "settings": {
+        "eyebrow": "The menu",
+        "heading": "Fan favourites",
+        "subheading": "Premium recipes built on real, named proteins. Pick your cat's new obsession.",
+        "count": 6,
+        "tint": false,
+        "button_label": "Shop all products →",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "mb_values": {
+      "type": "mb-values",
       "blocks": {
-        "c1": { "type": "column", "settings": { "title": "Real meat first", "text": "<p>Named proteins lead every recipe — never mystery 'animal derivatives'.</p>" } },
-        "c2": { "type": "column", "settings": { "title": "No nasties", "text": "<p>Hypoallergenic recipes — no artificial colours, flavours or preservatives.</p>" } },
-        "c3": { "type": "column", "settings": { "title": "Vet-formulated", "text": "<p>Complete & balanced nutrition for every life stage.</p>" } },
-        "c4": { "type": "column", "settings": { "title": "To your door", "text": "<p>Fast delivery across Bangladesh. Free over ৳2,000.</p>" } }
+        "c1": { "type": "value", "settings": { "icon": "🍗", "title": "Real meat first", "text": "Named proteins lead every recipe, never mystery 'animal derivatives'." } },
+        "c2": { "type": "value", "settings": { "icon": "🚫", "title": "No nasties", "text": "Hypoallergenic recipes, no artificial colours, flavours or preservatives." } },
+        "c3": { "type": "value", "settings": { "icon": "🩺", "title": "Vet-formulated", "text": "Complete & balanced nutrition for every life stage." } },
+        "c4": { "type": "value", "settings": { "icon": "🚚", "title": "To your door", "text": "Fast delivery across Bangladesh. Free over ৳2,000." } }
       },
       "block_order": ["c1", "c2", "c3", "c4"],
+      "settings": { "eyebrow": "Why Meow Belle", "heading": "Food you'd feel good giving", "tint": true }
+    },
+    "mb_spotlight": {
+      "type": "mb-spotlight",
       "settings": {
-        "title": "Why Meow Belle",
-        "heading_size": "h2",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "columns_desktop": 4,
-        "column_alignment": "center",
-        "background_style": "none",
-        "button_label": "",
-        "color_scheme": "scheme-2",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 48,
-        "padding_bottom": 48
+        "product": "reflex-kitten-chicken",
+        "blurb": "Our #1 seller. A high-protein chicken recipe built for growing kittens, hypoallergenic, gentle on tummies, and irresistible from the very first bowl."
       }
     },
-    "featured": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Fan favourites",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "collection": "all",
-        "products_to_show": 6,
-        "columns_desktop": 3,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": true,
-        "show_rating": false,
-        "quick_add": "standard",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 44
-      }
-    },
-    "closing": {
-      "type": "rich-text",
+    "mb_reviews": {
+      "type": "mb-reviews",
       "blocks": {
-        "h": { "type": "heading", "settings": { "heading": "Give your cat the good stuff", "heading_size": "h1" } },
-        "t": { "type": "text", "settings": { "text": "<p>Premium Reflex Plus & Prostar nutrition, delivered across Bangladesh. Every bag on launch sale right now.</p>" } },
-        "b": { "type": "button", "settings": { "button_label": "Shop all products", "button_link": "shopify://collections/all", "button_style_secondary": false } }
+        "r1": { "type": "review", "settings": { "stars": "★★★★★", "name": "Farhana R.", "product": "Reflex Plus Kitten", "text": "My Persian is the fussiest eater alive and she cleared the bowl in one sitting. Coat looks glossier after three weeks too." } },
+        "r2": { "type": "review", "settings": { "stars": "★★★★★", "name": "Rakib H.", "product": "Prostar Adult", "text": "Ordered the Prostar 15 kg for my three cats. Great value, fast delivery, and they're thriving on it." } },
+        "r3": { "type": "review", "settings": { "stars": "★★★★★", "name": "Nusrat J.", "product": "Reflex Plus Choosy", "text": "The Choosy Salmon is magic. My cat rejected everything for a week and demolished this. The 'she finally ate it' bag." } }
       },
-      "block_order": ["h", "t", "b"],
-      "settings": {
-        "color_scheme": "scheme-3",
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "full_width": true,
-        "padding_top": 52,
-        "padding_bottom": 52
-      }
+      "block_order": ["r1", "r2", "r3"],
+      "settings": { "eyebrow": "Loved by cats & their humans", "heading": "Five-star bowls", "tint": true }
+    },
+    "mb_guarantee": {
+      "type": "mb-guarantee",
+      "blocks": {
+        "g1": { "type": "item", "settings": { "icon": "🩺", "title": "Vet-approved", "text": "Formulated with feline vets" } },
+        "g2": { "type": "item", "settings": { "icon": "↩️", "title": "30-day guarantee", "text": "Not loved? Full refund" } },
+        "g3": { "type": "item", "settings": { "icon": "🇧🇩", "title": "Made for BD", "text": "Priced & delivered locally" } },
+        "g4": { "type": "item", "settings": { "icon": "🔒", "title": "Secure checkout", "text": "bKash · Nagad · Card · COD" } }
+      },
+      "block_order": ["g1", "g2", "g3", "g4"]
     }
   },
-  "order": ["mb_hero", "value_props", "featured", "closing"]
+  "order": ["mb_hero", "mb_marquee", "mb_featured", "mb_values", "mb_spotlight", "mb_reviews", "mb_guarantee"]
 }

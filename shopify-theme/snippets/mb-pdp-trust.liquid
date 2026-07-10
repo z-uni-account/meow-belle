@@ -1,0 +1,39 @@
+{%- comment -%} Countdown + trust badges for the product page. {%- endcomment -%}
+<div class="mb-countdown" data-mb-countdown>
+  <div class="mb-countdown__label">⏰ Launch sale ends soon<br>Don't miss the drop</div>
+  <div class="mb-countdown__clock">
+    <div class="mb-cd-unit"><b data-d>00</b><span>days</span></div>
+    <div class="mb-cd-unit"><b data-h>00</b><span>hrs</span></div>
+    <div class="mb-cd-unit"><b data-m>00</b><span>min</span></div>
+    <div class="mb-cd-unit"><b data-s>00</b><span>sec</span></div>
+  </div>
+</div>
+<div class="mb-trust">
+  <div><span class="t-ic">🚚</span> Free delivery over ৳2,000</div>
+  <div><span class="t-ic">↩️</span> 30-day happy-cat guarantee</div>
+  <div><span class="t-ic">🩺</span> Vet-formulated recipe</div>
+  <div><span class="t-ic">🔒</span> bKash · Nagad · Card · COD</div>
+</div>
+<script>
+(function () {
+  var el = document.querySelector('[data-mb-countdown]');
+  if (!el) return;
+  var KEY = 'mb_sale_end';
+  var end = parseInt(localStorage.getItem(KEY) || '0', 10);
+  var now = Date.now();
+  if (!end || end < now) { end = now + (2 * 24 * 3600 + 8 * 3600) * 1000; localStorage.setItem(KEY, end); }
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var diff = Math.max(0, end - Date.now());
+    var d = Math.floor(diff / 86400000); diff -= d * 86400000;
+    var h = Math.floor(diff / 3600000); diff -= h * 3600000;
+    var m = Math.floor(diff / 60000); diff -= m * 60000;
+    var s = Math.floor(diff / 1000);
+    el.querySelector('[data-d]').textContent = pad(d);
+    el.querySelector('[data-h]').textContent = pad(h);
+    el.querySelector('[data-m]').textContent = pad(m);
+    el.querySelector('[data-s]').textContent = pad(s);
+  }
+  tick(); setInterval(tick, 1000);
+})();
+</script>

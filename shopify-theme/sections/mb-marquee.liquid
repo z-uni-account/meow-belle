@@ -1,0 +1,16 @@
+<div class="mb-marquee">
+  <div class="mb-marquee__track">
+    <span>{{ section.settings.text }}</span>
+    <span>{{ section.settings.text }}</span>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "MB Marquee",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Text", "default": "🐾 REAL MEAT FIRST 🐾 NO FILLERS 🐾 VET-FORMULATED 🐾 FREE DELIVERY OVER ৳2,000 🐾 DELIVERED ACROSS BANGLADESH 🐾 " }
+  ],
+  "presets": [{ "name": "MB Marquee" }]
+}
+{% endschema %}

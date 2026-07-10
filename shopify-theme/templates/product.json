@@ -16,6 +16,12 @@
         "price": {
           "type": "price"
         },
+        "nutri_pills": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'mb-pdp-pills', product: product %}"
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -33,6 +39,12 @@
             "show_gift_card_recipient": true
           }
         },
+        "trust": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'mb-pdp-trust', product: product %}"
+          }
+        },
         "description": {
           "type": "description"
         },
@@ -47,9 +59,11 @@
         "vendor",
         "title",
         "price",
+        "nutri_pills",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "trust",
         "description",
         "share"
       ],
