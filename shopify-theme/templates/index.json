@@ -1,0 +1,89 @@
+{
+  "sections": {
+    "mb_hero": {
+      "type": "mb-hero",
+      "settings": {
+        "eyebrow": "🐾 Fresh · Vet-formulated · Now in Bangladesh",
+        "pill": "🔥 Launch sale · 20% OFF — code MEOW20",
+        "heading": "Real food. Real happy cats.",
+        "subheading": "Premium Reflex Plus & Prostar cat food — real meat first, delivered across Bangladesh.",
+        "button_label": "Shop the range",
+        "button_link": "shopify://collections/all",
+        "show_trust": true,
+        "trust_1": "Loved by cat parents",
+        "trust_stat": "13+",
+        "trust_2": "premium recipes"
+      }
+    },
+    "value_props": {
+      "type": "multicolumn",
+      "blocks": {
+        "c1": { "type": "column", "settings": { "title": "Real meat first", "text": "<p>Named proteins lead every recipe — never mystery 'animal derivatives'.</p>" } },
+        "c2": { "type": "column", "settings": { "title": "No nasties", "text": "<p>Hypoallergenic recipes — no artificial colours, flavours or preservatives.</p>" } },
+        "c3": { "type": "column", "settings": { "title": "Vet-formulated", "text": "<p>Complete & balanced nutrition for every life stage.</p>" } },
+        "c4": { "type": "column", "settings": { "title": "To your door", "text": "<p>Fast delivery across Bangladesh. Free over ৳2,000.</p>" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"],
+      "settings": {
+        "title": "Why Meow Belle",
+        "heading_size": "h2",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Fan favourites",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "collection": "all",
+        "products_to_show": 6,
+        "columns_desktop": 3,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": true,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "closing": {
+      "type": "rich-text",
+      "blocks": {
+        "h": { "type": "heading", "settings": { "heading": "Give your cat the good stuff", "heading_size": "h1" } },
+        "t": { "type": "text", "settings": { "text": "<p>Premium Reflex Plus & Prostar nutrition, delivered across Bangladesh. Every bag on launch sale right now.</p>" } },
+        "b": { "type": "button", "settings": { "button_label": "Shop all products", "button_link": "shopify://collections/all", "button_style_secondary": false } }
+      },
+      "block_order": ["h", "t", "b"],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": ["mb_hero", "value_props", "featured", "closing"]
+}

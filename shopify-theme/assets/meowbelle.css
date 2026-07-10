@@ -1,0 +1,112 @@
+/* ============================================================
+   MEOW BELLE — brand layer over Dawn
+   Electric-blue playful cat-food brand. Loaded after base.css.
+   ============================================================ */
+
+:root {
+  --mb-blue: #012BF8;
+  --mb-blue-deep: #0018A8;
+  --mb-amber: #FFC24B;
+  --mb-ink: #0A0E1A;
+  --font-heading-family: "Fredoka", sans-serif !important;
+  --font-heading-weight: 600 !important;
+  --font-body-family: "Nunito", sans-serif !important;
+  --font-body-weight: 400 !important;
+}
+
+/* ---- typography ---- */
+body { font-family: "Nunito", sans-serif; }
+h1, h2, h3, h4, .h0, .h1, .h2, .h3,
+.card__heading, .product__title, .banner__heading,
+.header__heading-link, .header__heading-logo {
+  font-family: "Fredoka", sans-serif !important;
+  letter-spacing: -0.01em;
+}
+.header__heading-link, .header__heading-logo {
+  font-weight: 600 !important; font-size: 1.7rem;
+}
+.header__heading-link { color: var(--mb-ink); }
+
+/* ---- buttons: rounded, punchy, playful ---- */
+.button, .shopify-payment-button__button--unbranded {
+  font-family: "Fredoka", sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+  border-radius: 999px !important;
+  transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+}
+.button:not([disabled]):hover { transform: translateY(-2px); }
+.button:not([disabled]):active { transform: translateY(1px); }
+
+/* ---- cards ---- */
+.card-wrapper .card { transition: transform .24s cubic-bezier(.34,1.4,.64,1), box-shadow .24s; }
+.card-wrapper:hover .card { transform: translateY(-6px); }
+.card__media, .media { border-radius: 16px; overflow: hidden; }
+.card__media img, .media img { background: #fff; }
+.price { font-family: "Fredoka", sans-serif; font-weight: 600; }
+.price__sale .price-item--regular { opacity: .55; }
+
+/* sale badge = coral for urgency */
+.badge { font-family: "Fredoka", sans-serif; font-weight: 600; }
+
+/* ---- announcement bar ---- */
+.announcement-bar__message { font-family: "Fredoka", sans-serif; font-weight: 500; letter-spacing: .01em; }
+
+/* ============================================================
+   CUSTOM HERO SECTION (mb-hero)
+   ============================================================ */
+.mb-hero {
+  background: var(--mb-blue);
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+.mb-hero__grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  padding-block: clamp(28px, 5vw, 64px);
+}
+.mb-hero__eyebrow {
+  display: inline-block;
+  font-family: "Fredoka", sans-serif; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; font-size: .74rem;
+  color: rgba(255,255,255,.85);
+}
+.mb-hero__pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin: 16px 0 6px;
+  background: #FF5436; color: #fff;
+  font-family: "Fredoka", sans-serif; font-weight: 600; font-size: .92rem;
+  padding: 8px 16px; border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(255,84,54,.4);
+}
+.mb-hero__title {
+  font-family: "Fredoka", sans-serif !important; font-weight: 700;
+  font-size: clamp(2.8rem, 7vw, 5.6rem); line-height: 1.02;
+  margin: 12px 0 16px; color: #fff; text-wrap: balance;
+}
+.mb-hero__title .accent { color: var(--mb-amber); }
+.mb-hero__sub { font-size: 1.2rem; max-width: 32ch; color: rgba(255,255,255,.92); margin-bottom: 26px; }
+.mb-hero__cta {
+  background: var(--mb-amber) !important; color: var(--mb-ink) !important;
+  border: 0 !important; font-size: 1.1rem !important; padding: 15px 32px !important;
+  box-shadow: 0 8px 0 #F0A81E !important;
+}
+.mb-hero__cta:hover { box-shadow: 0 10px 0 #F0A81E !important; }
+.mb-hero__media { display: grid; place-items: center; }
+.mb-hero__media img {
+  width: 116%; max-width: none; height: auto; margin-right: -16%;
+}
+.mb-hero__trust { display: flex; gap: 20px; margin-top: 22px; align-items: center; font-weight: 700; }
+.mb-hero__trust .stars { color: var(--mb-amber); letter-spacing: 2px; }
+.mb-hero__trust small { display: block; font-weight: 500; color: rgba(255,255,255,.8); font-size: .8rem; }
+
+@media (max-width: 749px) {
+  .mb-hero__grid { grid-template-columns: 1fr; text-align: center; }
+  .mb-hero__media { order: -1; }
+  .mb-hero__media img { width: 100%; margin-right: 0; }
+  .mb-hero__sub { margin-inline: auto; }
+  .mb-hero__trust { justify-content: center; }
+}
