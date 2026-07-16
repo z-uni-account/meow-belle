@@ -5,15 +5,24 @@
       <h2>{{ section.settings.heading }}</h2>
       {%- if section.settings.subheading != blank -%}<p>{{ section.settings.subheading }}</p>{%- endif -%}
     </div>
-    {%- if section.settings.collection != blank -%}
-      {%- assign coll = collections[section.settings.collection] -%}
-    {%- else -%}
-      {%- assign coll = collections.all -%}
-    {%- endif -%}
     <div class="mb-grid">
-      {%- for product in coll.products limit: section.settings.count -%}
-        {% render 'mb-card', product: product %}
-      {%- endfor -%}
+      {%- if section.settings.handles != blank -%}
+        {%- assign handles = section.settings.handles | split: ',' -%}
+        {%- for handle in handles -%}
+          {%- assign hp = handle | strip -%}
+          {%- assign p = all_products[hp] -%}
+          {%- if p != blank -%}{% render 'mb-card', product: p %}{%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- if section.settings.collection != blank -%}
+          {%- assign coll = collections[section.settings.collection] -%}
+        {%- else -%}
+          {%- assign coll = collections.all -%}
+        {%- endif -%}
+        {%- for product in coll.products limit: section.settings.count -%}
+          {% render 'mb-card', product: product %}
+        {%- endfor -%}
+      {%- endif -%}
     </div>
     {%- if section.settings.button_label != blank -%}
       <div style="text-align:center;margin-top:36px">
@@ -31,6 +40,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Fan favourites" },
     { "type": "text", "id": "subheading", "label": "Subheading", "default": "Premium recipes built on real, named proteins. Pick your cat's new obsession." },
     { "type": "collection", "id": "collection", "label": "Collection (blank = all)" },
+    { "type": "textarea", "id": "handles", "label": "Product handles (comma-separated, overrides collection)" },
     { "type": "range", "id": "count", "label": "Products to show", "min": 3, "max": 12, "step": 3, "default": 6 },
     { "type": "checkbox", "id": "tint", "label": "Tinted background", "default": false },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop all products →" },
