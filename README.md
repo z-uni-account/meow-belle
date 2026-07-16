@@ -9,7 +9,8 @@ Electric-blue, playful DTC cat-food brand for Bangladesh. Reselling **Reflex Plu
 **Prostar**. Prices in Bangladeshi Taka (৳). **Now live on Shopify.**
 
 Docs in this repo: **`PRODUCTS.md`** (full catalogue) · **`STATIC-ADS-BRIEF.md`** (creative
-direction + ad-prompt JSON schema) · **`images/README.md`** (photo swap guide).
+direction + ad-prompt JSON schema) · **`static-ad-prompts.json`** (current 8-ad static creative
+set, all angles) · **`images/README.md`** (photo swap guide + image-update pipeline).
 
 ---
 
@@ -35,7 +36,12 @@ direction + ad-prompt JSON schema) · **`images/README.md`** (photo swap guide).
 - **Subscribe & Save** needs a Shopify subscriptions app (recurring billing can't be raw HTML).
 - **2 Prostar Sterilised Salmon** SKUs have no published nutrition anywhere — fields left
   empty on purpose until a real label is photographed.
-- `reflex-adult-chicken.png` is a dark group shot; swap for a clean single-bag photo.
+
+### Done
+- **2026-07-16 — all 13 product photos upgraded to HQ** (single-bag, web-optimized ~50–210 KB;
+  full masters archived at `~/Desktop/Meow Belle Product Images/`). Prostar Sterilised Salmon
+  background removed to white. Shopify refreshed via cache-busted re-import. Full pipeline + gotchas:
+  `images/README.md`. (Resolves the old "reflex-adult-chicken is a dark group shot" note.)
 
 ---
 

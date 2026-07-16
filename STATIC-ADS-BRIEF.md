@@ -4,6 +4,11 @@
 > creatives** (image-gen prompts) for Meow Belle. Read this + `PRODUCTS.md` before writing ads.
 > Separate private business — cat food for Bangladesh. Never mix with Mindframe.
 
+> **Current set:** `static-ad-prompts.json` (repo root) — 8 ads, 1:1, all angles rotated. Each
+> leads with a **Real protein · No fillers · Vet formulated** feature strip, and `image_prompt`
+> composites a **provided product image + logo** (real pack art) rather than asking the model to
+> draw the bag. Two added fields beyond the schema below: `features` and `provided_assets`.
+
 ## Brand snapshot
 - **What:** premium cat food (Reflex Plus + Prostar), delivered across Bangladesh.
 - **Audience:** BD cat parents — young, urban (Dhaka/Chattogram), IG-active, care about quality.
