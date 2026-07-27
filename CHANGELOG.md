@@ -35,6 +35,31 @@ thing that actually ends it — *"for the first 500 cat parents only"* — inste
 deadline that does not exist. **If the founding price is going to run forever, pull the
 pill.** Recorded in `PRICING.md`.
 
+### Housekeeping found three things worth fixing
+
+- **The two old import CSVs were a live landmine.** Both hold **supplier cost** in the price
+  column — importing either sells a 15 kg bag for ৳6,100 against ৳7,600 retail — and they sat
+  in the repo root one tab-completion away from the real file. Moved to
+  `archive/DANGER-cost-prices-*.csv` with a README explaining exactly what is wrong with them.
+- **`build_shopify_import.py --check` was broken by the date rolling over.** It compared
+  against *today's* filename, so it reported `DIFFERS` every morning purely because the new
+  day's file did not exist yet. It now compares against the newest date-stamped CSV on disk
+  and prints which one, and its glob deliberately excludes the archived files.
+- **Dead code in `app.js`** referenced a `full-bowl-bundle` product that no longer exists,
+  including a hardcoded "Save ৳801" badge — a figure that was already two repricings stale.
+  Removed.
+
+### The delivery badge was a paragraph
+
+*"Large bags (8 kg & 15 kg) delivered by our own team inside Dhaka, ৳150, 2 working days"*
+wrapped to **five lines on a phone** and threw the whole two-column badge grid out of
+balance. Now **"Big bags (8 & 15 kg) · ৳150 · 2 days"**, matching the dot-separated style of
+the badges beside it.
+
+Nothing was lost — the full version, including the confirmation call, is still in the
+*Delivery & returns* accordion. The snippet now carries a note: these are **badges, not
+sentences**, so anything past about six words wraps badly.
+
 ### The bug that ate an hour
 
 Both new snippets rendered as **absolutely nothing**. No error, no markup, correct files
@@ -159,6 +184,103 @@ Neither is wrong. The brief values a returned parcel at **1×** the courier fee,
 row values it at **1.5×**. Ten taka an order changes nothing, but a table has to use one
 model or its rows stop being comparable, so the conservative one already applied to the
 other 21 rows wins. Both figures are noted on the sheet row.
+
+---
+
+## 2026-07-27 (after the repricing) — ICP research: we were selling into the wrong fight
+
+New file **`ICP-RESEARCH.md`** plus a [Google Doc mirror](https://docs.google.com/document/d/18t8dNxN22Q2gb6opEnJg98HTwD353o1XTTKvAk5Tj94/edit).
+Built on the Mark Builds Brands "Foundational Docs" process (deep research on who buys, why,
+emotional buttons, how they talk, objections) and the Purple Ocean test. Until now the only
+audience note we had was one line in `STATIC-ADS-BRIEF.md` — an assumption, not research.
+
+### Why it was needed
+
+We were advertising *"37% protein. Zero filler. Now in Bangladesh."* Of 58 live competitor
+ads pulled from the Meta Ad Library, 26 claim premium and 21 claim 100% original. We were
+saying the same thing as everyone else, on an identical bag that three shops stock at ৳1,050
+against our ৳1,190, at ৳793/kg against Chonk and Oskies at ~৳330/kg with free delivery.
+That fight is unwinnable and we were paying to have it.
+
+### The finding that reframed everything
+
+Re-read our own 90-row competitor sweep and **only 47 listings are in stock — 52%.** On the
+problem recipes it collapses: Choosy 2 of 4, Hairball 3 of 8, Skin & Coat 3 of 7, Urinary
+4 of 8. The cheapest listings are usually the dead ones. Independently confirmed three ways:
+the Chonk founder on market syndication and vendor hoarding (TBS), a Bangladeshi owner
+(*"One time you get one brand of food, and the next time it isn't there"*), and our own data.
+
+**So the purple ocean is the problem recipes, not the brand.** Nine recipes, seven named
+after a problem, chronically out of stock everywhere, and **zero hairball ads, three urinary
+mentions and two skin-and-coat mentions across 58 live competitor ads.** Nobody in this
+market sells the fix for a named cat problem. Chonk cannot follow us there at any price:
+they make two recipes.
+
+### Three things that changed the plan after Z supplied real Reddit quotes
+
+1. **🚨 We look like a scam, and it outranks price.** r/Dhaka: *"the market has created this
+   default mindset 'If I buy online, I will probably get scammed'"* and *"Even if I clearly
+   mention a return or refund policy, they do not fully believe it."* Unknown brand, domain
+   misspelled with three L's, no reviews, no phone number, and **star ratings hardcoded per
+   product handle** — 4.9★ on 312 reviews we have not earned. That last one is not a missing
+   signal, it is the exact "misleading descriptions" pattern this market is trained to spot.
+   New **Part 7.5 trust checklist**, to be cleared before any ad spend.
+2. **The affluent buyer is the Persian / pedigree owner.** Spends 5,000+/month, buys on
+   vet-bill avoidance (*"cheaper brands cause kidney stones, chronic kidney disease, uti…
+   they will only increase the amount you spend on vet bills"*), and needs Choosy, Hairball
+   and Skin & Coat — three of our four scarcest SKUs. Added as Segment D. **It also
+   repositions us:** in their hierarchy Royal Canin and Farmina are the top and Reflex sits
+   below, so we are not the premium splurge, we are *vet-grade without Royal Canin money*.
+   Compare upward to Royal Canin at ~৳2,500/kg, never sideways to the ৳1,050 shops.
+3. **Convenience, not nutrition, is the wedge against homemade food.** A real share of this
+   market cooks for the cat and believes it is healthier. The one owner who switched said
+   why: *"Baar Baar Khabar gorom kora jhamela dekhe I switched to dry catfood."* Argue
+   nutrition and we lose her. She went to Chonk.
+
+Also logged: owners name **Reflex Plus Urinary by SKU** unprompted, one describes our exact
+Urinary story (*"we were using fluffy but our cat got his bladder blocked and so we had to
+change foods"*), **"stock up when you find them"** turns out to be a coping strategy
+customers already describe (that is the 3-Month Supply), and **RedX is specifically
+distrusted** *"when ordering from independent pages"* — which is exactly what we are.
+
+### Consequences for creative
+
+`STATIC-ADS-BRIEF.md` rewritten. Dead: "Now in Bangladesh", "37% protein" as a headline, and
+price-led value ads. Replaced with three concepts to test: **symptom-first** (name the problem
+in the first three words, land on that product page), **the stock-out** (lead the 3-pack), and
+**new kitten**. Single 1.5 kg bag demoted to a remarketing and refill SKU — at 4.7x break-even
+it is close to unwinnable on cold traffic, while the 3-pack earns ৳741 for the same ad cost.
+
+### Second opinion
+
+Jeremy AI (paid-ads advisor) agreed on both calls and supplied the framing line **"you're the
+pharmacy, not the pet shop."** His pushback is recorded in Part 7B and should not be waved
+away: at 21% contribution in a Dhaka-only audience, CPMs climb and creative burns out fast,
+and if the first test cannot clear ~4.8x the problem is supplier cost, not the ads.
+
+### Open, needs Z
+
+1. ~~**The 3-pack is Adult Chicken only**~~ ✅ **Done later the same day** — five recipe
+   variants, and repriced ৳3,570 → ৳3,390. See the two entries above.
+2. **No risk reversal exists.** Chonk sells a ৳149 sampler against the category's biggest
+   objection ("will she even eat it"). We have a ৳320 400g bag we never advertise. Suggested:
+   a first-bag promise on the single 1.5 kg only, capping downside at ৳840 per claim.
+3. **Renal and gastrointestinal are stated unmet needs** and we stock neither. Worth asking
+   the supplier what a Reflex veterinary line costs.
+
+### Honest gaps
+
+First-party Bengali voice is still thin. Reddit skews male, English-fluent and internet-native,
+its summariser silently mixes r/pakistan and r/indiasocial into "only r/bangladesh" requests
+(every quote is now tagged 🇧🇩 or 🌏 for this reason), and the biggest Bangladeshi cat
+communities are closed Facebook groups that cannot be scraped. **The 52% stock rate is one
+snapshot — re-run the sweep monthly.** It is our best proprietary data and nobody else has it.
+
+### Tooling
+
+`build_icp_doc.py` — markdown to styled HTML for the Google Doc. Rebuild in place with
+`gws drive files update` against the fixed `DOC_ID`; **never `files.copy`**, which mints a new
+URL and loses sharing.
 
 ---
 

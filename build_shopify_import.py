@@ -206,8 +206,18 @@ def main():
     text = "".join(buffer)
 
     if "--check" in sys.argv:
-        existing = OUT.open(newline="").read() if OUT.exists() else ""
-        print("IDENTICAL" if existing == text else "DIFFERS")
+        # Compare against the newest import file that actually exists, not against
+        # today's filename. Otherwise --check reports DIFFERS every time the date rolls
+        # over, purely because tomorrow's file has not been written yet.
+        # Date-stamped files only. A plain glob also matches the pre-2026-07-27 files,
+        # which sort after the dates alphabetically AND hold supplier cost prices.
+        existing_files = sorted(ROOT.glob("meowbelle-shopify-import-20??-??-??.csv"))
+        if not existing_files:
+            print("DIFFERS (no import CSV on disk yet)")
+            return
+        latest = existing_files[-1]
+        same = latest.open(newline="").read() == text
+        print(f"{'IDENTICAL' if same else 'DIFFERS'} (vs {latest.name})")
         return
 
     with OUT.open("w", newline="") as handle:

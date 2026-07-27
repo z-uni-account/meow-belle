@@ -371,7 +371,6 @@
     const out = [];
     if (p.badges?.includes("bestseller")) out.push('<span class="pill pill-best">★ Bestseller</span>');
     if (p.compareAt > p.price) out.push(`<span class="pill pill-sale">−${Math.round((1 - p.price / p.compareAt) * 100)}%</span>`);
-    if (p.badges?.includes("save") && p.id === "full-bowl-bundle") out.push('<span class="pill pill-save">Save ৳801</span>');
     return out.join("");
   }
   function cardHTML(p) {
@@ -533,7 +532,7 @@
     PDP_STATE.variant = 0; PDP_STATE.qty = 1;
 
     const hasVariants = !!p.variants;
-    const related = PRODUCTS.filter((x) => x.id !== p.id && x.id !== "full-bowl-bundle").slice(0, 3);
+    const related = PRODUCTS.filter((x) => x.id !== p.id).slice(0, 3);
 
     main.innerHTML = `
     <section class="wrap pdp">

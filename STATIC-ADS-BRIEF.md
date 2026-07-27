@@ -140,8 +140,9 @@ Each ad = one JSON object. Produce arrays of these.
 - **Never advertise the 400 g (৳320) or Prostar 1.2 kg (৳500).** They are checkout add-ons.
   A "from ৳320" hook buys us the customer who orders one light bag and never returns.
   If a price hook is needed, use the 1.5 kg at **৳1,190 (was ৳1,450)**.
-- **Delivery claim:** "Dhaka city, ৳70 flat, free on 2 bags or more." Large bags (8 kg and
-  15 kg) are "delivered by our own team inside Dhaka, ৳150, 2 working days."
+- **Delivery claim:** "Dhaka city, ৳70 flat, free on 2 bags or more." Big bags (8 and
+  15 kg) are "৳150, 2 days, by our own rider." **The 3-pack always ships free** — it has its
+  own discount, so an ad for it may say "free delivery in Dhaka" flatly.
   Do **not** write "free delivery over ৳X" or "৳130 nationwide" — both rules are dead.
 - **No Subscribe & Save, no promo codes.** Both removed. `MEOW20`, `WELCOME10` and
   `PURR15` no longer exist and must not appear in creative.

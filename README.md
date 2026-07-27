@@ -13,7 +13,9 @@ Electric-blue, playful DTC cat-food brand for Bangladesh. Reselling **Reflex Plu
 
 Docs in this repo: **`PRICING.md`** (💰 **prices, offer, delivery, margin — read first for
 anything money**) · **`ICP-RESEARCH.md`** (🎯 **who we sell to, why they buy, objections,
-competitor intel — read first for anything ads or copy**) · **`PRODUCTS.md`** (full catalogue) ·
+competitor intel — read first for anything ads or copy**;
+[Google Doc](https://docs.google.com/document/d/18t8dNxN22Q2gb6opEnJg98HTwD353o1XTTKvAk5Tj94/edit))
+· **`PRODUCTS.md`** (full catalogue) ·
 **`STATIC-ADS-BRIEF.md`** (creative direction + ad-prompt JSON schema) ·
 **`static-ad-prompts.json`** (current 8-ad static creative set, all angles) ·
 **`images/README.md`** (photo swap guide + image-update pipeline).

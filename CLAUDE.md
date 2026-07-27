@@ -44,7 +44,7 @@ Prostar** — we do not manufacture. Prices in Bangladeshi Taka (৳).
 | Doc | When |
 |---|---|
 | **`PRICING.md`** | 💰 **Anything involving money.** Cost vs price, the offer, delivery, margin, break-even ROAS. Read it before changing a single number. |
-| **`ICP-RESEARCH.md`** | 🎯 **Anything involving copy, ads, or positioning.** Who buys, why, objections, voice. |
+| **`ICP-RESEARCH.md`** | 🎯 **Anything involving copy, ads, or positioning.** Who buys, why, objections, voice, competitor ad landscape, and which angles are dead. Feed it to any copy or creative job alongside `PRODUCTS.md` + `PRICING.md`. [Google Doc mirror](https://docs.google.com/document/d/18t8dNxN22Q2gb6opEnJg98HTwD353o1XTTKvAk5Tj94/edit) (markdown is the source of truth). |
 | **`PRODUCTS.md`** | The catalogue mirror. Human-readable view of `products.js`. |
 | **`STATIC-ADS-BRIEF.md`** | Ad creative direction + the hard rules on what may and may not be claimed. |
 | **`CHANGELOG.md`** | What changed, when, and why. Append to it. |
@@ -105,9 +105,9 @@ are Shopify admin work. Current live config is recorded in `README.md`.
 
 | Script | Makes |
 |---|---|
-| `build_shopify_import.py` | the Shopify import CSV, from `products.js`. `--check` compares without writing. |
+| `build_shopify_import.py` | the Shopify import CSV, from `products.js`. `--check` compares against the newest CSV on disk without writing. **The filename is date-stamped, so a run on a new day writes a NEW file — newest wins, import that one.** |
 | `build_3pack_images.py` | the four 3-Month Supply images, composited from the catalogue photos. |
-| `build_icp_doc.py` | the ICP research PDF. |
+| `build_icp_doc.py` | renders `ICP-RESEARCH.md` to styled HTML for the **Google Doc**. Rebuild recipe + the fixed `DOC_ID` are in the comment at the bottom of the script. **Update in place, never `files.copy`** — a copy mints a new URL. |
 
 ---
 
@@ -129,6 +129,9 @@ are Shopify admin work. Current live config is recorded in `README.md`.
 - **System Python 3.14 has a broken `expat`** → use `/usr/bin/python3` for XML/xlsx/PIL work.
 - **Two SKUs share a slug if you strip the decimal** — `1.5 kg` and `15 kg` both became
   `15kg` once and merged their inventory. Slugify as `1p5kg`.
+- **☠️ Never import anything from `archive/`.** The two `DANGER-cost-prices-*` CSVs in there
+  hold **supplier cost** in the price column — importing one sells a 15 kg bag for ৳6,100
+  against a ৳7,600 retail. Kept as a record only. See `archive/README.md`.
 - **Currency displays as `Tk … BDT`** until Settings → General → Currency formatting is set
   to `৳{{amount_no_decimals}}`. Still outstanding.
 

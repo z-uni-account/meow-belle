@@ -177,8 +177,14 @@ targeting and ops until a checkout-rules app is added. See README.
 their network, which is why heavy bags exist as a separate delivery method at all.
 **Heavy SKUs must be blocked from checkout entirely outside Dhaka.**
 
-Product-page wording for heavy bags, as agreed:
-> "Large bags delivered by our own team inside Dhaka, ৳150, 2 working days."
+Product-page wording for heavy bags, in two places and deliberately different lengths:
+
+| Where | Wording |
+|---|---|
+| Trust **badge** (the grid under Add to cart) | "Big bags (8 & 15 kg) · ৳150 · 2 days" |
+| *Delivery & returns* **accordion** | the full version, including that we ring to confirm before dispatch |
+
+The badges are labels, not sentences. The long version wrapped to five lines on a phone.
 
 ### RedX rate card (rounded up to the whole kg)
 
