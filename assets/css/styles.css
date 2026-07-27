@@ -715,3 +715,10 @@ p { margin: 0 0 1em; }
   * { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
 }
+
+
+/* founding-customer block (replaces the old launch countdown) */
+.founding{display:flex;flex-direction:column;gap:4px;margin:16px 0;padding:14px 16px;
+  border:2px dashed var(--amber,#ffb200);border-radius:var(--r,14px);background:#fffaf0}
+.founding b{font-family:var(--display,inherit);font-size:1.05rem}
+.founding span{font-size:.88rem;color:var(--ink-soft,#5b6178)}

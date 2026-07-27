@@ -34,7 +34,7 @@
     "format": "1:1",
     "dimensions": "1080x1080",
     "headline": "The good stuff just landed.",
-    "subhead": "Premium cat food, delivered across Bangladesh.",
+    "subhead": "Premium cat food, delivered across Dhaka city.",
     "features": ["Real protein", "No fillers", "Vet formulated"],
     "tagline": "Now in Bangladesh.",
     "cta": "Order at @meowbelle.bd",
@@ -89,8 +89,8 @@
     "angle": "value",
     "format": "1:1",
     "dimensions": "1080x1080",
-    "headline": "Premium from ৳240.",
-    "subhead": "Free delivery over ৳2,000.",
+    "headline": "৳1,190. Was ৳1,450.",
+    "subhead": "Free delivery on 2 bags or more.",
     "features": ["Real protein", "No fillers", "Vet formulated"],
     "tagline": "Now in Bangladesh.",
     "cta": "Order at @meowbelle.bd",
@@ -106,9 +106,9 @@
       "logo_placement": "bottom-left"
     },
     "palette": ["#012BF8", "#FFC24B", "#FFFFFF", "#FF5436"],
-    "typography": "Fredoka heavy rounded; white headline with the price '৳240' in amber; small white feature row with amber dot separators",
+    "typography": "Fredoka heavy rounded; white headline with '৳1,190' in amber and '৳1,450' struck through in pale grey; small white feature row with amber dot separators",
     "image_prompt": "Warm studio advertising shot of one content, satisfied cat sitting relaxed with half-closed happy eyes beside a cat food bag, on a perfectly flat electric-blue (#012BF8) background with no gradient. Composite the PROVIDED Meow Belle product bag image beside the cat, keeping the provided pack art fully intact and undistorted. Soft even studio lighting, sharp focus, poster style. Leave generous empty blue space across the top for a headline and a small feature line. Place the PROVIDED Meow Belle logo in the bottom-left corner. No other objects, no other animals.",
-    "text_overlay": "Premium from ৳240. / Free delivery over ৳2,000. / Real protein · No fillers · Vet formulated / Now in Bangladesh. / Order at @meowbelle.bd",
+    "text_overlay": "৳1,190, was ৳1,450. / Founding customer price, first 500. / Free delivery on 2 bags or more. / Real protein · No fillers · Vet formulated / Now in Bangladesh. / Order at @meowbelle.bd",
     "negative": "no clutter, no competitor brands or logos, no watermarks, no distorted or gibberish text, no extra animals, do not redraw or alter the provided bag art or logo"
   },
   {

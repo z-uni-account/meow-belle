@@ -1,39 +1,45 @@
-{%- comment -%} Countdown + trust badges for the product page. {%- endcomment -%}
-<div class="mb-countdown" data-mb-countdown>
-  <div class="mb-countdown__label">⏰ Launch sale ends soon<br>Don't miss the drop</div>
-  <div class="mb-countdown__clock">
-    <div class="mb-cd-unit"><b data-d>00</b><span>days</span></div>
-    <div class="mb-cd-unit"><b data-h>00</b><span>hrs</span></div>
-    <div class="mb-cd-unit"><b data-m>00</b><span>min</span></div>
-    <div class="mb-cd-unit"><b data-s>00</b><span>sec</span></div>
+{%- comment -%}
+  Founding-customer block + trust badges for the product page.
+
+  Replaced the old "launch sale" countdown on 2026-07-27. The offer is a founding
+  cohort with a hard cap, NOT a time-limited sale, so a ticking clock contradicts it.
+  (That clock also reset itself from localStorage on every visit, which is not honest.)
+
+  The remaining-slots number reads the shop metafield `meowbelle.founding_remaining`
+  (integer), so Z can update it in the Shopify admin without touching code. If the
+  metafield is unset it falls back to copy with no number in it, so nothing on the
+  page ever claims a count we cannot stand behind.
+
+  Offer definition lives in PRICING.md.
+{%- endcomment -%}
+
+{%- assign founding_total = 500 -%}
+{%- assign founding_left = shop.metafields.meowbelle.founding_remaining.value -%}
+
+<div class="mb-founding">
+  <div class="mb-founding__head">
+    <span class="mb-founding__ic">🐾</span>
+    <b>Founding customer price</b>
   </div>
+  {%- if founding_left and founding_left > 0 -%}
+    {%- assign taken = founding_total | minus: founding_left -%}
+    {%- assign pct = taken | times: 100 | divided_by: founding_total -%}
+    <p class="mb-founding__sub">
+      Only <b>{{ founding_left }}</b> of the first {{ founding_total }} places left.
+    </p>
+    <div class="mb-founding__bar"><i style="width:{{ pct }}%"></i></div>
+  {%- else -%}
+    <p class="mb-founding__sub">
+      Locked in for the first {{ founding_total }} cat parents. Not a sale, and it won't come back.
+    </p>
+  {%- endif -%}
 </div>
+
 <div class="mb-trust">
-  <div><span class="t-ic">🚚</span> Free delivery over ৳2,000</div>
+  <div><span class="t-ic">🚚</span> Free delivery on 2 bags or more</div>
+  <div><span class="t-ic">📍</span> Dhaka city only · ৳70 flat delivery</div>
+  <div><span class="t-ic">🛵</span> Large bags (8 kg &amp; 15 kg) delivered by our own team inside Dhaka, ৳150, 2 working days</div>
   <div><span class="t-ic">↩️</span> 30-day happy-cat guarantee</div>
   <div><span class="t-ic">🩺</span> Vet-formulated recipe</div>
   <div><span class="t-ic">🔒</span> bKash · Nagad · Card · COD</div>
 </div>
-<script>
-(function () {
-  var el = document.querySelector('[data-mb-countdown]');
-  if (!el) return;
-  var KEY = 'mb_sale_end';
-  var end = parseInt(localStorage.getItem(KEY) || '0', 10);
-  var now = Date.now();
-  if (!end || end < now) { end = now + (2 * 24 * 3600 + 8 * 3600) * 1000; localStorage.setItem(KEY, end); }
-  function pad(n) { return String(n).padStart(2, '0'); }
-  function tick() {
-    var diff = Math.max(0, end - Date.now());
-    var d = Math.floor(diff / 86400000); diff -= d * 86400000;
-    var h = Math.floor(diff / 3600000); diff -= h * 3600000;
-    var m = Math.floor(diff / 60000); diff -= m * 60000;
-    var s = Math.floor(diff / 1000);
-    el.querySelector('[data-d]').textContent = pad(d);
-    el.querySelector('[data-h]').textContent = pad(h);
-    el.querySelector('[data-m]').textContent = pad(m);
-    el.querySelector('[data-s]').textContent = pad(s);
-  }
-  tick(); setInterval(tick, 1000);
-})();
-</script>

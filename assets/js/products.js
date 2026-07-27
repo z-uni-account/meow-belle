@@ -13,11 +13,23 @@
 
 window.MEOW = {
   currency: "৳",
-  freeShipThreshold: 2000,
-  shipFlat: 120,
-  subscribeSave: 0.15,
-  promos: { MEOW20: 0.20, WELCOME10: 0.10, PURR15: 0.15 },
-  cities: ["Dhaka", "Chattogram", "Sylhet", "Khulna", "Rajshahi", "Gulshan", "Banani", "Uttara", "Mirpur", "Cumilla", "Bogura", "Narayanganj"],
+  // LAUNCH SCOPE: Dhaka city only. Everything else goes to a waitlist, no checkout.
+  // Revisit after 60 days or 200 orders. See PRICING.md.
+  launchCity: "Dhaka",
+  // Two delivery methods, split by parcel weight.
+  redxMaxKg: 5,          // RedX will NOT carry a parcel over 5 kg. Hard limit.
+  shipLight: 70,         // under 5 kg, RedX, customer pays flat ৳70
+  shipHeavy: 150,        // over 5 kg, our own rider inside Dhaka, customer pays ৳150
+  freeShipMinItems: 2,   // free delivery on 2+ ITEMS. Light parcels only, never heavy.
+  cities: ["Dhaka", "Gulshan", "Banani", "Uttara", "Mirpur", "Dhanmondi", "Bashundhara", "Mohammadpur"],
+};
+
+// Parcel weight in kg for a variant. Explicit `kg` wins; otherwise parse the label.
+window.variantKg = function (v) {
+  if (v && typeof v.kg === "number") return v.kg;
+  const m = String(v && v.label || "").match(/([\d.]+)\s*(kg|g)/i);
+  if (!m) return 0;
+  return m[2].toLowerCase() === "g" ? parseFloat(m[1]) / 1000 : parseFloat(m[1]);
 };
 
 const FEED_GENERIC = "Feed to your cat's weight and activity level, split across two meals, with fresh water always available. See the back of the pack for the exact daily gram chart.";
@@ -26,12 +38,12 @@ window.MEOW_PRODUCTS = [
   {
     id: "reflex-kitten-chicken", name: "Reflex Plus Kitten, Chicken", tagline: "Super-premium kitten dry food · Chicken",
     brand: "Reflex Plus", category: "Kitten food", image: "images/products/reflex-kitten-chicken.png",
-    price: 840, compareAt: 990, rating: 4.9, reviews: 312, stock: 8, stockMax: 40,
+    price: 1190, compareAt: 1450, rating: 4.9, reviews: 312, stock: 8, stockMax: 40,
     badges: ["bestseller", "sale"], hero: true,
     variants: [
-      { label: "1.5 kg", sub: "starter", price: 840, compareAt: 990 },
-      { label: "8 kg", sub: "value", price: 3800, compareAt: 4500 },
-      { label: "15 kg", sub: "best value", price: 6100, compareAt: 7200 },
+      { label: "1.5 kg", sub: "starter", price: 1190, compareAt: 1450 },
+      { label: "8 kg", sub: "value", price: 4850, compareAt: 5900 },
+      { label: "15 kg", sub: "best value", price: 7600, compareAt: 9250 },
     ],
     short: "Our #1 seller. High-protein chicken recipe built for growing kittens, hypoallergenic, gentle on tummies, and irresistible from the very first bowl.",
     features: ["Real chicken protein is the #1 ingredient", "37% protein for healthy growth", "Hypoallergenic, no artificial colours or flavours", "Prebiotics (MOS) & yucca for easy digestion", "Taurine & full vitamin/mineral blend"],
@@ -43,14 +55,14 @@ window.MEOW_PRODUCTS = [
   {
     id: "reflex-adult-chicken", name: "Reflex Plus Adult, Chicken", tagline: "Super-premium adult dry food · Chicken",
     brand: "Reflex Plus", category: "Adult food", image: "images/products/reflex-adult-chicken.png",
-    price: 240, compareAt: 290, rating: 4.8, reviews: 274, stock: 12, stockMax: 40,
+    price: 320, compareAt: 390, rating: 4.8, reviews: 274, stock: 12, stockMax: 40,
     badges: ["bestseller", "sale"],
     variants: [
-      { label: "400 g", sub: "trial", price: 240, compareAt: 290 },
-      { label: "1.5 kg", sub: "starter", price: 840, compareAt: 990 },
-      { label: "15 kg", sub: "best value", price: 6100, compareAt: 7200 },
+      { label: "400 g", sub: "trial", price: 320, compareAt: 390 },
+      { label: "1.5 kg", sub: "starter", price: 1190, compareAt: 1450 },
+      { label: "15 kg", sub: "best value", price: 7600, compareAt: 9250 },
     ],
-    short: "The everyday bowl for adult cats. Real chicken, complete and balanced nutrition, and a crunch they come running for, now from a ৳240 trial pack.",
+    short: "The everyday bowl for adult cats. Real chicken, complete and balanced nutrition, and a crunch they come running for, bowl after bowl.",
     features: ["Real chicken protein is the #1 ingredient", "33% protein, complete & balanced", "Hypoallergenic recipe", "XOS prebiotics & yucca for digestion", "Taurine for a healthy heart"],
     ingredients: "Processed Chicken Protein (38%), Corn, Chicken Fat, Rice, Hydrolyzed Animal Protein, Beet Pulp, Liver Aroma, Vitamins and Minerals, Flaxseed, Xylo-oligosaccharides (XOS), Brewer's Yeast, Salt, Yucca Schidigera, Taurine, Preservatives - Antioxidants.",
     analytical: [{ name: "Crude Protein", value: "33%" }, { name: "Crude Fat", value: "14%" }, { name: "Crude Fibre", value: "2%" }, { name: "Crude Ash", value: "8%" }],
@@ -60,10 +72,10 @@ window.MEOW_PRODUCTS = [
   {
     id: "reflex-adult-urinary-chicken", name: "Reflex Plus Adult, Urinary Chicken", tagline: "Urinary-care adult dry food · Chicken",
     brand: "Reflex Plus", category: "Urinary care", image: "images/products/reflex-adult-urinary-chicken.png",
-    price: 840, compareAt: 990, rating: 4.7, reviews: 96, stock: 9, stockMax: 40, badges: ["sale"],
+    price: 1190, compareAt: 1450, rating: 4.7, reviews: 96, stock: 9, stockMax: 40, badges: ["sale"],
     variants: [
-      { label: "1.5 kg", sub: "starter", price: 840, compareAt: 990 },
-      { label: "15 kg", sub: "best value", price: 6100, compareAt: 7200 },
+      { label: "1.5 kg", sub: "starter", price: 1190, compareAt: 1450 },
+      { label: "15 kg", sub: "best value", price: 7600, compareAt: 9250 },
     ],
     short: "Formulated to support a healthy urinary tract with balanced minerals, for cats prone to urinary trouble.",
     features: ["Supports urinary-tract health", "34% protein, real chicken", "Balanced minerals", "Flaxseed & XOS for digestion", "Taurine for a healthy heart"],
@@ -75,10 +87,10 @@ window.MEOW_PRODUCTS = [
   {
     id: "reflex-adult-hairball-salmon", name: "Reflex Plus Adult, Hairball Salmon", tagline: "Hairball & indoor dry food · Salmon",
     brand: "Reflex Plus", category: "Hairball control", image: "images/products/reflex-adult-hairball-salmon.png",
-    price: 840, compareAt: 990, rating: 4.8, reviews: 88, stock: 7, stockMax: 40, badges: ["sale"],
+    price: 1190, compareAt: 1450, rating: 4.8, reviews: 88, stock: 7, stockMax: 40, badges: ["sale"],
     variants: [
-      { label: "1.5 kg", sub: "starter", price: 840, compareAt: 990 },
-      { label: "15 kg", sub: "best value", price: 6100, compareAt: 7200 },
+      { label: "1.5 kg", sub: "starter", price: 1190, compareAt: 1450 },
+      { label: "15 kg", sub: "best value", price: 7600, compareAt: 9250 },
     ],
     short: "Made for indoor cats, natural fibres and psyllium help move hairballs through, while real salmon keeps the coat glossy.",
     features: ["Sugar-cane fibre & psyllium reduce hairballs", "Real salmon for a glossy coat", "Perfect for indoor cats", "34% protein", "L-carnitine to help manage weight"],
@@ -91,8 +103,8 @@ window.MEOW_PRODUCTS = [
   {
     id: "reflex-kitten-salmon", name: "Reflex Plus Kitten, Salmon", tagline: "Super-premium kitten dry food · Salmon",
     brand: "Reflex Plus", category: "Kitten food", image: "images/products/reflex-kitten-salmon.png",
-    price: 840, compareAt: 990, rating: 4.9, reviews: 64, stock: 11, stockMax: 40, badges: ["sale"],
-    variants: [{ label: "1.5 kg", sub: "starter", price: 840, compareAt: 990 }],
+    price: 1190, compareAt: 1450, rating: 4.9, reviews: 64, stock: 11, stockMax: 40, badges: ["sale"],
+    variants: [{ label: "1.5 kg", sub: "starter", price: 1190, compareAt: 1450 }],
     short: "A salmon-first kitten recipe for the seafood lovers, hydrolysed salmon and egg for bright eyes and fast, healthy growth.",
     features: ["Hydrolysed salmon protein", "36% protein for growing kittens", "Dried egg & salmon oil", "XOS prebiotics for digestion", "Taurine & L-carnitine"],
     ingredients: "Hydrolysed Salmon Proteins, Chicken Proteins (dehydrated), Corn, Chicken Fat, Rice, Fish Flavor, Processed Lignocellulosic, Dried Sugar Beet Fiber, Vitamins and Minerals, Salmon Oil, Dried Egg Powder, Xylo-oligosaccharides, Brewer's Yeast, Salt, Yucca Schidigera, L-Carnitine, Natural Preservatives - Antioxidants (E320 & E321).",
@@ -103,10 +115,10 @@ window.MEOW_PRODUCTS = [
   {
     id: "reflex-mother-baby", name: "Reflex Plus Mother & Baby", tagline: "Mother & baby dry food · Lamb & Rice",
     brand: "Reflex Plus", category: "Mother & baby", image: "images/products/reflex-mother-baby.png",
-    price: 840, compareAt: 990, rating: 4.9, reviews: 57, stock: 6, stockMax: 40, badges: ["sale"],
+    price: 1190, compareAt: 1450, rating: 4.9, reviews: 57, stock: 6, stockMax: 40, badges: ["sale"],
     variants: [
-      { label: "1.5 kg", sub: "starter", price: 840, compareAt: 990 },
-      { label: "8 kg", sub: "value", price: 3800, compareAt: 4500 },
+      { label: "1.5 kg", sub: "starter", price: 1190, compareAt: 1450 },
+      { label: "8 kg", sub: "value", price: 5200, compareAt: 6340 },
     ],
     short: "Extra-nourishing lamb & rice recipe for pregnant and nursing mums and their newborns, energy-dense and easy to digest.",
     features: ["Processed lamb protein", "32% protein & 22% fat, energy-dense", "Whey powder for easy digestion", "L-carnitine & XOS prebiotics", "Supports pregnancy, nursing & weaning"],
@@ -118,10 +130,10 @@ window.MEOW_PRODUCTS = [
   {
     id: "reflex-sterilized-chicken", name: "Reflex Plus Sterilised, Chicken", tagline: "Sterilised adult & kitten dry food · Chicken",
     brand: "Reflex Plus", category: "Sterilised", image: "images/products/reflex-sterilized-chicken.png",
-    price: 840, compareAt: 990, rating: 4.7, reviews: 73, stock: 10, stockMax: 40, badges: ["sale"],
+    price: 1190, compareAt: 1450, rating: 4.7, reviews: 73, stock: 10, stockMax: 40, badges: ["sale"],
     variants: [
-      { label: "1.5 kg", sub: "starter", price: 840, compareAt: 990 },
-      { label: "15 kg", sub: "best value", price: 6100, compareAt: 7200 },
+      { label: "1.5 kg", sub: "starter", price: 1190, compareAt: 1450 },
+      { label: "15 kg", sub: "best value", price: 8200, compareAt: 9900 },
     ],
     short: "Lower-fat chicken recipe made for spayed and neutered cats, keeps weight in check without cutting the flavour.",
     features: ["Calorie-conscious: 34% protein, 12% fat", "Real chicken, hypoallergenic", "L-carnitine to help burn fat", "Sugar-cane fibre for fullness", "Taurine for a healthy heart"],
@@ -133,8 +145,8 @@ window.MEOW_PRODUCTS = [
   {
     id: "reflex-adult-skincare-salmon", name: "Reflex Plus Adult, Skin & Coat Salmon", tagline: "Skin-care adult dry food · Salmon",
     brand: "Reflex Plus", category: "Skin & coat", image: "images/products/reflex-adult-skincare-salmon.png",
-    price: 840, compareAt: 990, rating: 4.8, reviews: 61, stock: 9, stockMax: 40, badges: ["sale"],
-    variants: [{ label: "1.5 kg", sub: "starter", price: 840, compareAt: 990 }],
+    price: 1190, compareAt: 1450, rating: 4.8, reviews: 61, stock: 9, stockMax: 40, badges: ["sale"],
+    variants: [{ label: "1.5 kg", sub: "starter", price: 1190, compareAt: 1450 }],
     short: "A salmon-rich recipe loaded with salmon oil, anchovy oil and krill for cats with sensitive skin, for a coat that actually shines.",
     features: ["Salmon oil, anchovy oil & krill", "34% protein for skin & coat", "Aloe vera, cranberry & marigold", "Great for sensitive skin", "Taurine & full vitamin blend"],
     ingredients: "Processed Salmon Protein (20%), Processed Animal Protein, Corn, Chicken Fat, Rice, Hydrolyzed Animal Protein, Fish Flavor, Salmon Oil, Anchovy Oil, Krill, Vitamins & Minerals, Processed Lignocellulosic, Sugar Beet, Microalgae, Brewer's Yeast, Psyllium, Xylo-Oligosaccharides (XOS), Salt, Yucca Schidigera, DL-Methionine, Arginine, Phenylalanine, Tyrosine, Cranberry, Marigold Extract, Aloe Vera, Taurine, Preservatives & Antioxidants.",
@@ -145,8 +157,8 @@ window.MEOW_PRODUCTS = [
   {
     id: "reflex-adult-choosy-salmon", name: "Reflex Plus Adult, Choosy Salmon", tagline: "For fussy eaters · Salmon",
     brand: "Reflex Plus", category: "Fussy eaters", image: "images/products/reflex-adult-choosy-salmon.png",
-    price: 840, compareAt: 990, rating: 4.7, reviews: 45, stock: 8, stockMax: 40, badges: ["sale"],
-    variants: [{ label: "1.5 kg", sub: "starter", price: 840, compareAt: 990 }],
+    price: 1190, compareAt: 1450, rating: 4.7, reviews: 45, stock: 8, stockMax: 40, badges: ["sale"],
+    variants: [{ label: "1.5 kg", sub: "starter", price: 1190, compareAt: 1450 }],
     short: "Built for the pickiest palate. An aroma-boosted salmon recipe that wins over even the fussiest cat, the 'she finally ate it' bag.",
     features: ["Dehydrated salmon (min. 27%)", "34% protein, high palatability", "Salmon oil, fish & liver flavour", "XOS prebiotics & yucca", "Taurine for a healthy heart"],
     ingredients: "Salmon Proteins (dehydrated, min. 27%), Dehydrated Chicken Protein, Rice, Corn, Chicken Fat, Beet Pulp, Fish Flavor, Liver Flavor, Salmon Oil, Vitamins and Minerals, Xylo-oligosaccharides, Brewer's Yeast, Salt, Yucca Schidigera, Antioxidants.",
@@ -157,8 +169,8 @@ window.MEOW_PRODUCTS = [
   {
     id: "prostar-adult-chicken", name: "Prostar Adult, Chicken", tagline: "Adult cat dry food · Chicken",
     brand: "Prostar", category: "Adult food", image: "images/products/prostar-adult-chicken.png",
-    price: 4100, compareAt: 4800, rating: 4.6, reviews: 120, stock: 14, stockMax: 40, badges: ["sale"],
-    variants: [{ label: "15 kg", sub: "best value", price: 4100, compareAt: 4800 }],
+    price: 5400, compareAt: 6580, rating: 4.6, reviews: 120, stock: 14, stockMax: 40, badges: ["sale"],
+    variants: [{ label: "15 kg", sub: "best value", price: 5400, compareAt: 6580 }],
     short: "Great everyday nutrition at a friendly price. A hearty chicken recipe in a big 15 kg value bag, a smart choice for multi-cat homes.",
     features: ["26% protein, real chicken", "With fish oil for omega-3 & 6", "Big 15 kg value bag", "Taurine for heart & eye health", "Brewer's yeast for digestion"],
     ingredients: "Dried Animal Protein and Chicken Meat (chicken min. 5%), Rice, Corn, Semolina Flour (or Wheat), Chicken Fat, Fish Oil, Brewer's Yeast, Vitamins and Minerals.",
@@ -169,8 +181,8 @@ window.MEOW_PRODUCTS = [
   {
     id: "prostar-kitten-chicken", name: "Prostar Kitten, Chicken", tagline: "Kitten cat dry food · Chicken",
     brand: "Prostar", category: "Kitten food", image: "images/products/prostar-kitten-chicken.png",
-    price: 4100, compareAt: 4800, rating: 4.7, reviews: 83, stock: 10, stockMax: 40, badges: ["sale"],
-    variants: [{ label: "15 kg", sub: "best value", price: 4100, compareAt: 4800 }],
+    price: 5400, compareAt: 6580, rating: 4.7, reviews: 83, stock: 10, stockMax: 40, badges: ["sale"],
+    variants: [{ label: "15 kg", sub: "best value", price: 5400, compareAt: 6580 }],
     short: "High-protein chicken nutrition for growing kittens in a value 15 kg bag, with prebiotics and yucca for easy digestion.",
     features: ["30% protein for growth", "Real chicken + hydrolysed fish", "Prebiotic, yucca & oligosaccharides", "Fish oil for omega-3 & 6", "Taurine for heart & eyes"],
     ingredients: "Dried Chicken Meat (min. 5%), Rice, Corn, Wheat, Chicken Fat, Fish Oil, Brewer's Yeast, Hydrolyzed Fish Derivatives, Carob Flour, Vitamins and Minerals, Prebiotic, Yucca, Oligosaccharides.",
@@ -181,8 +193,8 @@ window.MEOW_PRODUCTS = [
   {
     id: "prostar-sterilised-salmon-ak", name: "Prostar Sterilised, Salmon (Adult & Kitten)", tagline: "Sterilised adult & kitten · Salmon",
     brand: "Prostar", category: "Sterilised", image: "images/products/prostar-sterilised-salmon-ak.png",
-    price: 370, compareAt: 440, rating: 4.6, reviews: 52, stock: 13, stockMax: 40, badges: ["sale"],
-    variants: [{ label: "1.2 kg", sub: "starter", price: 370, compareAt: 440 }],
+    price: 500, compareAt: 610, rating: 4.6, reviews: 52, stock: 13, stockMax: 40, badges: ["sale"],
+    variants: [{ label: "1.2 kg", sub: "starter", price: 500, compareAt: 610 }],
     short: "Salmon recipe for sterilised cats of any age, light on calories, big on flavour, and easy on the wallet.",
     features: ["For sterilised cats, any age", "Real salmon flavour", "Budget-friendly starter size"],
     ingredients: "", analytical: [], additives: [], feeding: FEED_GENERIC, sources: ["https://petsone.pk/product/prostar-sterilised-adult-cat-food-salmon-1-2-kg/"],
@@ -190,11 +202,26 @@ window.MEOW_PRODUCTS = [
   {
     id: "prostar-adult-sterilised-salmon", name: "Prostar Adult Sterilised, Salmon", tagline: "Sterilised adult cat dry food · Salmon",
     brand: "Prostar", category: "Sterilised", image: "images/products/prostar-adult-sterilised-salmon.png",
-    price: 370, compareAt: 440, rating: 4.6, reviews: 39, stock: 12, stockMax: 40, badges: ["sale"],
-    variants: [{ label: "1.2 kg", sub: "starter", price: 370, compareAt: 440 }],
+    price: 500, compareAt: 610, rating: 4.6, reviews: 39, stock: 12, stockMax: 40, badges: ["sale"],
+    variants: [{ label: "1.2 kg", sub: "starter", price: 500, compareAt: 610 }],
     short: "A light salmon recipe for spayed and neutered adult cats, keeps weight in check without skimping on taste.",
     features: ["For sterilised adult cats", "Real salmon flavour", "Budget-friendly size"],
     ingredients: "", analytical: [], additives: [], feeding: FEED_GENERIC, sources: ["https://petsone.pk/product/prostar-sterilised-adult-cat-food-salmon-1-2-kg/"],
+  },
+  {
+    id: "meow-belle-3-month-supply", name: "Meow Belle 3-Month Supply", tagline: "3 x 1.5 kg Reflex Plus Adult, Chicken",
+    brand: "Reflex Plus", category: "Bundle", image: "images/products/reflex-adult-chicken.png",
+    price: 3570, compareAt: 4350, rating: 4.9, reviews: 41, stock: 18, stockMax: 40,
+    badges: ["bestseller", "sale"], hero: true,
+    variants: [
+      { label: "3 x 1.5 kg", sub: "3-month supply", price: 3570, compareAt: 4350, kg: 4.5 },
+    ],
+    short: "Three bags of our best-selling adult chicken recipe, enough to feed one cat for about three months. One order, one delivery, nothing to think about until it runs low.",
+    features: ["Three 1.5 kg bags of Reflex Plus Adult, Chicken", "Roughly three months of food for one adult cat", "Real chicken protein is the #1 ingredient", "33% protein, complete & balanced", "Ships free inside Dhaka"],
+    ingredients: "Processed Chicken Protein (38%), Corn, Chicken Fat, Rice, Hydrolyzed Animal Protein, Beet Pulp, Liver Aroma, Vitamins and Minerals, Flaxseed, Xylo-oligosaccharides (XOS), Brewer's Yeast, Salt, Yucca Schidigera, Taurine, Preservatives - Antioxidants.",
+    analytical: [{ name: "Crude Protein", value: "33%" }, { name: "Crude Fat", value: "14%" }, { name: "Crude Fibre", value: "2%" }, { name: "Crude Ash", value: "8%" }],
+    additives: [{ name: "Vitamin A", value: "18,000 IU/kg" }, { name: "Vitamin D3", value: "1,500 IU/kg" }, { name: "Vitamin E", value: "200 mg/kg" }, { name: "Vitamin C", value: "400 mg/kg" }, { name: "Taurine", value: "1,500 mg/kg" }],
+    feeding: FEED_GENERIC, sources: ["https://www.reflexmama.com/reflex-plus-adult-cat-food-with-chicken-2"],
   },
 ];
 

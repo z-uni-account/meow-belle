@@ -8,36 +8,101 @@
 Electric-blue, playful DTC cat-food brand for Bangladesh. Reselling **Reflex Plus** +
 **Prostar**. Prices in Bangladeshi Taka (৳). **Now live on Shopify.**
 
-Docs in this repo: **`PRODUCTS.md`** (full catalogue) · **`STATIC-ADS-BRIEF.md`** (creative
-direction + ad-prompt JSON schema) · **`static-ad-prompts.json`** (current 8-ad static creative
-set, all angles) · **`images/README.md`** (photo swap guide + image-update pipeline).
+**Start here: `CLAUDE.md`** (repo rules + Mindframe separation) and **`CHANGELOG.md`**
+(what changed and why).
+
+Docs in this repo: **`PRICING.md`** (💰 **prices, offer, delivery, margin — read first for
+anything money**) · **`ICP-RESEARCH.md`** (🎯 **who we sell to, why they buy, objections,
+competitor intel — read first for anything ads or copy**) · **`PRODUCTS.md`** (full catalogue) ·
+**`STATIC-ADS-BRIEF.md`** (creative direction + ad-prompt JSON schema) ·
+**`static-ad-prompts.json`** (current 8-ad static creative set, all angles) ·
+**`images/README.md`** (photo swap guide + image-update pipeline).
 
 ---
 
-## Live state (2026-07-16)
+## Live state (2026-07-27)
 
 | | |
 |---|---|
 | **Storefront** | **Shopify** — store `meow-belle.myshopify.com`. 13 products live, BDT pricing. |
+| **Pricing** | Flat **৳1,190** on every 1.5 kg recipe; bulk ৳4,850–৳8,200; Prostar 15 kg ৳5,400. Full list + margin: **`PRICING.md`**. |
+| **Offer** | **"Founding customer price — first 500 cat parents."** Flat **18% off** sitewide against our own regular price. Not a launch sale. |
+| **Launch scope** | **DHAKA CITY ONLY.** Shipping zones Dhaka only, checkout blocked everywhere else, waitlist capture instead. Revisit after 60 days or 200 orders. |
+| **Delivery** | Weight-split. **Under 5 kg:** RedX, **৳70** flat, free on **2+ items**. **Over 5 kg:** our own rider, **৳150**, 2 working days, phone-confirmed. RedX will not carry over 5 kg. |
+| **Hero SKU** | **3-Month Supply, 3 × 1.5 kg, ৳3,570** (was ৳4,350). Primary advertised product with the 1.5 kg single. The 15 kg is listed but never advertised. |
+| **Subscribe & Save** | **Removed 2026-07-27** — gave away 61% of contribution and needs a card on file in a COD market. Promo codes removed with it. |
 | **Live theme** | **"Meow Belle Port"** `#141067386942` — Dawn-based, fully custom-branded (see Theme below). |
 | **Domain** | `meowbellle.shop` (⚠️ **3 L's — a typo of `meowbelle.shop`**, which is still available). Connected in Shopify; DNS on GoDaddy. Last check it was showing GoDaddy's parked page — if so the `A @` record needs to point to Shopify (below). |
 | **Instagram** | **@meowbelle.bd** · Name field: `Meow Belle \| Cat Food Bangladesh` · bio set · feed art in `Instagram Feed/`. |
 | **Design source / image host** | Static site at https://z-uni-account.github.io/meow-belle/ (GitHub Pages). Shopify pulls product images from these URLs. Repo: https://github.com/z-uni-account/meow-belle |
 
 ### Open todos
-- **Re-import `meowbelle-shopify-import.csv`** (Products → Import → tick "Overwrite existing
-  products with the same handle") to strip em dashes from product **titles + descriptions**
-  (cards still read "Reflex Plus Kitten — Chicken" until then).
-- **Currency format** → Settings → General → Currency formatting → use `৳{{amount_no_decimals}}`
-  so prices read `৳990` not `Tk 990.00 BDT`.
+
+**✅ Configured in the Shopify admin on 2026-07-27:**
+- **Products imported** by Z. Live prices confirmed (৳1,190 / ৳1,450 etc.).
+- **Shipping rates** — profile *General profile* → zone *Domestic (Bangladesh)*:
+  | Option | Weight | Price | Transit |
+  |---|---|---|---|
+  | Standard delivery | 0 – 5.0 kg | ৳70 | 3–5 business days |
+  | Large bag - delivered by our own team | 5.01 kg and up | ৳150 | 1–2 business days |
+  Non-overlapping bands, so exactly one shows at checkout. Weight-driven, which works
+  because every variant carries correct `Variant Grams`.
+- **Free-delivery discount** — the old *"Free shipping over 2000Tk"* automatic discount was
+  **repurposed**, not duplicated. It is now **"Free delivery on 2 bags or more"**:
+  minimum **quantity of 2 items** (not order value), and **"exclude shipping rates over
+  ৳100"** so the ৳150 rider rate can never become free. That exclusion is what protects
+  the heavy-bag margin — do not remove it.
+
+**⚠️ STILL NEEDS A DECISION — Shopify cannot restrict to Dhaka city:**
+Shopify's region picker offers **Bangladesh as a whole country only**; there are no
+divisions, districts or postcode ranges to select. So the shipping zone is nationwide and
+**a customer in Chattogram can still check out.** Options, cheapest first:
+1. Rely on Meta targeting Dhaka + manually cancel/refund the rare stray order. Fine at
+   launch volume.
+2. Install a checkout-rules app to block by city/postcode (a few dollars a month).
+3. Shopify Functions delivery customisation (needs a dev, or Plus).
+Until one of these is in place, "Dhaka city only" is a marketing and ops rule, not a
+technical one.
+
+**⚠️ Also open — the 3-pack and the 2-item rule conflict:**
+The 3-Month Supply is **one line item**, so it does **not** meet "minimum 2 items" and a
+lone 3-pack pays ৳70 (contribution ৳801). But the site says "free delivery on 2 bags or
+more" and the 3-pack *is* three bags. Either add a second automatic free-shipping discount
+scoped to that product (contribution drops to ৳741), or reword the offer. Z's call.
+
+**Everything else:**
+- **Currency format** → Settings → General → Currency formatting → `৳{{amount_no_decimals}}`
+  so prices read `৳1,190` not `Tk 1190.00 BDT`. Still outstanding.
+- **WhatsApp reorder nudge (day 24)** — replaces Subscribe & Save. Not built yet.
+- **3-pack photography** — it currently reuses the Adult Chicken shot. Wants a real
+  three-bag hero image.
+- **3-pack recipe choice** — it is Adult Chicken only today. If customers should pick a
+  recipe, that is a variant list on the same product, not a new product.
+- **Founding-customer counter** — the PDP shows a static "first 500" line. Wiring it to a
+  real order count needs an app or a metafield; see `snippets/mb-pdp-trust.liquid`.
 - **Domain**: if `meowbellle.shop` still shows GoDaddy's parked page, set GoDaddy DNS
   `A @ → 23.227.38.65` and `CNAME www → shops.myshopify.com`, and turn **Forwarding off**.
   Consider grabbing the correct-spelling `meowbelle.shop` (2 L's) and redirecting.
-- **Subscribe & Save** needs a Shopify subscriptions app (recurring billing can't be raw HTML).
 - **2 Prostar Sterilised Salmon** SKUs have no published nutrition anywhere — fields left
   empty on purpose until a real label is photographed.
 
 ### Done
+- **2026-07-27 (later) — Dhaka-only launch, real courier rates, 3-pack, bigger type.**
+  RedX rates replaced our estimates (৳65 at 1 kg, +৳15/kg, COD 0% in Dhaka) and RedX
+  will not carry over 5 kg, so heavy bags moved to our own rider at ৳150 with a
+  confirmation call, which cut their RTO from 15% to 5% and *raised* 15 kg contribution
+  from ৳895 to ৳1,298. Added the **3-Month Supply** hero SKU. Bumped Dawn's type scale
+  (body 120%, heading 110%) plus a phone-first size block in `meowbelle.css` — the site
+  was too small to read on a phone. Also cleared the long-standing `buttons_radius: 50`
+  push error (schema max is 40).
+- **2026-07-27 — repriced, re-offered, delivery model replaced.** ৳840-type numbers turned
+  out to be SUPPLIER COST, not retail; the whole catalogue was reset to real selling prices
+  (see `PRICING.md`). Subscribe & Save and all promo codes removed. Static site + Shopify
+  theme copy updated. **Two bugs found in the old import files:** they carried the supplier
+  cost prices (a 15 kg bag would have sold for ৳6,100), and five products gave their 1.5 kg
+  and 15 kg variants the *same* `Variant SKU` because the slug dropped the decimal point,
+  which would have merged their inventory in Shopify. Both fixed in
+  `meowbelle-shopify-import-2026-07-27.csv`. **Do not import either older file.**
 - **2026-07-16 — all 13 product photos upgraded to HQ** (single-bag, web-optimized ~50–210 KB;
   full masters archived at `~/Desktop/Meow Belle Product Images/`). Prostar Sterilised Salmon
   background removed to white. Shopify refreshed via cache-busted re-import. Full pipeline + gotchas:
@@ -98,6 +163,10 @@ Products live in Shopify. The **source of truth for the data** is
 `meowbelle-shopify-import.csv` is generated from `products.js`; Shopify import matches by
 **Handle** and updates existing products. **Store currency must be BDT** (it is) or prices
 import as USD numbers.
+
+**Import file to use: `meowbelle-shopify-import-2026-07-27.csv`.** The two older files
+(`meowbelle-shopify-import.csv`, `-refresh.csv`) are kept for history only and carry
+supplier cost prices plus duplicate SKUs — **never import them.**
 
 To regenerate the CSV after editing `products.js`:
 ```bash

@@ -4,9 +4,9 @@
       "type": "mb-hero",
       "settings": {
         "eyebrow": "🐾 Fresh · Vet-formulated · Now in Bangladesh",
-        "pill": "🔥 Launch sale · 20% OFF, code MEOW20",
+        "pill": "🐾 Founding customer price · first 500 cat parents",
         "heading": "Real food. Real happy cats.",
-        "subheading": "Premium Reflex Plus & Prostar cat food, real meat first, delivered across Bangladesh.",
+        "subheading": "Premium Reflex Plus & Prostar cat food, real meat first, delivered across Dhaka city.",
         "button_label": "Shop the range",
         "button_link": "shopify://collections/all",
         "show_trust": true,
@@ -35,7 +35,7 @@
         "c1": { "type": "value", "settings": { "icon": "🍗", "title": "Real meat first", "text": "Named proteins lead every recipe, never mystery 'animal derivatives'." } },
         "c2": { "type": "value", "settings": { "icon": "🚫", "title": "No nasties", "text": "Hypoallergenic recipes, no artificial colours, flavours or preservatives." } },
         "c3": { "type": "value", "settings": { "icon": "🩺", "title": "Vet-formulated", "text": "Complete & balanced nutrition for every life stage." } },
-        "c4": { "type": "value", "settings": { "icon": "🚚", "title": "To your door", "text": "Fast delivery across Bangladesh. Free over ৳2,000." } }
+        "c4": { "type": "value", "settings": { "icon": "🚚", "title": "To your door", "text": "Dhaka city, ৳70 flat and free on 2 bags or more. Large bags by our own rider." } }
       },
       "block_order": ["c1", "c2", "c3", "c4"],
       "settings": { "eyebrow": "Why Meow Belle", "heading": "Food you'd feel good giving", "tint": true }

@@ -241,3 +241,64 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3,
 
 /* motion pref */
 @media (prefers-reduced-motion: reduce) { .mb-marquee__track{ animation:none;} * { transition-duration:.01ms !important; } }
+
+
+/* founding-customer block, replaces the old .mb-countdown (2026-07-27) */
+.mb-founding{margin:18px 0;padding:16px 18px;border:2px dashed var(--mb-amber,#ffb200);
+  border-radius:16px;background:#fffaf0}
+.mb-founding__head{display:flex;align-items:center;gap:8px;font-size:1.05rem}
+.mb-founding__ic{font-size:1.2rem}
+.mb-founding__sub{margin:6px 0 0;font-size:.9rem;color:#5b6178}
+.mb-founding__bar{margin-top:10px;height:8px;border-radius:99px;background:#f0e2c4;overflow:hidden}
+.mb-founding__bar i{display:block;height:100%;border-radius:99px;background:var(--mb-amber,#ffb200)}
+.mb-trust{flex-wrap:wrap}
+
+
+/* ============================================================
+   MOBILE LEGIBILITY (2026-07-27)
+   Dawn's base body text is 1.5rem (~15px) which reads tiny on a phone.
+   Global lever: body_scale 120% / heading_scale 110% in settings_data.json.
+   This block lifts the custom mb-* components to match, phone-first.
+   ============================================================ */
+@media (max-width: 749px) {
+  .mb-card__cat        { font-size: .86rem; letter-spacing: .08em; }
+  .mb-card__title      { font-size: 1.52rem; line-height: 1.15; }
+  .mb-card__rating     { font-size: 1.02rem; }
+  .mb-card__price .now { font-size: 1.85rem; }
+  .mb-card__price .was { font-size: 1.12rem; }
+  .mb-card__stock      { font-size: .95rem; }
+  .mb-pill             { font-size: .95rem; padding: 7px 15px; }
+
+  .mb-hero__eyebrow    { font-size: .9rem; }
+  .mb-hero__pill       { font-size: 1.05rem; padding: 10px 18px; }
+  .mb-hero__sub        { font-size: 1.32rem; }
+  .mb-hero__cta        { font-size: 1.22rem !important; padding: 17px 34px !important; }
+  .mb-hero__trust small{ font-size: .95rem; }
+
+  .mb-eyebrow          { font-size: .92rem; }
+  .mb-head p           { font-size: 1.24rem; }
+  .mb-value h3         { font-size: 1.42rem; }
+  .mb-value p          { font-size: 1.12rem; }
+  .mb-review p         { font-size: 1.18rem; }
+  .mb-review__who b    { font-size: 1.14rem; }
+  .mb-review__who small{ font-size: .92rem; }
+  .mb-guarantee b      { font-size: 1.18rem; }
+  .mb-guarantee small  { font-size: 1rem; }
+  .mb-marquee__track   { font-size: 1.18rem; }
+
+  .mb-trust div        { font-size: 1.05rem; }
+  .mb-nutri-pill b     { font-size: 1.5rem; }
+  .mb-nutri-pill span  { font-size: .84rem; }
+  .mb-founding__head   { font-size: 1.2rem; }
+  .mb-founding__sub    { font-size: 1.05rem; }
+  .mb-btn              { font-size: 1.15rem; padding: 16px 28px; }
+
+  /* Dawn's own product + body text on small screens */
+  .product__title,
+  .product__title h1   { font-size: 2.4rem; }
+  .price               { font-size: 1.9rem; }
+  .product__description,
+  .rte, .rte p         { font-size: 1.15rem; line-height: 1.65; }
+  .product-form__submit,
+  .shopify-payment-button__button { font-size: 1.18rem !important; }
+}

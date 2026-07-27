@@ -47,11 +47,9 @@
   /* ============================================================
      CART (localStorage)
      ============================================================ */
-  const CART_KEY = "meow_cart_v1", PROMO_KEY = "meow_promo_v1";
+  const CART_KEY = "meow_cart_v1";
   const readCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } };
   const writeCart = (c) => { localStorage.setItem(CART_KEY, JSON.stringify(c)); renderChrome(); };
-  const getPromo = () => localStorage.getItem(PROMO_KEY) || "";
-  const setPromo = (code) => { code ? localStorage.setItem(PROMO_KEY, code) : localStorage.removeItem(PROMO_KEY); };
 
   function lineKey(id, variant, sub) { return `${id}::${variant || ""}::${sub ? "sub" : "one"}`; }
 
@@ -74,29 +72,33 @@
   }
   function removeLine(key) { writeCart(readCart().filter((l) => lineKey(l.id, l.variant, l.sub) !== key)); }
 
-  // pricing: base -> subscribe 15% -> qty tier (2:=10%, 3+:=15%)
-  function tierRate(qty) { return qty >= 3 ? 0.15 : qty >= 2 ? 0.10 : 0; }
+  // pricing: one flat founding-customer price. No subscriptions, no qty tiers, no codes.
+  // `compareAt` is OUR regular price; the 18% is already baked into `price`.
   function unitPrice(l) {
     const p = getProduct(l.id);
     let base = p.price, wasBase = p.compareAt;
     if (l.variant) { const v = p.variants.find((v) => v.label === l.variant); if (v) { base = v.price; wasBase = v.compareAt; } }
-    let unit = base;
-    if (l.sub) unit *= (1 - C.subscribeSave);
-    unit *= (1 - tierRate(l.qty));
-    return { unit, base, wasBase };
+    return { unit: base, base, wasBase };
   }
   function cartTotals() {
     const cart = readCart();
     let subtotal = 0, compareTotal = 0;
     cart.forEach((l) => { const { unit, wasBase } = unitPrice(l); subtotal += unit * l.qty; compareTotal += wasBase * l.qty; });
-    let promoRate = C.promos[getPromo()] || 0;
-    const promoOff = subtotal * promoRate;
-    const afterPromo = subtotal - promoOff;
-    const ship = afterPromo >= C.freeShipThreshold || afterPromo === 0 ? 0 : C.shipFlat;
-    const total = afterPromo + ship;
-    const saved = (compareTotal - subtotal) + promoOff;
     const count = cart.reduce((s, l) => s + l.qty, 0);
-    return { cart, subtotal, compareTotal, promoRate, promoOff, ship, total, saved, count, afterPromo };
+    // Parcel weight decides the delivery method (Dhaka only, see PRICING.md):
+    //   under 5 kg -> RedX, flat ৳70, FREE on 2+ items
+    //   over  5 kg -> our own rider, ৳150, never free (rider costs us ~৳250)
+    const kg = cart.reduce((s, l) => {
+      const p = getProduct(l.id);
+      const v = (p.variants || []).find((v) => v.label === l.variant);
+      return s + window.variantKg(v || { label: "" }) * l.qty;
+    }, 0);
+    const heavy = kg > C.redxMaxKg;
+    const freeShip = !heavy && count >= C.freeShipMinItems;
+    const ship = count === 0 ? 0 : heavy ? C.shipHeavy : freeShip ? 0 : C.shipLight;
+    const total = subtotal + ship;
+    const saved = compareTotal - subtotal;
+    return { cart, subtotal, compareTotal, ship, total, saved, count, freeShip, kg, heavy };
   }
 
   /* ============================================================
@@ -106,9 +108,9 @@
   const here = location.pathname.split("/").pop() || "index.html";
 
   const ANNOUNCE = [
-    `🐾 Launch sale — <b>20% off</b> your first order with code <span class="code">MEOW20</span>`,
-    `🚚 Free delivery on orders over <b>${money(C.freeShipThreshold)}</b>`,
-    `💙 Subscribe & save <b>15%</b> on every bag, forever`,
+    `🐾 <b>Founding customer price</b> — first 500 cat parents`,
+    `🚚 Dhaka city delivery ৳70 · <b>free on 2 bags or more</b>`,
+    `💙 Real meat first · vet-formulated · made for Bangladesh's cats`,
   ];
   let announceIdx = 0;
 
@@ -161,13 +163,13 @@
       <div class="footer__grid">
         <div class="footer__brand">
           <a class="brand" href="index.html"><img class="brand__mark" src="Logo.png" alt=""><span class="brand__name">Meow Belle</span></a>
-          <p>Real food for real happy cats. Vet-formulated, made with ingredients you can actually pronounce — delivered to your door across Bangladesh.</p>
+          <p>Real food for real happy cats. Vet-formulated, made with ingredients you can actually pronounce — delivered to your door across Dhaka city.</p>
         </div>
         <div class="footer__col"><h4>Shop</h4>
           ${PRODUCTS.map((p) => `<a href="product.html?id=${p.id}">${p.name}</a>`).join("")}
         </div>
         <div class="footer__col"><h4>Company</h4>
-          <a href="about.html">Our story</a><a href="contact.html">Contact</a><a href="shop.html">All products</a><a href="#">Subscriptions</a>
+          <a href="about.html">Our story</a><a href="contact.html">Contact</a><a href="shop.html">All products</a>
         </div>
         <div class="footer__col"><h4>Help</h4>
           <a href="#">Shipping & delivery</a><a href="#">Returns</a><a href="#">Feeding guide</a><a href="contact.html">FAQ</a>
@@ -210,31 +212,26 @@
       $("#closeCart").addEventListener("click", closeDrawer);
       return;
     }
-    const remaining = Math.max(0, C.freeShipThreshold - t.afterPromo);
-    const pct = Math.min(100, (t.afterPromo / C.freeShipThreshold) * 100);
+    const needed = Math.max(0, C.freeShipMinItems - t.count);
+    const pct = Math.min(100, (t.count / C.freeShipMinItems) * 100);
     inner.innerHTML = `
       <div class="drawer__head"><h3>Your cart · ${t.count}</h3><button class="icon-btn" id="closeCart" aria-label="Close">✕</button></div>
       <div class="drawer__ship">
-        <p>${remaining > 0 ? `You're <b>${money(remaining)}</b> away from free delivery 🚚` : `🎉 <b>You've unlocked free delivery!</b>`}</p>
-        <div class="ship-bar"><i style="width:${pct}%"></i></div>
+        ${t.heavy
+          ? `<p>🚚 <b>Large bag</b> — delivered by our own team inside Dhaka, ৳150, 2 working days.</p>`
+          : `<p>${needed > 0 ? `Add <b>${needed} more bag${needed > 1 ? "s" : ""}</b> for free delivery 🚚` : `🎉 <b>You've unlocked free delivery!</b>`}</p>
+             <div class="ship-bar"><i style="width:${pct}%"></i></div>`}
       </div>
       <div class="drawer__items">${t.cart.map(lineHTML).join("")}</div>
       <div class="drawer__foot">
-        <div class="drawer__promo">
-          <input id="promoInput" placeholder="Promo code" value="${getPromo()}" aria-label="Promo code">
-          <button id="applyPromo">Apply</button>
-        </div>
-        ${t.saved > 0 ? `<div class="drawer__save">🎉 You're saving ${money(t.saved)} on this order</div>` : ""}
+        ${t.saved > 0 ? `<div class="drawer__save">🎉 Founding price — you're saving ${money(t.saved)}</div>` : ""}
         <div class="drawer__row"><span>Subtotal</span><span>${money(t.subtotal)}</span></div>
-        ${t.promoOff > 0 ? `<div class="drawer__row"><span class="disc">Promo (${getPromo()})</span><span class="disc">−${money(t.promoOff)}</span></div>` : ""}
-        <div class="drawer__row"><span>Delivery</span><span>${t.ship === 0 ? "FREE" : money(t.ship)}</span></div>
+        <div class="drawer__row"><span>Delivery${t.heavy ? " (our rider)" : ""}</span><span>${t.ship === 0 ? "FREE" : money(t.ship)}</span></div>
         <div class="drawer__row total"><span>Total</span><span>${money(t.total)}</span></div>
         <a class="btn btn-amber btn-block btn-lg" href="cart.html" style="margin-top:14px">Checkout →</a>
       </div>`;
     $("#closeCart").addEventListener("click", closeDrawer);
     wireLineControls(inner);
-    $("#applyPromo").addEventListener("click", () => applyPromoFromInput($("#promoInput").value));
-    $("#promoInput").addEventListener("keydown", (e) => { if (e.key === "Enter") applyPromoFromInput(e.target.value); });
   }
 
   function lineHTML(l) {
@@ -245,7 +242,7 @@
       <div class="line__media">${media(p.image, p.name)}</div>
       <div>
         <div class="line__title">${p.name}</div>
-        <div class="line__meta">${l.variant ? l.variant + " · " : ""}${l.sub ? '<span class="sub">Subscribe & Save</span>' : "One-time"}</div>
+        <div class="line__meta">${l.variant || ""}</div>
         <div class="qty"><button data-act="dec" aria-label="Decrease">−</button><span>${l.qty}</span><button data-act="inc" aria-label="Increase">+</button></div>
       </div>
       <div style="text-align:right">
@@ -267,13 +264,6 @@
       row.querySelector('[data-act="inc"]')?.addEventListener("click", () => setQty(key, 1));
       row.querySelector('[data-act="rm"]')?.addEventListener("click", () => removeLine(key));
     });
-  }
-  function applyPromoFromInput(val) {
-    const code = (val || "").trim().toUpperCase();
-    if (!code) { setPromo(""); renderChrome(); return; }
-    if (C.promos[code]) { setPromo(code); toast("✅", "Promo applied", `${Math.round(C.promos[code] * 100)}% off your order`); }
-    else { setPromo(""); toast("🤔", "Hmm, that code didn't work", "Try MEOW20 for 20% off"); }
-    renderChrome();
   }
 
   /* ============================================================
@@ -301,7 +291,7 @@
   }
 
   /* ============================================================
-     COUNTDOWN (evergreen launch sale)
+     COUNTDOWN (unused: the founding offer is a capped cohort, not a timer)
      ============================================================ */
   const SALE_KEY = "meow_saleEnd_v1";
   function saleEnd() {
@@ -380,9 +370,9 @@
       <div class="wrap hero__grid">
         <div class="hero__copy">
           <span class="eyebrow hero__eyebrow">🐾 Fresh · Vet-formulated · <b>Now in Bangladesh</b></span>
-          <div class="hero__salepill"><span class="pill pill-sale">🔥 Launch sale · 20% OFF</span><span class="hero__code">with code <b>MEOW20</b></span></div>
+          <div class="hero__salepill"><span class="pill pill-sale">🐾 Founding customer price</span><span class="hero__code">first <b>500</b> cat parents</span></div>
           <h1>Real food.<br>Real <span class="accent">happy</span> cats.</h1>
-          <p class="hero__sub">Premium cat food cats actually crave — Reflex Plus & Prostar, real meat first, delivered across Bangladesh.</p>
+          <p class="hero__sub">Premium cat food cats actually crave — Reflex Plus & Prostar, real meat first, delivered across Dhaka city.</p>
           <div class="hero__cta">
             <a class="btn btn-amber btn-lg" href="product.html?id=${hero.id}">Shop the bestseller →</a>
             <a class="btn btn-ghost btn-lg" href="shop.html" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)">See the menu</a>
@@ -399,8 +389,8 @@
     </section>
 
     <div class="marquee"><div class="marquee__track">
-      <span>🐾 REAL MEAT FIRST 🐾 <b>NO FILLERS</b> 🐾 VET-FORMULATED 🐾 <b>FREE DELIVERY OVER ৳2,000</b> 🐾 SUBSCRIBE & SAVE 15% 🐾 <b>MADE FOR BANGLADESH'S CATS</b> </span>
-      <span>🐾 REAL MEAT FIRST 🐾 <b>NO FILLERS</b> 🐾 VET-FORMULATED 🐾 <b>FREE DELIVERY OVER ৳2,000</b> 🐾 SUBSCRIBE & SAVE 15% 🐾 <b>MADE FOR BANGLADESH'S CATS</b> </span>
+      <span>🐾 REAL MEAT FIRST 🐾 <b>NO FILLERS</b> 🐾 VET-FORMULATED 🐾 <b>FREE DELIVERY ON 2 BAGS OR MORE</b> 🐾 DHAKA CITY 🐾 FOUNDING CUSTOMER PRICE 🐾 <b>MADE FOR BANGLADESH'S CATS</b> </span>
+      <span>🐾 REAL MEAT FIRST 🐾 <b>NO FILLERS</b> 🐾 VET-FORMULATED 🐾 <b>FREE DELIVERY ON 2 BAGS OR MORE</b> 🐾 DHAKA CITY 🐾 FOUNDING CUSTOMER PRICE 🐾 <b>MADE FOR BANGLADESH'S CATS</b> </span>
     </div></div>
 
     <section class="section">
@@ -422,7 +412,7 @@
           <div class="value reveal" data-delay="0"><div class="value__ic">🍗</div><h3>Real meat first</h3><p>Deboned chicken, salmon and whitefish lead every recipe — not corn or "meal."</p></div>
           <div class="value reveal" data-delay="1"><div class="value__ic">🚫</div><h3>Zero nasties</h3><p>No corn, wheat, soy, artificial colours, flavours or preservatives. Ever.</p></div>
           <div class="value reveal" data-delay="2"><div class="value__ic">🩺</div><h3>Vet-formulated</h3><p>Complete & balanced nutrition, developed with feline vets for every life stage.</p></div>
-          <div class="value reveal" data-delay="3"><div class="value__ic">🚚</div><h3>To your door</h3><p>Fast delivery across Bangladesh, and free over ৳2,000. Subscribe and never run out.</p></div>
+          <div class="value reveal" data-delay="3"><div class="value__ic">🚚</div><h3>To your door</h3><p>Dhaka city only for now. ৳70 flat, free on 2 bags or more, large bags by our own rider.</p></div>
         </div>
       </div>
     </section>
@@ -476,19 +466,19 @@
      ============================================================ */
   function renderShop(main) {
     main.innerHTML = `
-    <section class="page-hero">${PAWS_BG}<div class="wrap"><span class="eyebrow" style="color:#fff">The full menu</span><h1>Shop Meow Belle</h1><p>Premium Reflex Plus & Prostar cat food — every bag on launch sale, delivered across Bangladesh.</p></div></section>
+    <section class="page-hero">${PAWS_BG}<div class="wrap"><span class="eyebrow" style="color:#fff">The full menu</span><h1>Shop Meow Belle</h1><p>Premium Reflex Plus & Prostar cat food at the founding customer price, delivered across Dhaka city.</p></div></section>
     <section class="section"><div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:28px">
         <p style="margin:0;font-weight:700">${PRODUCTS.length} products</p>
-        <span class="pill pill-sale" style="font-size:.9rem">🔥 Launch sale — up to 21% off</span>
+        <span class="pill pill-sale" style="font-size:.9rem">🐾 Founding customer price — 18% off</span>
       </div>
       <div class="grid-products">${PRODUCTS.map(cardHTML).join("")}</div>
     </div></section>
     <section class="section section--tint"><div class="wrap"><div class="guarantee reveal">
       <div><div class="g-ic">🩺</div><b>Vet-approved</b><small>Formulated with feline vets</small></div>
       <div><div class="g-ic">↩️</div><b>30-day guarantee</b><small>Not loved? Full refund</small></div>
-      <div><div class="g-ic">🚚</div><b>Free over ৳2,000</b><small>Fast BD-wide delivery</small></div>
-      <div><div class="g-ic">💙</div><b>Subscribe & save</b><small>15% off every order</small></div>
+      <div><div class="g-ic">🚚</div><b>Free on 2+ bags</b><small>Dhaka city · ৳70 flat</small></div>
+      <div><div class="g-ic">💙</div><b>Founding price</b><small>First 500 cat parents</small></div>
     </div></div></section>`;
     wireCardAdds(main);
   }
@@ -496,13 +486,13 @@
   /* ============================================================
      PAGE: PRODUCT DETAIL
      ============================================================ */
-  const PDP_STATE = { variant: 0, sub: false, qty: 1 };
+  const PDP_STATE = { variant: 0, qty: 1 };
   function renderProduct(main) {
     const id = new URLSearchParams(location.search).get("id") || PRODUCTS[0].id;
     const p = getProduct(id);
     if (!p) { main.innerHTML = `<section class="section"><div class="wrap"><h1>Product not found</h1><a class="btn btn-blue" href="shop.html">Back to shop</a></div></section>`; return; }
     document.title = `${p.name} — Meow Belle`;
-    PDP_STATE.variant = 0; PDP_STATE.sub = false; PDP_STATE.qty = 1;
+    PDP_STATE.variant = 0; PDP_STATE.qty = 1;
 
     const hasVariants = !!p.variants;
     const related = PRODUCTS.filter((x) => x.id !== p.id && x.id !== "full-bowl-bundle").slice(0, 3);
@@ -525,16 +515,11 @@
           <div class="pdp__rate"><span class="stars">${stars(p.rating)}</span> ${p.rating} <a href="#reviews">${p.reviews.toLocaleString()} reviews</a></div>
 
           <div class="pdp__pricing" id="pdpPricing"></div>
-          <p class="pdp__tax">Tax included. Free delivery over ${money(C.freeShipThreshold)}.</p>
+          <p class="pdp__tax">Tax included. Dhaka only. ৳70 delivery, free on 2 bags or more. Large bags (8 kg &amp; 15 kg) are delivered by our own team for ৳150.</p>
 
-          <div class="countdown" data-cd>
-            <div class="countdown__label">⏰ Launch sale ends in<br>Don't miss the drop</div>
-            <div class="countdown__clock">
-              <div class="cd-unit"><b data-u="d">00</b><span>days</span></div>
-              <div class="cd-unit"><b data-u="h">00</b><span>hrs</span></div>
-              <div class="cd-unit"><b data-u="m">00</b><span>min</span></div>
-              <div class="cd-unit"><b data-u="s">00</b><span>sec</span></div>
-            </div>
+          <div class="founding">
+            <b>🐾 Founding customer price</b>
+            <span>Locked in for the first 500 cat parents. Not a sale, and it won't come back.</span>
           </div>
 
           <p>${p.short}</p>
@@ -544,23 +529,6 @@
             ${p.variants.map((v, i) => `<button class="chip" data-vi="${i}" aria-pressed="${i === 0}">${v.label}<small>${money(v.price)} · ${v.sub}</small></button>`).join("")}
           </div></div>` : ""}
 
-          <div class="buymode" id="buymode">
-            <button class="buymode__opt" data-sub="false" aria-pressed="true">
-              <span class="buymode__radio"></span>
-              <span class="buymode__main"><b>One-time purchase</b><small>Ships once, no commitment</small></span>
-              <span class="buymode__price" id="priceOne"></span>
-            </button>
-            <button class="buymode__opt" data-sub="true" aria-pressed="false">
-              <span class="buymode__tag">SAVE 15%</span>
-              <span class="buymode__radio"></span>
-              <span class="buymode__main"><b>Subscribe & Save</b><small>Delivered monthly · skip or cancel anytime</small></span>
-              <span class="buymode__price" id="priceSub"></span>
-            </button>
-          </div>
-
-          <div class="tiers">
-            <b>🎁 Stock up & save more</b>
-            <div class="row"><span>Buy 2 bags</span><span><b>10% off</b> this item</span></div>
             <div class="row"><span>Buy 3+ bags</span><span><b>15% off</b> this item</span></div>
           </div>
 
@@ -571,7 +539,8 @@
           <div class="pdp__stockline">🔥 Selling fast — only ${p.stock} left<div class="bar"><i style="width:${(p.stock / p.stockMax) * 100}%"></i></div></div>
 
           <div class="pdp__trust">
-            <div><span class="t-ic">🚚</span> Free delivery over ৳2,000</div>
+            <div><span class="t-ic">🚚</span> Free delivery on 2 bags or more</div>
+            <div><span class="t-ic">📍</span> Dhaka only · ৳70 delivery</div>
             <div><span class="t-ic">↩️</span> 30-day happy-cat guarantee</div>
             <div><span class="t-ic">🩺</span> Vet-formulated recipe</div>
             <div><span class="t-ic">🔒</span> bKash · Nagad · Card · COD</div>
@@ -583,7 +552,7 @@
             ${p.analytical && p.analytical.length ? `<details class="acc-item"><summary>Guaranteed analysis</summary><div class="acc-item__body">${nutriTable(p.analytical)}</div></details>` : ""}
             ${p.additives && p.additives.length ? `<details class="acc-item"><summary>Added vitamins & minerals</summary><div class="acc-item__body">${nutriTable(p.additives)}</div></details>` : ""}
             <details class="acc-item"><summary>Feeding guide</summary><div class="acc-item__body">${p.feeding}</div></details>
-            <details class="acc-item"><summary>Delivery & returns</summary><div class="acc-item__body">Delivered across Bangladesh in 1–3 days. Free over ৳2,000, otherwise a flat ৳120. Not the right fit? Return within 30 days for a full refund — even if the bag is open.</div></details>
+            <details class="acc-item"><summary>Delivery & returns</summary><div class="acc-item__body">Delivering inside Dhaka city only for now. ৳70 flat, free when you order 2 bags or more. Large bags (8 kg and 15 kg) come by our own rider for ৳150 within 2 working days, and we ring you to confirm before it leaves. Not the right fit? Return within 30 days for a full refund — even if the bag is open.</div></details>
           </div>
         </div>
       </div>
@@ -608,17 +577,12 @@
     const curVariant = () => hasVariants ? p.variants[PDP_STATE.variant] : { price: p.price, compareAt: p.compareAt };
     function computeUnit() {
       const v = curVariant();
-      let unit = v.price;
-      if (PDP_STATE.sub) unit *= (1 - C.subscribeSave);
-      unit *= (1 - tierRate(PDP_STATE.qty));
-      return { unit, base: v.price, was: v.compareAt };
+      return { unit: v.price, base: v.price, was: v.compareAt };
     }
     function paintPrices() {
       const v = curVariant();
       const pct = Math.round((1 - v.price / v.compareAt) * 100);
       $("#pdpPricing").innerHTML = `<span class="now">${money(v.price)}</span>${v.compareAt > v.price ? `<span class="was">${money(v.compareAt)}</span><span class="pdp__save">Save ${pct}%</span>` : ""}`;
-      $("#priceOne").textContent = money(v.price);
-      $("#priceSub").innerHTML = `${money(v.price * (1 - C.subscribeSave))}<br><span style="font-weight:400;font-size:.8rem;color:#9aa0b8;text-decoration:line-through">${money(v.price)}</span>`;
       const { unit } = computeUnit();
       $("#addPrice").textContent = money(unit * PDP_STATE.qty);
       $("#stickyPrice").textContent = money(unit * PDP_STATE.qty);
@@ -631,17 +595,11 @@
       $$("#variantChips .chip").forEach((x) => x.setAttribute("aria-pressed", x === c));
       paintPrices();
     }));
-    // buy mode
-    $$("#buymode .buymode__opt").forEach((b) => b.addEventListener("click", () => {
-      PDP_STATE.sub = b.dataset.sub === "true";
-      $$("#buymode .buymode__opt").forEach((x) => x.setAttribute("aria-pressed", x === b));
-      paintPrices();
-    }));
     // qty
     $('[data-q="inc"]').addEventListener("click", () => { PDP_STATE.qty++; $("#qtyVal").textContent = PDP_STATE.qty; paintPrices(); });
     $('[data-q="dec"]').addEventListener("click", () => { if (PDP_STATE.qty > 1) { PDP_STATE.qty--; $("#qtyVal").textContent = PDP_STATE.qty; paintPrices(); } });
     // add
-    const doAdd = () => addToCart(p.id, { variant: hasVariants ? p.variants[PDP_STATE.variant].label : "", sub: PDP_STATE.sub, qty: PDP_STATE.qty });
+    const doAdd = () => addToCart(p.id, { variant: hasVariants ? p.variants[PDP_STATE.variant].label : "", sub: false, qty: PDP_STATE.qty });
     $("#addBtn").addEventListener("click", doAdd);
     $("#stickyAdd").addEventListener("click", doAdd);
     // thumbs
@@ -664,30 +622,29 @@
       wrap.innerHTML = `<div style="text-align:center;padding:60px 0"><div style="font-size:4rem">🐈‍⬛</div><h2 style="font-size:2rem;margin:10px 0">Your bowl is empty</h2><p style="color:var(--ink-soft)">Let's put something delicious in it.</p><a class="btn btn-amber btn-lg" href="shop.html">Shop the menu →</a></div>`;
       return;
     }
-    const remaining = Math.max(0, C.freeShipThreshold - t.afterPromo);
-    const pct = Math.min(100, (t.afterPromo / C.freeShipThreshold) * 100);
+    const needed = Math.max(0, C.freeShipMinItems - t.count);
+    const pct = Math.min(100, (t.count / C.freeShipMinItems) * 100);
     wrap.innerHTML = `<div class="cart-layout">
       <div>
         <div class="drawer__ship" style="border:2px solid var(--line);border-radius:var(--r);margin-bottom:18px">
-          <p>${remaining > 0 ? `Add <b>${money(remaining)}</b> more for free delivery 🚚` : `🎉 <b>You've unlocked free delivery!</b>`}</p>
-          <div class="ship-bar"><i style="width:${pct}%"></i></div>
+          ${t.heavy
+            ? `<p>🚚 <b>Large bag</b> — delivered by our own team inside Dhaka, ৳150, 2 working days.</p>`
+            : `<p>${needed > 0 ? `Add <b>${needed} more bag${needed > 1 ? "s" : ""}</b> for free delivery 🚚` : `🎉 <b>You've unlocked free delivery!</b>`}</p>
+               <div class="ship-bar"><i style="width:${pct}%"></i></div>`}
         </div>
         <div class="cart-list">${t.cart.map(cartRowHTML).join("")}</div>
       </div>
       <aside class="summary">
         <h3>Order summary</h3>
-        <div class="drawer__promo" style="margin-bottom:16px"><input id="promoInput2" placeholder="Promo code" value="${getPromo()}"><button id="applyPromo2">Apply</button></div>
         <div class="row"><span>Subtotal</span><span>${money(t.subtotal)}</span></div>
-        ${t.promoOff > 0 ? `<div class="row"><span class="disc">Promo (${getPromo()})</span><span class="disc">−${money(t.promoOff)}</span></div>` : ""}
-        <div class="row"><span>Delivery</span><span>${t.ship === 0 ? "FREE" : money(t.ship)}</span></div>
-        ${t.saved > 0 ? `<div class="row disc"><span>You save</span><span>${money(t.saved)}</span></div>` : ""}
+        <div class="row"><span>Delivery${t.heavy ? " (our rider)" : ""}</span><span>${t.ship === 0 ? "FREE" : money(t.ship)}</span></div>
+        ${t.saved > 0 ? `<div class="row disc"><span>Founding price saving</span><span>${money(t.saved)}</span></div>` : ""}
         <div class="row total"><span>Total</span><span>${money(t.total)}</span></div>
         <button class="btn btn-amber btn-block btn-lg" style="margin-top:16px" id="checkoutBtn">Secure checkout →</button>
         <div style="text-align:center;margin-top:12px;font-size:.82rem;color:var(--ink-soft)">🔒 bKash · Nagad · Card · Cash on delivery</div>
       </aside>
     </div>`;
     wireLineControls(wrap);
-    $("#applyPromo2").addEventListener("click", () => applyPromoFromInput($("#promoInput2").value));
     $("#checkoutBtn").addEventListener("click", () => toast("🎉", "This is a demo store", "Hook up Shopify checkout to go live"));
   }
   function cartRowHTML(l) {
@@ -697,7 +654,7 @@
       <div class="cart-row__media">${media(p.image, p.name)}</div>
       <div>
         <div class="line__title" style="font-size:1.15rem">${p.name}</div>
-        <div class="line__meta">${l.variant ? l.variant + " · " : ""}${l.sub ? '<span class="sub">Subscribe & Save 15%</span>' : "One-time"}</div>
+        <div class="line__meta">${l.variant || ""}</div>
         <div class="qty" style="margin-top:10px"><button data-act="dec">−</button><span>${l.qty}</span><button data-act="inc">+</button></div>
         <button class="line__rm" data-act="rm">Remove</button>
       </div>
