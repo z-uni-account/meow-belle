@@ -49,7 +49,7 @@
     const srcs = recipeSources(p);
     if (!srcs.length) return "";
     const block = (s, v) => `
-      <div class="recipe-nutri">
+      <div class="recipe-nutri" data-recipe="${v.label}">
         <h5>${v.label}</h5>
         <p>${s.ingredients || "Ingredient list on the pack."}</p>
         ${s.analytical && s.analytical.length ? nutriTable(s.analytical) : ""}
@@ -57,7 +57,15 @@
     const body = (p.variants || [])
       .map((v) => { const s = v.recipe && getProduct(v.recipe); return s ? block(s, v) : ""; })
       .join("");
-    return `<details class="acc-item"><summary>Ingredients &amp; guaranteed analysis, by recipe</summary><div class="acc-item__body">${body}</div></details>`;
+    return `<details class="acc-item" open><summary>What is in this recipe</summary><div class="acc-item__body">${body}</div></details>`;
+  }
+  /* Only the picked recipe's block stays visible. Mirrors the Shopify theme
+     (snippets/mb-pdp-recipe.liquid), which has to do the same job in Liquid+JS
+     because Shopify has no per-variant description. */
+  function paintRecipeBlocks(label) {
+    $$(".recipe-nutri[data-recipe]").forEach((el) => {
+      el.hidden = !!label && el.dataset.recipe !== label;
+    });
   }
 
   /* ---------- media (photo or intentional placeholder) ---------- */
@@ -621,11 +629,15 @@
     }
     paintPrices();
 
+    const curRecipeLabel = () => (hasVariants ? p.variants[PDP_STATE.variant].label : "");
+    paintRecipeBlocks(curRecipeLabel());
+
     // variants
     $$("#variantChips .chip").forEach((c) => c.addEventListener("click", () => {
       PDP_STATE.variant = +c.dataset.vi;
       $$("#variantChips .chip").forEach((x) => x.setAttribute("aria-pressed", x === c));
       paintPrices();
+      paintRecipeBlocks(curRecipeLabel());
     }));
     // qty
     $('[data-q="inc"]').addEventListener("click", () => { PDP_STATE.qty++; $("#qtyVal").textContent = PDP_STATE.qty; paintPrices(); });

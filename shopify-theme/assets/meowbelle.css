@@ -255,6 +255,60 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3,
 
 
 /* ============================================================
+   HERO SKU URGENCY (2026-07-27)
+   Only on the 3-Month Supply, which is the page cold traffic lands on.
+   snippets/mb-pdp-urgency.liquid puts .mb-urgent on <html>; everything is
+   scoped under it so no other product page changes. See PRICING.md for why
+   the rest of the store deliberately does NOT read as a sale.
+   ============================================================ */
+:root{--mb-red:#D7263D;--mb-red-deep:#A81028;--mb-red-tint:#FFECEF}
+
+.mb-urgency{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.mb-urgency__pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--mb-red);color:#fff;
+  font-family:"Fredoka",sans-serif;font-weight:600;
+  font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:7px 13px;border-radius:99px;white-space:nowrap;
+  animation:mb-urgent-pulse 2.4s ease-in-out infinite;
+}
+.mb-urgency__pill::before{content:"⏳";font-size:.9rem;letter-spacing:0}
+.mb-urgency__note{font-size:.9rem;color:var(--mb-ink-soft);line-height:1.4}
+.mb-urgency__note b{color:var(--mb-red-deep)}
+@keyframes mb-urgent-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+@media (prefers-reduced-motion:reduce){.mb-urgency__pill{animation:none}}
+
+/* Turned on purely by the presence of .mb-urgency in the same product panel, so it
+   needs no JavaScript and survives Dawn rebuilding the price block on every variant
+   change. (A <script> would not have worked anyway: the urgency markup comes through
+   a `custom_liquid` block setting, and Shopify does not execute script tags there.) */
+.product__info-container:has(.mb-urgency) .price__badge-sale{
+  background:var(--mb-red)!important;color:#fff!important;border-color:var(--mb-red)!important;
+}
+.product__info-container:has(.mb-urgency) .price--on-sale .price-item--sale,
+.product__info-container:has(.mb-urgency) .price__sale .price-item--sale{
+  color:var(--mb-red)!important;font-weight:700;
+}
+.product__info-container:has(.mb-urgency) .price__sale .price-item--regular{color:#9aa0ae!important}
+
+@media (max-width:749px){
+  .mb-urgency__pill{font-size:.8rem}
+  .mb-urgency__note{font-size:1rem}
+}
+
+
+/* ============================================================
+   RECIPE BLOCKS on the bundle PDP (2026-07-27)
+   One per recipe in the description; mb-pdp-recipe.liquid shows only
+   the selected one. `hidden` needs the !important because Dawn's .rte
+   sets display on child elements.
+   ============================================================ */
+.mb-recipe[hidden]{display:none!important}
+.mb-recipe h5{margin:0 0 8px;font-size:1.05rem;color:var(--mb-blue-deep)}
+.mb-recipe + .mb-recipe{margin-top:20px}
+
+
+/* ============================================================
    MOBILE LEGIBILITY (2026-07-27)
    Dawn's base body text is 1.5rem (~15px) which reads tiny on a phone.
    Global lever: body_scale 120% / heading_scale 110% in settings_data.json.

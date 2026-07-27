@@ -102,13 +102,20 @@ def body_html(product, by_id):
 
     recipes = [(v, by_id[v["recipe"]]) for v in product["variants"] if v.get("recipe")]
     if recipes:
-        # Bundle: one nutrition block per recipe, lifted from the matching single.
-        parts.append("<h4>Ingredients &amp; guaranteed analysis, by recipe</h4>")
+        # Bundle: one nutrition block per recipe, lifted from the matching single. Each
+        # block is tagged with its variant name so the theme can show only the recipe the
+        # customer has selected (snippets/mb-pdp-recipe.liquid). With JS off they all
+        # show, which is wordy but never wrong.
+        parts.append("<h4>What is in this recipe</h4>")
+        parts.append('<div class="mb-recipes">')
         for variant, source in recipes:
+            parts.append(f'<div class="mb-recipe" data-recipe="{esc(variant["label"])}">')
             parts.append(f"<h5>{esc(variant['label'])}</h5>")
             parts.append(f"<p>{esc(source['ingredients'])}</p>")
             if source.get("analytical"):
                 parts.append(nutri_table(source["analytical"]))
+            parts.append("</div>")
+        parts.append("</div>")
     else:
         if product.get("ingredients"):
             parts.append(f"<h4>Ingredients</h4><p>{esc(product['ingredients'])}</p>")

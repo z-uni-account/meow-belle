@@ -40,6 +40,14 @@ comes out of. Quoting 29% to anyone will overstate the business by a third.
 Not a launch sale, not a seasonal discount. It is a founding cohort with a hard cap,
 which is why it can run indefinitely without training people to wait for a sale.
 
+⚠️ **One deliberate exception: the 3-pack page pushes urgency.** It carries a red sale
+badge, a red sale price and a **"Limited time"** pill, because it is the page cold traffic
+lands on. That pulls against the framing above, and it is only honest while the founding
+price really is going to end — which is why the line under the pill names the thing that
+actually ends it (*"for the first 500 cat parents only"*) instead of implying a deadline we
+have not set. **If the founding price is going to run indefinitely, pull the pill.** Every
+other product page keeps the calm treatment. Built in `snippets/mb-pdp-urgency.liquid`.
+
 - **Flat 18% off** our own regular price, sitewide, every SKU. One number for ads,
   one rule for ops.
 - The compare-at price is **our own regular price**. It is *not* a claim about what

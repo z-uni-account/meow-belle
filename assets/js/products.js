@@ -239,7 +239,7 @@ window.MEOW_PRODUCTS = [
       { label: "Hairball Salmon",    sub: "3 x 1.5 kg", price: 3390, compareAt: 4140, kg: 4.5, sku: "mb-3mo-hairball-salmon", recipe: "reflex-adult-hairball-salmon" },
       { label: "Sterilised Chicken", sub: "3 x 1.5 kg", price: 3390, compareAt: 4140, kg: 4.5, sku: "mb-3mo-sterilised-chicken", recipe: "reflex-sterilized-chicken" },
     ],
-    short: "Three identical bags of whichever recipe your cat already eats, in one delivery. About three months of food, ৳180 less than buying the bags one at a time, and it lands free inside Dhaka. The point is not the discount. The point is that you stop running out.",
+    short: "Three bags of the same food, sent together. That is about three months for one cat. You save ৳180, and delivery in Dhaka is free. Best of all, you stop running out.",
     features: [
       "Three 1.5 kg bags of one recipe, so there is no diet switch mid-supply",
       "About three months for one adult cat: 4,500 g at roughly 50 g a day",

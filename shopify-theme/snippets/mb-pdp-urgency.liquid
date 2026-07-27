@@ -1,0 +1,29 @@
+{%- comment -%}
+  Urgency treatment for the hero SKU only.
+
+  The 3-Month Supply is the product we buy cold traffic for, so its page is allowed to
+  push harder than the rest of the catalogue: a red "limited time" badge and a red sale
+  price instead of the house navy. Every other product page is untouched.
+
+  ⚠️ The rest of the store deliberately frames the 18% as a FOUNDING COHORT, not a sale,
+  precisely so nobody learns to wait for the next discount (PRICING.md, and the reason the
+  old countdown timer was deleted). "Limited time" pulls the other way. It is honest only
+  for as long as the founding price really is going to end, so the supporting line names
+  the thing that actually ends it: the first 500 customers.
+
+  ⚠️ NO <script> TAGS IN HERE. This snippet is rendered through a `custom_liquid` block
+  setting, and Shopify does not execute script tags inside those - the whole block comes
+  out empty, silently. The red price is done in CSS with :has(), and anything that needs
+  real JavaScript lives in assets/mb-pdp-recipe.js.
+
+  Rendered as a custom_liquid block after `price` in templates/product.json.
+{%- endcomment -%}
+
+{%- if product.handle == 'meow-belle-3-month-supply' -%}
+  <div class="mb-urgency">
+    <span class="mb-urgency__pill">Limited time</span>
+    <span class="mb-urgency__note">
+      Founding price, for the first <b>500</b> cat parents only. It does not come back.
+    </span>
+  </div>
+{%- endif -%}

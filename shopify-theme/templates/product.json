@@ -16,6 +16,12 @@
         "price": {
           "type": "price"
         },
+        "urgency": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'mb-pdp-urgency', product: product %}"
+          }
+        },
         "nutri_pills": {
           "type": "custom_liquid",
           "settings": {
@@ -59,6 +65,7 @@
         "vendor",
         "title",
         "price",
+        "urgency",
         "nutri_pills",
         "variant_picker",
         "quantity_selector",

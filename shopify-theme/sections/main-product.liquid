@@ -25,6 +25,14 @@
     {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
   {%- endif -%}
 
+  {%- comment -%}
+    MEOW BELLE: shows only the picked recipe's details on the 3-pack. Loaded here and
+    not from a snippet, because Shopify silently drops <script> tags inside the
+    `custom_liquid` block settings this theme uses for its other PDP add-ons.
+    No-ops on every product that has no .mb-recipe blocks.
+  {%- endcomment -%}
+  <script src="{{ 'mb-pdp-recipe.js' | asset_url }}" defer="defer"></script>
+
   {%- style -%}
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;

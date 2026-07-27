@@ -116,6 +116,14 @@ are Shopify admin work. Current live config is recorded in `README.md`.
 - **Live theme push** → always `--allow-live`.
 - **Shopify's CDN caches theme assets.** A pushed CSS change can serve stale for a while even
   though the theme file is correct. Verify with `shopify theme pull --only <file>`, not curl.
+- **`<script>` tags do NOT run inside `custom_liquid` block settings.** This theme wires its
+  PDP add-ons (`mb-pdp-*`) in through `custom_liquid` blocks in `templates/product.json`. A
+  snippet containing a script tag renders as **nothing at all**, silently — no error, no
+  markup. Put behaviour in an `assets/*.js` file loaded from a section, and prefer CSS
+  (`:has()`) over a JS-set class. Cost us a debugging round on 2026-07-27.
+- **Check the SERVER render, not the browser.** `curl -sL https://meowbellle.shop/... | grep`
+  is how the two problems above get told apart: theme file right + markup missing = Liquid
+  problem; markup present + wrong look = CDN cache.
 - **Shopify cannot geo-restrict below country level.** There is no Dhaka region — only
   "Bangladesh". Dhaka-only is a marketing and ops rule, not a technical one.
 - **System Python 3.14 has a broken `expat`** → use `/usr/bin/python3` for XML/xlsx/PIL work.

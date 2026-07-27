@@ -5,6 +5,54 @@
 
 ---
 
+## 2026-07-27 (later still) — 3-pack page: per-recipe details, urgency, plainer copy
+
+### Details now follow the recipe you pick
+
+The page was showing all five recipes' ingredients and analysis at once, which read as a
+data dump. Each block is now tagged `data-recipe` by `build_shopify_import.py`, and
+`assets/mb-pdp-recipe.js` shows only the selected one. Picking *Urinary Chicken* swaps the
+panel to 34% protein; *Adult Chicken* shows 33%. With JavaScript off all five stay visible —
+wordy, never wrong.
+
+### The intro copy got much shorter and much simpler
+
+> Three bags of the same food, sent together. That is about three months for one cat. You
+> save ৳180, and delivery in Dhaka is free. Best of all, you stop running out.
+
+Four short sentences of plain words, down from a paragraph.
+
+### Urgency, on this page only
+
+Red sale badge, red sale price, and a **"Limited time"** pill. Cold traffic lands here, so it
+is allowed to push harder than the rest of the catalogue.
+
+⚠️ **This contradicts a decision made earlier the same day.** The 18% is deliberately framed
+as a capped founding cohort *and not a sale*, so nobody learns to wait for the next discount
+— that is why the countdown timer was deleted. "Limited time" pulls the other way and is only
+honest while the founding price really is going to end. So the line under the pill names the
+thing that actually ends it — *"for the first 500 cat parents only"* — instead of implying a
+deadline that does not exist. **If the founding price is going to run forever, pull the
+pill.** Recorded in `PRICING.md`.
+
+### The bug that ate an hour
+
+Both new snippets rendered as **absolutely nothing**. No error, no markup, correct files
+confirmed on the live theme by `shopify theme pull`.
+
+Cause: this theme wires its PDP add-ons in through **`custom_liquid` blocks** in
+`templates/product.json`, and **Shopify does not execute `<script>` tags inside a
+`custom_liquid` setting.** Both new snippets led with a script tag; the pre-existing ones
+(`mb-pdp-pills`, `mb-pdp-trust`) are markup-only and had always worked.
+
+Fixed by moving behaviour to `assets/mb-pdp-recipe.js`, loaded from `sections/main-product.liquid`,
+and doing the red-price styling in pure CSS with `:has()` instead of a JS-set class — which is
+better anyway, since Dawn rebuilds the price block on every variant change and would have
+wiped it. Now in `CLAUDE.md`, along with the thing that actually diagnosed it: **curl the
+storefront and grep the server render**, rather than trusting the browser.
+
+---
+
 ## 2026-07-27 (later) — The 3-pack becomes a real product
 
 The morning's 3-pack was a placeholder: one recipe, one borrowed photo, and a price with no
