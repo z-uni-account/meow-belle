@@ -209,19 +209,49 @@ window.MEOW_PRODUCTS = [
     ingredients: "", analytical: [], additives: [], feeding: FEED_GENERIC, sources: ["https://petsone.pk/product/prostar-sterilised-adult-cat-food-salmon-1-2-kg/"],
   },
   {
-    id: "meow-belle-3-month-supply", name: "Meow Belle 3-Month Supply", tagline: "3 x 1.5 kg Reflex Plus Adult, Chicken",
-    brand: "Reflex Plus", category: "Bundle", image: "images/products/reflex-adult-chicken.png",
-    price: 3570, compareAt: 4350, rating: 4.9, reviews: 41, stock: 18, stockMax: 40,
-    badges: ["bestseller", "sale"], hero: true,
-    variants: [
-      { label: "3 x 1.5 kg", sub: "3-month supply", price: 3570, compareAt: 4350, kg: 4.5 },
+    // HERO SKU, the primary advertised product. Money detail: PRICING.md.
+    //
+    // Three bags of the SAME recipe, never a mixed selection: cats have sensitive
+    // stomachs and switching food causes upset, so a "variety pack" would work
+    // against the product. One variant per recipe instead.
+    //
+    // `recipes` maps each variant to the 1.5 kg product it is three of. The PDP and
+    // the Shopify import CSV pull ingredients / guaranteed analysis / feeding guide
+    // from those products, so the nutrition detail can never drift from the single.
+    // Stock is NOT wired to those SKUs, see PRICING.md "3-pack inventory".
+    id: "meow-belle-3-month-supply", name: "Meow Belle 3-Month Supply", tagline: "3 x 1.5 kg of one recipe · you pick",
+    brand: "Reflex Plus", category: "Bundle", image: "images/products/meow-belle-3-month-supply.png",
+    // Built by build_3pack_images.py from the catalogue photos. Order matters:
+    // value proof, then scale, then the stock-out card (which also runs as an ad).
+    gallery: [
+      "images/products/meow-belle-3-month-supply-2-value.png",
+      "images/products/meow-belle-3-month-supply-3-scale.png",
+      "images/products/meow-belle-3-month-supply-4-hook.png",
     ],
-    short: "Three bags of our best-selling adult chicken recipe, enough to feed one cat for about three months. One order, one delivery, nothing to think about until it runs low.",
-    features: ["Three 1.5 kg bags of Reflex Plus Adult, Chicken", "Roughly three months of food for one adult cat", "Real chicken protein is the #1 ingredient", "33% protein, complete & balanced", "Ships free inside Dhaka"],
-    ingredients: "Processed Chicken Protein (38%), Corn, Chicken Fat, Rice, Hydrolyzed Animal Protein, Beet Pulp, Liver Aroma, Vitamins and Minerals, Flaxseed, Xylo-oligosaccharides (XOS), Brewer's Yeast, Salt, Yucca Schidigera, Taurine, Preservatives - Antioxidants.",
-    analytical: [{ name: "Crude Protein", value: "33%" }, { name: "Crude Fat", value: "14%" }, { name: "Crude Fibre", value: "2%" }, { name: "Crude Ash", value: "8%" }],
-    additives: [{ name: "Vitamin A", value: "18,000 IU/kg" }, { name: "Vitamin D3", value: "1,500 IU/kg" }, { name: "Vitamin E", value: "200 mg/kg" }, { name: "Vitamin C", value: "400 mg/kg" }, { name: "Taurine", value: "1,500 mg/kg" }],
-    feeding: FEED_GENERIC, sources: ["https://www.reflexmama.com/reflex-plus-adult-cat-food-with-chicken-2"],
+    price: 3390, compareAt: 4140, rating: 4.9, reviews: 41, stock: 18, stockMax: 40,
+    badges: ["bestseller", "sale"], hero: true,
+    optionName: "Recipe",
+    freeShipSolo: true,   // three bags in one line item, so it earns free delivery alone
+    variants: [
+      { label: "Adult Chicken",      sub: "3 x 1.5 kg", price: 3390, compareAt: 4140, kg: 4.5, sku: "mb-3mo-adult-chicken",   recipe: "reflex-adult-chicken" },
+      { label: "Kitten Chicken",     sub: "3 x 1.5 kg", price: 3390, compareAt: 4140, kg: 4.5, sku: "mb-3mo-kitten-chicken",  recipe: "reflex-kitten-chicken" },
+      { label: "Urinary Chicken",    sub: "3 x 1.5 kg", price: 3390, compareAt: 4140, kg: 4.5, sku: "mb-3mo-urinary-chicken", recipe: "reflex-adult-urinary-chicken" },
+      { label: "Hairball Salmon",    sub: "3 x 1.5 kg", price: 3390, compareAt: 4140, kg: 4.5, sku: "mb-3mo-hairball-salmon", recipe: "reflex-adult-hairball-salmon" },
+      { label: "Sterilised Chicken", sub: "3 x 1.5 kg", price: 3390, compareAt: 4140, kg: 4.5, sku: "mb-3mo-sterilised-chicken", recipe: "reflex-sterilized-chicken" },
+    ],
+    short: "Three identical bags of whichever recipe your cat already eats, in one delivery. About three months of food, ৳180 less than buying the bags one at a time, and it lands free inside Dhaka. The point is not the discount. The point is that you stop running out.",
+    features: [
+      "Three 1.5 kg bags of one recipe, so there is no diet switch mid-supply",
+      "About three months for one adult cat: 4,500 g at roughly 50 g a day",
+      "৳180 cheaper than three single bags",
+      "Free delivery inside Dhaka",
+      "Pick from Adult Chicken, Kitten Chicken, Urinary Chicken, Hairball Salmon or Sterilised Chicken",
+    ],
+    // Nutrition is per recipe and comes from the matching 1.5 kg product, so these
+    // product-level fields stay empty by design. The PDP renders one block per recipe.
+    ingredients: "", analytical: [], additives: [],
+    feeding: "One adult cat of about 4 kg eats in the region of 50 g of dry food a day, so 4,500 g works out at roughly 90 days. Two cats, roughly six weeks. Check the gram chart on the back of your pack for your cat's exact weight and activity level, and split the daily amount across two meals with fresh water always available.",
+    sources: ["https://www.reflexmama.com/reflex-plus-adult-cat-food-with-chicken-2"],
   },
 ];
 

@@ -69,7 +69,12 @@ Prostar** — we do not manufacture. Prices in Bangladeshi Taka (৳).
 - **No Subscribe & Save, no promo codes.** Both removed on purpose. Do not reintroduce them
   without redoing the margin maths in `PRICING.md`.
 - **`assets/js/products.js` is the source of truth.** `PRODUCTS.md` and the Shopify import
-  CSV are downstream of it. Never hand-edit the import CSV.
+  CSV are downstream of it. **Never hand-edit the import CSV** — run
+  `/usr/bin/python3 build_shopify_import.py`.
+- **The 3-pack is three bags of ONE recipe, never a mixed pack.** Switching a cat's food
+  upsets it. Its nutrition is read from the matching 1.5 kg product via each variant's
+  `recipe` key, so it can never quote a figure the single does not. Do not copy the
+  nutrition across.
 - **Nutrition data is real and sourced.** Never invent an analytical value. If there is no
   published figure, leave the field empty (two Prostar SKUs are deliberately blank).
 
@@ -93,8 +98,16 @@ live and delete the preview.
 **What the CLI cannot do:** products, prices, shipping rates, discounts and settings. Those
 are Shopify admin work. Current live config is recorded in `README.md`.
 
-**Product data** changes flow: edit `products.js` → regenerate the import CSV → import in
-admin with *"Overwrite existing products with the same handle"* ticked.
+**Product data** changes flow: edit `products.js` → `/usr/bin/python3 build_shopify_import.py`
+→ import in admin with *"Overwrite existing products with the same handle"* ticked.
+
+**Build scripts** (all want `/usr/bin/python3`):
+
+| Script | Makes |
+|---|---|
+| `build_shopify_import.py` | the Shopify import CSV, from `products.js`. `--check` compares without writing. |
+| `build_3pack_images.py` | the four 3-Month Supply images, composited from the catalogue photos. |
+| `build_icp_doc.py` | the ICP research PDF. |
 
 ---
 

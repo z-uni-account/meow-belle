@@ -24,12 +24,12 @@ competitor intel — read first for anything ads or copy**) · **`PRODUCTS.md`**
 
 | | |
 |---|---|
-| **Storefront** | **Shopify** — store `meow-belle.myshopify.com`. 13 products live, BDT pricing. |
+| **Storefront** | **Shopify** — store `meow-belle.myshopify.com`. 14 products / 26 variants, BDT pricing. |
 | **Pricing** | Flat **৳1,190** on every 1.5 kg recipe; bulk ৳4,850–৳8,200; Prostar 15 kg ৳5,400. Full list + margin: **`PRICING.md`**. |
 | **Offer** | **"Founding customer price — first 500 cat parents."** Flat **18% off** sitewide against our own regular price. Not a launch sale. |
 | **Launch scope** | **DHAKA CITY ONLY.** Shipping zones Dhaka only, checkout blocked everywhere else, waitlist capture instead. Revisit after 60 days or 200 orders. |
-| **Delivery** | Weight-split. **Under 5 kg:** RedX, **৳70** flat, free on **2+ items**. **Over 5 kg:** our own rider, **৳150**, 2 working days, phone-confirmed. RedX will not carry over 5 kg. |
-| **Hero SKU** | **3-Month Supply, 3 × 1.5 kg, ৳3,570** (was ৳4,350). Primary advertised product with the 1.5 kg single. The 15 kg is listed but never advertised. |
+| **Delivery** | Weight-split. **Under 5 kg:** RedX, **৳70** flat, free on **2+ items** or on the 3-pack alone. **Over 5 kg:** our own rider, **৳150**, 2 working days, phone-confirmed. RedX will not carry over 5 kg. |
+| **Hero SKU** | **3-Month Supply, ৳3,390** (was ৳4,140) — **five recipe variants**, three identical bags in each, ৳180 under three singles. Primary advertised product with the 1.5 kg single. The 15 kg is listed but never advertised. |
 | **Subscribe & Save** | **Removed 2026-07-27** — gave away 61% of contribution and needs a card on file in a COD market. Promo codes removed with it. |
 | **Live theme** | **"Meow Belle Port"** `#141067386942` — Dawn-based, fully custom-branded (see Theme below). |
 | **Domain** | `meowbellle.shop` (⚠️ **3 L's — a typo of `meowbelle.shop`**, which is still available). Connected in Shopify; DNS on GoDaddy. Last check it was showing GoDaddy's parked page — if so the `A @` record needs to point to Shopify (below). |
@@ -53,6 +53,20 @@ competitor intel — read first for anything ads or copy**) · **`PRODUCTS.md`**
   ৳100"** so the ৳150 rider rate can never become free. That exclusion is what protects
   the heavy-bag margin — do not remove it.
 
+**⚠️ NEEDS ONE ADMIN CHANGE — the 3-pack's free delivery:**
+The 3-Month Supply is **one line item**, so the "minimum 2 items" rule misses it, but its
+page and its images promise free delivery and its margin is modelled on free delivery.
+Add a **second automatic discount** in the Shopify admin:
+  | Field | Value |
+  |---|---|
+  | Type | Automatic → Free shipping |
+  | Title | Free delivery on the 3-Month Supply |
+  | Applies to | Specific products → *Meow Belle 3-Month Supply* |
+  | Minimum | Quantity of items = **1** |
+  | Exclude shipping rates over | **৳100** (mandatory — same reason as above) |
+Until this exists the cart charges ৳70 on a lone 3-pack and the page is lying. The static
+site already behaves correctly (`freeShipSolo` in `products.js`).
+
 **⚠️ STILL NEEDS A DECISION — Shopify cannot restrict to Dhaka city:**
 Shopify's region picker offers **Bangladesh as a whole country only**; there are no
 divisions, districts or postcode ranges to select. So the shipping zone is nationwide and
@@ -64,20 +78,17 @@ divisions, districts or postcode ranges to select. So the shipping zone is natio
 Until one of these is in place, "Dhaka city only" is a marketing and ops rule, not a
 technical one.
 
-**⚠️ Also open — the 3-pack and the 2-item rule conflict:**
-The 3-Month Supply is **one line item**, so it does **not** meet "minimum 2 items" and a
-lone 3-pack pays ৳70 (contribution ৳801). But the site says "free delivery on 2 bags or
-more" and the 3-pack *is* three bags. Either add a second automatic free-shipping discount
-scoped to that product (contribution drops to ৳741), or reword the offer. Z's call.
-
 **Everything else:**
 - **Currency format** → Settings → General → Currency formatting → `৳{{amount_no_decimals}}`
   so prices read `৳1,190` not `Tk 1190.00 BDT`. Still outstanding.
 - **WhatsApp reorder nudge (day 24)** — replaces Subscribe & Save. Not built yet.
-- **3-pack photography** — it currently reuses the Adult Chicken shot. Wants a real
-  three-bag hero image.
-- **3-pack recipe choice** — it is Adult Chicken only today. If customers should pick a
-  recipe, that is a variant list on the same product, not a new product.
+- **3-pack photography** — the four images are **composited** from the single-bag photos
+  by `build_3pack_images.py`, not shot. Good enough to launch on; a real three-bag
+  photograph and a real bowl-and-scoop shot would both beat them. There is deliberately no
+  cat in any of them — we have no rights to a cat photo and will not use stock.
+- **3-pack inventory** — no Shopify tracker on it, so it never shows sold out and never
+  decrements the 1.5 kg singles. Fine at launch volume; wire it to decrement three units
+  of the matching SKU before hand-counting gets unsafe.
 - **Founding-customer counter** — the PDP shows a static "first 500" line. Wiring it to a
   real order count needs an app or a metafield; see `snippets/mb-pdp-trust.liquid`.
 - **Domain**: if `meowbellle.shop` still shows GoDaddy's parked page, set GoDaddy DNS

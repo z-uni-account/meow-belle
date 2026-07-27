@@ -24,7 +24,12 @@
 | 11 | Prostar Kitten, Chicken | Prostar | Kitten food | 15 kg ৳5,400 (৳6,580) | 4.7★ (83) | `prostar-kitten-chicken` |
 | 12 | Prostar Sterilised, Salmon (Adult & Kitten) | Prostar | Sterilised | 1.2 kg ৳500 (৳610) | 4.6★ (52) | `prostar-sterilised-salmon-ak` |
 | 13 | Prostar Adult Sterilised, Salmon | Prostar | Sterilised | 1.2 kg ৳500 (৳610) | 4.6★ (39) | `prostar-adult-sterilised-salmon` |
-| 14 | Meow Belle 3-Month Supply | Reflex Plus | Bundle | 3 x 1.5 kg ৳3,570 (৳4,350) | 4.9★ (41) | `meow-belle-3-month-supply` |
+| 14 | Meow Belle 3-Month Supply | Reflex Plus | Bundle | Adult Chicken ৳3,390 (৳4,140)<br>Kitten Chicken ৳3,390 (৳4,140)<br>Urinary Chicken ৳3,390 (৳4,140)<br>Hairball Salmon ৳3,390 (৳4,140)<br>Sterilised Chicken ৳3,390 (৳4,140) | 4.9★ (41) | `meow-belle-3-month-supply` |
+
+> **The 3-Month Supply is the only product whose variants are recipes, not sizes.** Every
+> variant is 3 × 1.5 kg (4,500 g) of **one** recipe — never a mixed pack, because switching
+> a cat's food upsets it. Nutrition for each variant is pulled from the matching 1.5 kg
+> product below, so the bundle page cannot quote a figure the single does not.
 
 ## Guaranteed analysis (per recipe)
 
@@ -54,7 +59,15 @@
 - **Nobody else in Bangladesh sells** the Mother & Baby 8 kg or the Sterilised Chicken
   15 kg, so both are priced above the market rather than at it.
 - **The 3-Month Supply is the hero SKU** and the primary advertised product alongside
-  the 1.5 kg single. It is three bags of Adult Chicken sold as one product. The 15 kg is
-  deliberately NOT advertised, just listed. See `PRICING.md`.
-- **Delivery is weight-split:** under 5 kg goes RedX at ৳70 (free on 2+ items), over 5 kg
-  goes by our own rider at ৳150. RedX will not carry a parcel over 5 kg at all.
+  the 1.5 kg single. Five recipe variants, three identical bags in each, ৳3,390 across
+  all five — ৳180 less than three singles. The 15 kg is deliberately NOT advertised, just
+  listed. See `PRICING.md`.
+- **3-pack stock is not tracked.** It is a bundle of existing 1.5 kg stock with no Shopify
+  inventory tracker, so it never shows sold out and never decrements the singles. Manual
+  at launch, by design. See `PRICING.md`.
+- **Delivery is weight-split:** under 5 kg goes RedX at ৳70 (free on 2+ items, or on the
+  3-pack alone), over 5 kg goes by our own rider at ৳150. RedX will not carry a parcel
+  over 5 kg at all.
+- **3-pack imagery** is composited from the catalogue photos by `build_3pack_images.py`,
+  not shot. Four images: hero, value proof, scale, and a typographic stock-out card that
+  doubles as ad creative.

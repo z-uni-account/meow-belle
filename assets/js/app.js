@@ -26,14 +26,38 @@
 
   /* nutrition rendering (real, sourced data only) */
   function nutriHighlights(p) {
-    if (!p.analytical || !p.analytical.length) return "";
-    const pick = (k) => p.analytical.find((a) => a.name.toLowerCase().includes(k));
+    // A bundle has no analysis of its own — show the first recipe's as representative.
+    const rows = (p.analytical && p.analytical.length)
+      ? p.analytical
+      : ((recipeSources(p)[0] || {}).analytical || []);
+    if (!rows.length) return "";
+    const pick = (k) => rows.find((a) => a.name.toLowerCase().includes(k));
     const cells = [["Protein", "protein"], ["Fat", "fat"], ["Fibre", "fibre"]]
       .map(([label, key]) => { const a = pick(key); return a ? `<div class="nutri-pill"><b>${a.value}</b><span>${label}</span></div>` : ""; }).join("");
     return cells ? `<div class="nutri-pills" title="Guaranteed analysis">${cells}</div>` : "";
   }
   function nutriTable(rows) {
     return `<table class="nutri-table"><tbody>${rows.map((r) => `<tr><td>${r.name}</td><td>${r.value}</td></tr>`).join("")}</tbody></table>`;
+  }
+  /* Bundles (the 3-pack) carry no nutrition of their own — every variant is three
+     bags of a different 1.5 kg product. Pull each recipe's real data from its source
+     product so the bundle page can never drift from the single. */
+  function recipeSources(p) {
+    return (p.variants || []).map((v) => v.recipe && getProduct(v.recipe)).filter(Boolean);
+  }
+  function recipeNutrition(p) {
+    const srcs = recipeSources(p);
+    if (!srcs.length) return "";
+    const block = (s, v) => `
+      <div class="recipe-nutri">
+        <h5>${v.label}</h5>
+        <p>${s.ingredients || "Ingredient list on the pack."}</p>
+        ${s.analytical && s.analytical.length ? nutriTable(s.analytical) : ""}
+      </div>`;
+    const body = (p.variants || [])
+      .map((v) => { const s = v.recipe && getProduct(v.recipe); return s ? block(s, v) : ""; })
+      .join("");
+    return `<details class="acc-item"><summary>Ingredients &amp; guaranteed analysis, by recipe</summary><div class="acc-item__body">${body}</div></details>`;
   }
 
   /* ---------- media (photo or intentional placeholder) ---------- */
@@ -94,7 +118,12 @@
       return s + window.variantKg(v || { label: "" }) * l.qty;
     }, 0);
     const heavy = kg > C.redxMaxKg;
-    const freeShip = !heavy && count >= C.freeShipMinItems;
+    // The 3-pack is ONE line item but three bags, so the 2-item rule would miss it
+    // and the product page would be promising delivery the cart never gives. Products
+    // flagged `freeShipSolo` qualify on their own; Shopify mirrors this with a
+    // second automatic free-shipping discount scoped to that product. See README.md.
+    const soloFree = cart.some((l) => (getProduct(l.id) || {}).freeShipSolo);
+    const freeShip = !heavy && (soloFree || count >= C.freeShipMinItems);
     const ship = count === 0 ? 0 : heavy ? C.shipHeavy : freeShip ? 0 : C.shipLight;
     const total = subtotal + ship;
     const saved = compareTotal - subtotal;
@@ -212,8 +241,8 @@
       $("#closeCart").addEventListener("click", closeDrawer);
       return;
     }
-    const needed = Math.max(0, C.freeShipMinItems - t.count);
-    const pct = Math.min(100, (t.count / C.freeShipMinItems) * 100);
+    const needed = t.freeShip ? 0 : Math.max(0, C.freeShipMinItems - t.count);
+    const pct = t.freeShip ? 100 : Math.min(100, (t.count / C.freeShipMinItems) * 100);
     inner.innerHTML = `
       <div class="drawer__head"><h3>Your cart · ${t.count}</h3><button class="icon-btn" id="closeCart" aria-label="Close">✕</button></div>
       <div class="drawer__ship">
@@ -548,11 +577,13 @@
 
           <div class="pdp__acc">
             <details class="acc-item" open><summary>Why cats love it</summary><div class="acc-item__body"><ul>${p.features.map((f) => `<li>${f}</li>`).join("")}</ul></div></details>
-            <details class="acc-item"><summary>Ingredients</summary><div class="acc-item__body">${p.ingredients || "Full ingredient list coming soon — message us and we'll share the pack details."}</div></details>
-            ${p.analytical && p.analytical.length ? `<details class="acc-item"><summary>Guaranteed analysis</summary><div class="acc-item__body">${nutriTable(p.analytical)}</div></details>` : ""}
+            ${recipeSources(p).length
+              ? recipeNutrition(p)
+              : `<details class="acc-item"><summary>Ingredients</summary><div class="acc-item__body">${p.ingredients || "Full ingredient list coming soon — message us and we'll share the pack details."}</div></details>
+            ${p.analytical && p.analytical.length ? `<details class="acc-item"><summary>Guaranteed analysis</summary><div class="acc-item__body">${nutriTable(p.analytical)}</div></details>` : ""}`}
             ${p.additives && p.additives.length ? `<details class="acc-item"><summary>Added vitamins & minerals</summary><div class="acc-item__body">${nutriTable(p.additives)}</div></details>` : ""}
             <details class="acc-item"><summary>Feeding guide</summary><div class="acc-item__body">${p.feeding}</div></details>
-            <details class="acc-item"><summary>Delivery & returns</summary><div class="acc-item__body">Delivering inside Dhaka city only for now. ৳70 flat, free when you order 2 bags or more. Large bags (8 kg and 15 kg) come by our own rider for ৳150 within 2 working days, and we ring you to confirm before it leaves. Not the right fit? Return within 30 days for a full refund — even if the bag is open.</div></details>
+            <details class="acc-item"><summary>Delivery & returns</summary><div class="acc-item__body">Delivering inside Dhaka city only for now. ${p.freeShipSolo ? "This one always ships free." : "৳70 flat, free when you order 2 bags or more."} Large bags (8 kg and 15 kg) come by our own rider for ৳150 within 2 working days, and we ring you to confirm before it leaves. Not the right fit? Return within 30 days for a full refund — even if the bag is open.</div></details>
           </div>
         </div>
       </div>
@@ -622,8 +653,8 @@
       wrap.innerHTML = `<div style="text-align:center;padding:60px 0"><div style="font-size:4rem">🐈‍⬛</div><h2 style="font-size:2rem;margin:10px 0">Your bowl is empty</h2><p style="color:var(--ink-soft)">Let's put something delicious in it.</p><a class="btn btn-amber btn-lg" href="shop.html">Shop the menu →</a></div>`;
       return;
     }
-    const needed = Math.max(0, C.freeShipMinItems - t.count);
-    const pct = Math.min(100, (t.count / C.freeShipMinItems) * 100);
+    const needed = t.freeShip ? 0 : Math.max(0, C.freeShipMinItems - t.count);
+    const pct = t.freeShip ? 100 : Math.min(100, (t.count / C.freeShipMinItems) * 100);
     wrap.innerHTML = `<div class="cart-layout">
       <div>
         <div class="drawer__ship" style="border:2px solid var(--line);border-radius:var(--r);margin-bottom:18px">

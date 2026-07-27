@@ -591,6 +591,11 @@ p { margin: 0 0 1em; }
 .nutri-table td:last-child { text-align: right; font-family: var(--data); font-weight: 700; color: var(--ink); white-space: nowrap; }
 .nutri-table tr:last-child td { border-bottom: 0; }
 
+/* Bundle PDP: one nutrition block per recipe (the 3-pack) */
+.recipe-nutri + .recipe-nutri { margin-top: 22px; padding-top: 20px; border-top: 2px solid var(--line); }
+.recipe-nutri h5 { margin: 0 0 8px; font-size: 1rem; color: var(--blue-deep); }
+.recipe-nutri p { margin: 0 0 12px; font-size: .95rem; }
+
 .pdp__acc { border-top: 1px solid var(--line); }
 .acc-item { border-bottom: 1px solid var(--line); }
 .acc-item summary { list-style: none; cursor: pointer; padding: 18px 0; font-family: var(--display); font-weight: 600; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }

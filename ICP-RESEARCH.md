@@ -13,12 +13,30 @@
 > before generating any ad copy, static-ad JSON, product description or landing page.
 > Do not write creative from imagination when this file exists.
 >
+> **📄 Google Doc version:**
+> https://docs.google.com/document/d/18t8dNxN22Q2gb6opEnJg98HTwD353o1XTTKvAk5Tj94/edit
+> This markdown file is the source of truth. To refresh the Doc after editing it, run
+> `build_icp_doc.py` and `gws drive files update` against that same file id (recipe at the
+> bottom of the script). **Never re-create it with `files.copy`**, that mints a new URL.
+>
 > Built **2026-07-27**. Sources at the bottom. Anything I could not verify is flagged
 > **[UNVERIFIED]** rather than smoothed over.
 
 ---
 
-## TL;DR — the five things that change what we do
+## TL;DR — the seven things that change what we do
+
+0. 🚨 **We look like a scam, and that costs us more than our price does.** Bangladeshi
+   shoppers open every unknown online store expecting fraud: *"If I buy online, I will probably
+   get scammed."* We are an unknown brand, on a misspelled domain, with no reviews, no phone
+   number and **hardcoded star ratings we did not earn.** Fix the trust checklist in 7.5 before
+   a taka of ad spend. It is the cheapest work on this list and it gates everything else.
+
+0b. **The affluent buyer is the Persian owner.** Spends 5,000+/month, buys to avoid vet bills,
+   and needs exactly the three SKUs nobody stocks or advertises: Choosy, Hairball, Skin & Coat.
+   And they reposition us: stop saying "premium," start saying **vet-grade without Royal Canin
+   money.** Compare upward to Royal Canin at ~৳2,500/kg, never sideways to the ৳1,050 shops.
+
 
 1. **"Premium cat food in Dhaka" is a red ocean and we lose it.** We sell an identical bag
    that three shops have in stock right now at ৳1,050. We charge ৳1,190. Two local brands
@@ -44,8 +62,11 @@
    supply) and our biggest objection (will she even eat it).
 
 5. **The single bag is close to unwinnable on cold traffic.** ৳1,190 at 21% contribution
-   is a 4.7x break-even ROAS. The 3-pack at ৳3,570 earns ৳741 for roughly the same ad cost.
+   is a 4.7x break-even ROAS. The 3-pack at ৳3,390 earns **৳588 — 2.3× the single's ৳254**
+   for roughly the same ad cost, so it absorbs more than twice the CAC.
    Every cold ad should be pointed at the 3-pack or at a problem, never at "a bag of food."
+   ⚠️ Judge the 3-pack on **taka per order**, not on break-even ROAS: as a ratio it needs
+   5.8x, which looks worse than the single's 4.7x and is the wrong way round. See `PRICING.md`.
 
 ---
 
@@ -322,7 +343,7 @@ product we already stock, and a reason we can win it.
   which upsets her stomach, and then I have to switch again when it comes back.
 - **Emotional pain:** low-grade dread, repeated monthly. Documented by the Chonk founder and
   visible in our own 52% stock rate.
-- **Our product:** the 3-Month Supply (3 × 1.5 kg, ৳3,570) is *literally the solution to this
+- **Our product:** the 3-Month Supply (3 × 1.5 kg, ৳3,390) is *literally the solution to this
   problem* and we have been selling it as "a bulk discount."
 - **Why this is the strongest brand-level position we have:** it justifies the ৳140 premium
   without arguing about quality, it converts our margin-best SKU, and it is the one thing
@@ -387,6 +408,24 @@ food." This person was a normal cat owner a week ago and is now researching cat 
   problem, not a targeting-by-audience problem. The ad has to name her exact symptom so she
   self-identifies out of a broad audience. That is precisely what Mark means by "creatives ARE
   your targeting in 2026."
+
+## 🟢 Segment D — The Pedigree Owner (the money) ⭐ added 2026-07-27
+
+**Owns a Persian or another pedigree, spends 5,000+/month all-in, buys on vet-bill avoidance.**
+
+This is the affluent buyer. They already pay Royal Canin and Farmina prices, they research
+brands properly, and their governing belief is that saving money on food costs more at the vet
+later: *"DO NOT compromise on the quality of cat food… cheaper brands are known to cause
+kidney stones, chronic kidney disease, uti."*
+
+- **Why they are the best fit in the catalogue:** Persians are famously fussy (*"Very choosy of
+  what he will eat"*) and their long coats mean constant shedding and daily hairballs. That is
+  **Choosy, Hairball and Skin & Coat**, three of our four scarcest SKUs, and nobody advertises
+  any of them.
+- **How to talk to them:** not "premium." They know what premium costs and it is Royal Canin.
+  Talk **"vet-grade nutrition without Royal Canin money."** Against Royal Canin at roughly
+  ৳2,500–3,000/kg, our ৳793/kg is the value choice.
+- **Price sensitivity:** low, but they are informed, so no puffery survives contact.
 
 ## 🔴 Segment C — The Multi-Cat Rescuer (the trap)
 
@@ -497,62 +536,212 @@ Use these. Do not invent Bengali; these are all observed.
 
 ## 5.2B Real owner words (Reddit, added 2026-07-27)
 
-First-party voice, finally. Pulled by Z from Reddit's own AI across r/bangladesh, r/dhaka,
-r/pakistan and neighbouring pet subs. ⚠️ **Some of this is Pakistani and Indian, not
-Bangladeshi.** Treat anything not obviously local as directional. Quotes with Bengali
-transliteration or an explicit "Bangladesh" are safe.
+First-party voice. Pulled by Z from Reddit across r/bangladesh, r/Dhaka and neighbouring
+South Asian pet subs.
 
-**On homemade food, which is our real competitor**
-> "We make our cat food at home. Chicken, chicken bones, rice, and a few other things that is
-> good for the cat."
+⚠️ **Attribution warning, read this before quoting anything below.** Reddit's summariser
+mixes r/bangladesh and r/Dhaka with r/pakistan, r/indiasocial, r/IndianPets and generic
+r/cats. Quotes are marked **🇧🇩** where the source is clearly Bangladeshi (Bengali
+transliteration, or "Bangladesh" named in the text) and **🌏** where it is regional South
+Asian and only directional. Reddit also skews far more male, English-fluent and
+internet-native than our real buyer. **Never put a 🌏 quote in an ad as a Bangladeshi
+customer voice.**
 
-> "Boiled chicken boiled fish boiled mishti kumra and boil korar extra Pani jeta oitao aar bhaat."
+---
 
-**On distrust of dry kibble itself**
-> "Catfood is bad in their health, especially kebbles."
+### 🚨 The finding that outranks everything else: we look like a scam
 
-**On cheap brands, and this one is a gift**
-> "Anything but Fluffy. Fluffy's cheap for a reason. You'd hear so many complaints about
-> Fluffy causing digestive and UTI problems in cats."
+From r/Dhaka, on why Bangladeshi shoppers distrust online stores. 🇧🇩
 
-**On availability, independently confirming our 52% stock finding**
-> "The issue mostly is the availability of the food. It's just rarely available."
+> "Between fake product photos, misleading descriptions, and sellers disappearing after taking
+> advance payments, the market has created this default mindset **'If I buy online, I will
+> probably get scammed.'**"
 
-> "I'd still recommend giving your cat a variety including homemade foods because if someday
-> the imports become too expensive or imports stop for whatever reason, you'll be in trouble."
+> "Many customers insist on cash on delivery only, no matter what."
 
-**On our actual brand, unprompted**
-> "Reflex and Mera both recommended by vet."
+> "Even if I clearly mention a return or refund policy, they do not fully believe it."
 
-> "Royal Canin, Josera or reflex. (First two are better)"
+> "I feel Bangladesh started e-commerce on the wrong foot."
 
-**On the gap in specialised diets**
-> "But there's barely any renal cat food available Bangladesh."
+Now look at us through that lens. **Brand nobody has heard of. Domain misspelled with three
+L's. No reviews. No physical shop. No phone number on the ad. Star ratings on the site that
+are hardcoded rather than earned.** Every single trust signal this market checks, we currently
+fail.
 
-**On why they have a cat at all**
-> "Emotional support. Human beings might leave you one day, pets would never."
+**This is a bigger conversion risk than our ৳140 price premium and it is cheaper to fix.**
+Price loses you a comparison. Looking like a scam loses you the click. See 7.5.
 
-### What this changes
+### 🚨 Our courier has a reputation problem 🇧🇩
 
-1. **Our biggest competitor is a pot of boiled chicken, not Chonk.** A meaningful share of
-   this market does not buy commercial food at all, on cost *and* on a belief that it is
-   healthier. No ad in the market speaks to that person. **[gap worth testing]**
-2. **"Kibble is bad for them" is a live objection we had not logged.** It is tied to
-   dehydration and kidney worry, and it is the same mechanism as urinary disease. Do not
-   argue with it. Answer it: pair every dry-food ad with the water message, and let the
-   Urinary recipe be the proof we take it seriously.
-3. **Cheap food causing UTI is already believed in this market.** We never have to attack a
-   competitor by name. The audience has already made the argument for us, and it points
-   straight at our Urinary SKU. This is the strongest supporting belief we have found.
-4. **Reflex is named as vet-recommended by owners, unprompted.** That upgrades "vet
-   formulated" from a marketing claim to something the community already says. Use their
-   framing, not ours.
-5. **Availability is confirmed by owners in their own words**, not just by our stock sweep and
-   not just by a competitor founder with an incentive to say it. The supply angle is now
-   triple-sourced and is our safest bet.
-6. **Renal is an open, stated, unmet need.** We do not stock a renal diet. Worth asking the
-   supplier what a Reflex renal or veterinary line would cost, because the market is asking
-   for it out loud and nobody answers.
+> "**Redx is the worst** when ordering from independent pages."
+
+> "Firstly you don't know exactly when they'd arrive and if it's a cash on delivery you have to
+> be present there to check the product and receive."
+
+> "Then they can't get the address right at all like evn after you explain them so many times."
+
+We deliver under 5 kg on **RedX**. Our customer has opinions about RedX and they are bad, and
+"ordering from independent pages" is exactly what we are. Not a reason to switch (their Dhaka
+rates are why the margin works at all), but a reason to over-communicate: confirm by phone or
+WhatsApp, give a delivery window, and say who is bringing it.
+
+---
+
+### On our actual brand, unprompted
+
+> "Reflex and Mera both recommended by vet." 🌏
+
+> "**Get reflex plus urinary.**" 🌏
+
+> "We use reflex before we were using fluffy but our cat got his bladder blocked and so we had
+> to change foods." 🌏
+
+> "Reflex isn't currently available in the market. **Definitely short on supply.**" 🌏
+
+> "reflex food was 1.4k per month, now its 4k per month." 🌏
+
+> "The best are Reflex, Royal Canin, Diamond Naturals" · "Royal Canin, Josera or reflex.
+> (First two are better)" 🌏
+
+**That third quote is our entire Urinary ad, written by a customer.** Cheap food → blocked
+bladder → forced switch to Reflex. And people already name **Reflex Plus Urinary by SKU** as
+the answer. We do not have to teach this. We have to show up where it is already being said.
+
+Note the hierarchy though: Reflex sits **below** Royal Canin and Farmina, not at the top. See
+5.2C.
+
+### On availability, now confirmed by owners themselves
+
+> "That's honestly the biggest problem with keeping a pet. **One time you get one brand of food,
+> and the next time it isn't there.**" 🇧🇩
+
+> "The issue mostly is the availability of the food. It's just rarely available." 🌏
+
+> "Royal canin gastrointestinal cat food, I searched online couldn't find anywhere" 🇧🇩
+
+> "coziecat is almost always first to stock out so you need to keep checking with the
+> petshops / **stock up when you find them**" 🇧🇩
+
+> "I'd still recommend giving your cat a variety including homemade foods because if someday the
+> imports become too expensive or imports stop for whatever reason, you'll be in trouble." 🇧🇩
+
+**"Stock up when you find them" is the 3-Month Supply, described by a customer as a coping
+strategy before we ever sold it.** That is the ad.
+
+### On homemade food, our real competitor
+
+> "Give her whatever homemade food you guys are eating. **That's way more nutritious & healthy
+> than store bought catfood.**" 🇧🇩
+
+> "My mom had 12 cats herself, all rescued. We used to feed them boiled fish with rice, sun dried
+> fish, meat & sometime catfood." 🇧🇩
+
+> "Boiled chicken boiled fish boiled mishti kumra and boil korar extra Pani jeta oitao aar bhaat." 🇧🇩
+
+> "Feed boiled chicken, fish, kolija with vegetables along with occasional tokdoi and egg yolk." 🇧🇩
+
+And the one that shows the way in:
+
+> "**Baar Baar Khabar gorom kora jhamela dekhe I switched to dry catfood** Bangladeshi akta brand
+> ache chonk super affordable (1.5 kg 500taka)" 🇧🇩
+> *(Seeing the hassle of heating up food again and again, I switched to dry cat food.)*
+
+**Convenience is what moves people off homemade. Not nutrition.** She did not switch because
+someone convinced her boiled fish was bad. She switched because reheating food twice a day is
+exhausting. Argue nutrition and you lose; sell the end of the daily hassle and you win. Note
+she landed on Chonk, so this is a live battle we are currently losing.
+
+### On dry food being bad for them
+
+> "Catfood is bad in their health, especially kebbles." 🇧🇩
+
+> "Cat parents say dry food is objectively bad because many cats struggle to drink water
+> independently and suffer dehydration related problems." 🇧🇩
+
+### On cheap brands, and this is a gift
+
+> "**Anything but Fluffy. Fluffy's cheap for a reason.** You'd hear so many complaints about
+> Fluffy causing digestive and UTI problems in cats." 🌏
+
+> "never go for whiskas" 🇧🇩
+
+> "these brand foods are deliberately made to make the pets **addicted**. Especially whiskas." 🌏
+
+> "**DO NOT compromise on the quality of cat food.** If there's one thing you cannot save money
+> on it is cat food, since all the cheaper brands in the market are known to cause health
+> problems (like kidney stones, chronic kidney disease, uti etc) so they will ultimately only
+> **increase the amount you have to spend on vet bills** by a large amount." 🌏
+
+The market has already built our argument against the ৳330/kg tier, and it is far harsher than
+anything we could say ourselves. **Never name a competitor. Just make the vet-bill maths
+visible** and let the audience finish the sentence.
+
+### On the specialised-diet gap
+
+> "But there's barely any renal cat food available Bangladesh." 🇧🇩
+
+> "The only one available is royal canin, but its way out of my budget currently." 🇧🇩
+
+> "The vet specifically told to feed gastrointestinal cat food, so right now the brand is buy is
+> royal canin, is it available in bangladesh" 🇧🇩
+
+Vets prescribe. Owners hunt. Nothing is in stock. **This is the purple ocean stated out loud,
+three times, by three different people.**
+
+### On why they have a cat at all
+
+> "Emotional support. Human beings might leave you one day, pets would never." 🌏
+
+---
+
+## 5.2C The affluent segment, found: Persian and pedigree owners
+
+Z asked where the money is. This is where.
+
+> "Royal Canin is usually the best choice for pets if you can afford it." 🌏
+
+> "Stick to good brands like Matisse, N&D, Sheba, Applaws, Schesir" 🌏
+
+> "And Vet cost, Hygiene, food, everything goes **over 5k a month**." 🇧🇩
+
+> "Our cat is a Persian, he's very different than other cats. **Very choosy of what he will
+> eat.**" 🌏
+
+> Persians' "long coats necessitate specific dietary considerations like **anti-hairball
+> formulas**"
+
+Three things follow, and they are all good for us.
+
+1. **This buyer spends 5,000+/month and buys on vet-bill avoidance, not on price.** Their
+   stated logic is that cheap food costs more later. That is our argument, already believed.
+2. **Persians map exactly onto three SKUs we stock and nobody advertises:** Choosy (they are
+   famously fussy), Hairball and Skin & Coat (long coat, constant shedding, daily hairballs).
+   This is the single tightest product-to-buyer fit in the whole catalogue.
+3. ⚠️ **But it repositions us.** In this buyer's hierarchy the top is Royal Canin and Farmina,
+   and **Reflex sits below them.** We are not the premium splurge. We are the **sensible
+   step-up: vet-grade nutrition without Royal Canin money.** That frame is credible, defensible,
+   and much stronger than "premium," which we cannot win against Royal Canin and do not need to.
+
+**Royal Canin Persian at roughly ৳2,500–3,000/kg makes our ৳793/kg look cheap.** Every price
+comparison we have run so far has been against the ৳1,050 shops, which is the fight we lose.
+Against Royal Canin we are the value option. **Choose the comparison.**
+
+---
+
+### What all of this changes
+
+1. **Trust is now priority one, ahead of price and ahead of creative.** We fail this market's
+   scam checklist on nearly every line. Fixing it is cheap. See 7.5.
+2. **The Persian and pedigree owner is the affluent buyer** Z was looking for, and they need
+   Choosy, Hairball and Skin & Coat, which are three of our four scarcest SKUs.
+3. **Reposition from "premium" to "vet-grade without Royal Canin money."** Compare upward to
+   Royal Canin, never sideways to the ৳1,050 shops.
+4. **Convenience beats nutrition against homemade.** Sell the end of reheating, not the science.
+5. **Cheap food causing UTI is already believed.** Never attack a brand. Show the vet bill.
+6. **"Stock up when you find them" is our 3-pack**, in a customer's own words.
+7. **Renal and gastrointestinal are stated unmet needs** and we stock neither. Ask the supplier
+   what a Reflex veterinary line would cost. The market is asking out loud and nobody answers.
+8. **RedX is disliked by exactly our buyer.** Over-communicate delivery.
 
 ## 5.3 Tone rules for this audience
 
@@ -577,6 +766,9 @@ refused parcel, and a refused parcel costs us the full outbound courier.
 - **Force:** highest. It is true, verifiable in two clicks, and three shops genuinely have it.
 - **Answer:** availability, not quality. Of 90 listings across 12 shops, 47 are in stock. The
   cheapest ones are usually the dead ones. Say it plainly: it is only cheaper if they have it.
+- **Better still, move the comparison.** Against the ৳1,050 shops we are expensive. Against
+  Royal Canin at ~৳2,500/kg we are the sensible choice. Never volunteer the comparison that
+  loses.
 - **Never:** claim ৳1,450 is a competitor price. It is our own regular price. *(`PRICING.md`)*
 
 **2. "অরিজিনাল তো?"** *(Is it genuine?)*
@@ -587,7 +779,7 @@ refused parcel, and a refused parcel costs us the full outbound courier.
 
 **3. "আমার বিড়াল খাবে কিনা?"** *(Will my cat even eat it?)*
 - **Force:** very high, and it scales with the price. Risking ৳1,190 on a cat who may refuse is
-  the core hesitation, and it is worse on the ৳3,570 3-pack.
+  the core hesitation, and it is worse on the ৳3,390 3-pack.
 - **Answer:** this needs a mechanism, not a sentence. Options in order of cost:
   a) the 400g ৳320 bag as a **try-first add-on** at checkout (never as the ad),
   b) an explicit first-bag promise,
@@ -596,11 +788,12 @@ refused parcel, and a refused parcel costs us the full outbound courier.
 - ⚠️ **Open decision for Z.** A first-bag guarantee is the single highest-leverage offer change
   available and it is not in `PRICING.md`. See 7.4.
 
-**4. "৩,৫৭০ টাকা একসাথে?"** *(৳3,570 all at once?)*
+**4. "৩,৩৯০ টাকা একসাথে?"** *(৳3,390 all at once?)*
 - **Force:** high on cold traffic. That is more than a month's food budget for most of this
   audience, paid in cash at the door.
 - **Answer:** reframe from price to time. It is not a big purchase, it is three months of not
-  worrying, at ৳1,190 a month. Show the per-month number next to the total.
+  worrying, at **৳1,130 a month** — less than the ৳1,190 they pay for one bag today. Show the
+  per-month number next to the total.
 
 **5. "Chonk তো ৳৪৯৯, আপনি ৳১,১৯০ কেন?"** *(Chonk is ৳499, why are you ৳1,190?)*
 - **Force:** high and rising as Chonk expands to 300 outlets.
@@ -643,6 +836,14 @@ refused parcel, and a refused parcel costs us the full outbound courier.
   urinary disease *(AVMA)*. So agree, then solve: always pair a fresh water bowl in the creative,
   and let the **Urinary recipe exist as proof we take it seriously.** A brand that admits the
   risk and sells the fix is more credible than one that denies it.
+
+**11. "এটা স্ক্যাম না তো?"** *(This isn't a scam, is it?)* 🚨
+- **Force:** **highest of all, and we had it ranked last.** This market's default assumption is
+  fraud, and a refused COD parcel costs us the full outbound courier, so this objection is
+  expensive in a way the others are not.
+- **Answer:** the full checklist in **7.5**. Short version: a phone number, "pay only when it
+  is in your hands," "check the seal before you pay," real photos, a real Instagram, and delete
+  the invented star ratings.
 
 ## 6.2 The objection nobody says out loud
 
@@ -694,7 +895,7 @@ One ad per symptom, each naming it in the first three words. She self-identifies
 **Concept 2 — The stock-out (the brand position)**
 The one thing 12 resellers structurally cannot say.
 - "যে খাবারটা ও খায়, সেটাই তো পাওয়া যায় না।" (The food she eats is the one you can't find.)
-- Lead the 3-Month Supply. Three months, one order, no hunting. ৳3,570, ৳1,190 a month.
+- Lead the 3-Month Supply. Three months, one order, no hunting. ৳3,390, ৳1,130 a month.
 - This is our margin-best SKU and this is the honest reason to buy it.
 
 **Concept 3 — New kitten**
@@ -704,8 +905,10 @@ Highest lifetime value, and the buyer most willing to pay for reassurance.
 
 ## 7.3 Hard rules for creative
 
-- **Lead the 3-pack or a problem. Never a plain bag of food.** A single ৳1,190 bag needs 4.7x
-  ROAS on cold traffic. That is close to unwinnable. The 3-pack needs 4.8x for triple the money.
+- **Lead the 3-pack or a problem. Never a plain bag of food.** A single ৳1,190 bag returns
+  ৳254 of contribution per order. The 3-pack returns **৳588 — 2.3× as much for the same ad
+  cost**, which is the whole argument. (Its break-even *ratio* is 5.8x against the single's
+  4.7x. Ignore the ratio: you pay per order acquired, not per taka of revenue.)
 - **The single 1.5 kg bag is a remarketing and refill SKU, not a cold-traffic offer.** It is
   what you sell to someone who already bought, not what you buy a stranger with.
 - **We are the pharmacy, not the pet shop.** Every competitor is a shop selling everything.
@@ -724,14 +927,37 @@ Highest lifetime value, and the buyer most willing to pay for reassurance.
 
 ## 7.4 Three decisions this research surfaces for Z
 
-1. **The 3-pack is currently Adult Chicken only.** Every problem-first ad points at a recipe the
-   3-pack cannot fulfil. Making it a recipe-choice variant is a ten-minute change *(`PRICING.md`)*
-   and it unlocks the highest-margin SKU for the highest-intent traffic. **Recommend doing it.**
+1. ~~**The 3-pack is currently Adult Chicken only.**~~ ✅ **Done 2026-07-27.** It now has five
+   recipe variants — Adult Chicken, Kitten Chicken, Urinary Chicken, Hairball Salmon,
+   Sterilised Chicken — so every symptom-first angle has a 3-pack to land on. Three identical
+   bags per pack, never mixed. Price moved ৳3,570 → ৳3,390 at the same time, to put a real
+   ৳180 saving behind the bundle *(`PRICING.md`)*.
 2. **No risk reversal exists.** A first-bag promise or a cheap try-first add-on answers the
    category's biggest objection. **Recommend a first-bag promise on the single 1.5 kg only**,
    not on the 3-pack, so the downside is capped at ৳840 of cost per claim.
 3. **Segment C is a money pit.** Confirm we are not targeting multi-cat rescuers or advertising
    the 15 kg. Currently correct in `PRICING.md`. Keep it that way.
+
+## 7.5 🚨 The trust checklist (do this before spending a taka)
+
+Bangladeshi shoppers open every new online store expecting a scam: *"If I buy online, I will
+probably get scammed."* Ad spend into a store that fails their checklist is money set on fire.
+Cheapest fixes first.
+
+| Fix | Why | Effort |
+|---|---|---|
+| **Phone number + WhatsApp visible on site and in every ad** | The single strongest legitimacy signal in this market. Scammers do not answer phones. | minutes |
+| **"Pay only when it is in your hands"** stated explicitly | They insist on COD anyway. Say it first and it converts from a payment method into a promise. | minutes |
+| **"Check the seal before you pay"** | Answers the counterfeit fear with zero cost to us, and no scammer would ever offer it. | minutes |
+| **Kill the hardcoded star ratings** | 4.9★ (312 reviews) on a store that has not sold 312 bags is the exact "fake product photos, misleading descriptions" pattern they are trained to spot. If one customer works out we invented them, that is the story. | small |
+| **Real photos: the actual bag, the actual parcel, a real Dhaka doorstep** | Everyone uses supplier stock images. Anything visibly real beats a render. | small |
+| **Fix the domain** (`meowbellle.shop`, three L's) | A misspelled domain is a scam tell. `meowbelle.shop` was still available. | small |
+| **Instagram with real posts and real replies before ads run** | First thing they check after clicking. An empty grid kills it. | ongoing |
+| **Set delivery expectations: window, courier, confirmation call** | RedX is specifically distrusted "when ordering from independent pages." | small |
+
+⚠️ **The star ratings are the urgent one.** Every other item is a missing signal; that one is
+an active liability, and it sits on a site aimed at a market whose defining complaint is being
+misled by online sellers.
 
 ---
 
@@ -750,6 +976,8 @@ positions:
 > advertising to the person who needs it. That's a double moat."
 
 **Agrees on leading the 3-pack, and kills the price-shock worry.**
+*(Quoted as said, on 2026-07-27, when the 3-pack was ৳3,570. It is ৳3,390 now — the argument
+is unaffected.)*
 > "The concern about ৳3,570 being a big first purchase in a COD market is real but overblown
 > when you're selling to the problem-specific buyer… The urgency of the health problem collapses
 > the price sensitivity. You're not asking someone to spend ৳3,570 on cat food. You're asking
@@ -838,6 +1066,16 @@ Be honest about these. They are the weak points in this document.
 ---
 
 ## Changelog
+- **2026-07-27 (later) — Reddit voice-of-customer added, three findings changed the plan.**
+  Z supplied real owner quotes across 8 targeted questions. New: **(1)** the scam-perception
+  problem, now the top conversion risk and a new Part 7.5 trust checklist; **(2)** the
+  **Persian / pedigree owner** as the affluent segment, added as Segment D, which also
+  repositions us from "premium" to "vet-grade without Royal Canin money"; **(3)** convenience,
+  not nutrition, is the wedge against homemade food. Also: RedX is specifically distrusted by
+  our buyer, owners name **Reflex Plus Urinary by SKU** for urinary problems unprompted, and
+  "stock up when you find them" turns out to be a coping strategy customers already describe,
+  which is the 3-Month Supply. All quotes tagged 🇧🇩 (Bangladeshi) or 🌏 (regional, directional
+  only) because Reddit's summariser silently mixes in r/pakistan and r/indiasocial.
 - **2026-07-27** — created. First ICP research for Meow Belle. Supersedes the single-line
   audience note in `STATIC-ADS-BRIEF.md` ("BD cat parents, young, urban, IG-active, care about
   quality"), which was an assumption, not research.

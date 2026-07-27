@@ -5,6 +5,99 @@
 
 ---
 
+## 2026-07-27 (later) — The 3-pack becomes a real product
+
+The morning's 3-pack was a placeholder: one recipe, one borrowed photo, and a price with no
+reason behind it. This is the build.
+
+### Price: ৳3,570 → ৳3,390, was ৳4,140
+
+At ৳3,570 the pack cost **exactly** three singles. There was no saving, so there was no
+reason for it to exist. ৳3,390 puts **৳180** behind it, and ৳4,140 keeps the compare-at at
+18.1% off, in line with the sitewide 18%.
+
+⚠️ **That ৳180 is not free.** It cost **৳153 of contribution** (৳741 → ৳588) and pushed
+break-even from 4.8x to 5.8x — worse, as a ratio, than a single bag's 4.7x. The ratio is the
+wrong lens: ad cost is per *order*, and the pack still returns **2.3× a single bag's ৳254**.
+Judge it on taka per acquired order. Flagged in `PRICING.md` and `ICP-RESEARCH.md`, because
+the research leans on the old 4.8x figure in three places.
+
+### Five recipes, three identical bags in each
+
+Adult Chicken, Kitten Chicken, Urinary Chicken, Hairball Salmon, Sterilised Chicken. Same
+price across all five.
+
+**Never mixed.** Cats have sensitive stomachs and switching food causes upset, so a variety
+pack would work against the product.
+
+This closes the biggest hole the ICP research found: every symptom-first ad angle pointed at
+a recipe the 3-pack could not fulfil. There was nowhere for the highest-intent traffic to
+land. There is now.
+
+Nutrition is **pulled from the matching 1.5 kg product** rather than copied — each variant
+carries a `recipe` key, and both the PDP and the import CSV read through it. The bundle page
+cannot quote a figure the single does not.
+
+### The three-month claim, made defensible
+
+An adult cat of about 4 kg eats around 50 g of dry food a day, so 4,500 g is roughly 90 days.
+Two cats, about six weeks. **Reflex Plus does not publish its gram chart online** — it is
+printed on the pack — so the copy says "roughly" and sends the customer to the pack.
+⚠️ Confirm the printed chart before this goes into paid claims.
+
+### Free delivery, and the ৳70 that nearly leaked
+
+The pack is one line item, so the "minimum 2 items" discount missed it — the page promised
+free delivery and the cart would have charged ৳70. Rather than reword the offer, it gets a
+**second automatic discount scoped to that one product**, with the same "exclude rates over
+৳100" clause that protects the heavy-bag margin. The static cart already behaves correctly
+(`freeShipSolo`). **The Shopify-admin half is not done — recipe in `README.md`.**
+
+### Four images, composited not shot
+
+`build_3pack_images.py` builds all four from the catalogue photos: hero (three staggered
+bags, flat "3 MONTHS" seal), value proof, scale (one bag against an illustrated bowl and
+scoop), and a typographic stock-out card that doubles as ad creative. Warm off-white, soft
+top-left key, one grounded contact shadow per bag.
+
+**No cat appears in any of them,** because we have no rights to a cat photograph and will not
+use stock. The bowl and scoop are our own flat line drawing, deliberately illustrative.
+
+The stock-out card says *"We checked 90 cat food listings across Dhaka's pet shops. 47 were
+out of stock"* rather than the rounder "half of Dhaka". That is the counted figure from
+`ICP-RESEARCH.md`, and being specific is both more honest and harder to wave away.
+⚠️ It is one snapshot on one day — re-count before it carries real spend.
+
+### The import CSV is now generated, not written
+
+`build_shopify_import.py` reads `products.js` and emits the CSV. Verified to reproduce all
+21 pre-existing product rows **byte for byte** before the 3-pack rows were added, so the
+change is provably isolated. Image `?v=` cache-busters now come from each file's own mtime
+instead of a hand-typed date. **Never hand-edit the CSV again.**
+
+### Sheet and theme
+
+The [pricing sheet](https://docs.google.com/spreadsheets/d/1kIRTEs1shx3eyMrspgb5EhHGqAS8uJjUwts108gd_S0/edit)
+is updated on both tabs — the hero row is now the **free-delivery** case (the live one) with
+the ৳70 case kept below it as a comparison, and the row carries a hover note covering the
+recipes, the ৳180, the RTO model and the manual stock. Snapshot exported as
+`Pricing Workshopping/6.csv`.
+
+The PDP trust block now shows *"Free delivery inside Dhaka, always"* on the bundle and the
+normal ৳70 line everywhere else. **Not pushed to the live theme** — Shopify-side changes are
+Z's to make. Three of them are outstanding: import the CSV, add the product-scoped discount,
+push the theme.
+
+### A ৳10 disagreement, left visible on purpose
+
+The brief quoted ৳598 / ৳657 for the 3-pack; the sheet and `PRICING.md` say ৳588 / ৳648.
+Neither is wrong. The brief values a returned parcel at **1×** the courier fee, every other
+row values it at **1.5×**. Ten taka an order changes nothing, but a table has to use one
+model or its rows stop being comparable, so the conservative one already applied to the
+other 21 rows wins. Both figures are noted on the sheet row.
+
+---
+
 ## 2026-07-27 — Repricing, offer, Dhaka-only launch, 3-pack
 
 The largest change since the store went live. Four rounds in one day, each correcting the
@@ -85,7 +178,7 @@ to 5%, and the customer covers ৳150 of a ৳250 run.
 **"Meow Belle 3-Month Supply" — 3 × 1.5 kg at ৳3,570** (was ৳4,350). Exactly three singles,
 so the 18% holds. Built as one product with its own page. At 4.5 kg it still ships RedX
 (৳125) and earns **৳741 at a 4.8x break-even** — nearly 3× a single bag's contribution for
-about the same ad cost.
+about the same ad cost. *(Superseded the same day — see the entry above.)*
 
 Now the primary advertised product alongside the 1.5 kg single. **The 15 kg is listed but
 never advertised.**
@@ -139,11 +232,6 @@ Each was checked against the stated assumptions and corrected:
 - **Shopify cannot restrict to Dhaka city** — its region list offers Bangladesh only, with
   no divisions or postcodes. Checkout is technically open nationwide. Needs a checkout-rules
   app, or manual cancellation at launch volume.
-- **The 3-pack is one line item**, so it does not meet "minimum 2 items" and a lone 3-pack
-  pays ৳70. But the site says "free on 2 bags or more" and it *is* three bags. Decide:
-  second discount scoped to that product (contribution ৳741) or reword the offer.
-- 3-pack is Adult Chicken only and reuses that product's photo — wants a real 3-bag shot,
-  and possibly recipe variants.
 - Currency format still displays `Tk … BDT`.
 - WhatsApp day-24 reorder nudge not built.
 

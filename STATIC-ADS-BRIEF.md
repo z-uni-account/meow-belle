@@ -149,5 +149,7 @@ Each ad = one JSON object. Produce arrays of these.
 - **Dhaka city only.** Never claim nationwide delivery. Target Dhaka city in Meta.
   ⚠️ Checkout is **not** technically blocked outside Dhaka — Shopify cannot geo-restrict
   below country level — so sloppy targeting produces orders we cannot fulfil. See README.
-- **Lead with the 3-pack** (৳3,570, was ৳4,350) or the 1.5 kg single (৳1,190, was ৳1,450).
+- **Lead with the 3-pack** (৳3,390, was ৳4,140 — ৳1,130 a month) or the 1.5 kg single
+  (৳1,190, was ৳1,450). The 3-pack comes in five recipes, so a symptom-first ad can point
+  straight at it: urinary, hairball, kitten, sterilised, or plain adult chicken.
   **Never advertise the 15 kg** — it stays listed for people who go looking for it.

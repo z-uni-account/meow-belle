@@ -35,9 +35,23 @@
   {%- endif -%}
 </div>
 
+{%- comment -%}
+  The 3-Month Supply is one line item but three bags, so the "2 bags or more" rule
+  misses it and it carries its own product-scoped free-shipping discount instead.
+  Its delivery line has to say so, or the page promises what the cart won't give.
+  See README.md for the admin setup.
+{%- endcomment -%}
+{%- assign is_bundle = false -%}
+{%- if product.handle == 'meow-belle-3-month-supply' -%}{%- assign is_bundle = true -%}{%- endif -%}
+
 <div class="mb-trust">
-  <div><span class="t-ic">🚚</span> Free delivery on 2 bags or more</div>
-  <div><span class="t-ic">📍</span> Dhaka city only · ৳70 flat delivery</div>
+  {%- if is_bundle -%}
+    <div><span class="t-ic">🚚</span> Free delivery inside Dhaka, always</div>
+    <div><span class="t-ic">📍</span> Dhaka city only · 3–5 working days</div>
+  {%- else -%}
+    <div><span class="t-ic">🚚</span> Free delivery on 2 bags or more</div>
+    <div><span class="t-ic">📍</span> Dhaka city only · ৳70 flat delivery</div>
+  {%- endif -%}
   <div><span class="t-ic">🛵</span> Large bags (8 kg &amp; 15 kg) delivered by our own team inside Dhaka, ৳150, 2 working days</div>
   <div><span class="t-ic">↩️</span> 30-day happy-cat guarantee</div>
   <div><span class="t-ic">🩺</span> Vet-formulated recipe</div>

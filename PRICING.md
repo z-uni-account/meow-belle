@@ -94,19 +94,39 @@ Sterilised **Salmon** 15 kg at ৳7,200, out of stock.)
 
 ### The 3-pack is the hero SKU
 
-**"Meow Belle 3-Month Supply — 3 × 1.5 kg" at ৳3,570 (was ৳4,350).** Exactly three
-singles, so the 18% still holds, and it is built as **one product with its own page**,
-not three units in a cart.
+**"Meow Belle 3-Month Supply — 3 × 1.5 kg" at ৳3,390 (was ৳4,140).** Built as **one
+product with its own page**, not three units in a cart.
 
-It is now the **primary advertised product alongside the 1.5 kg single**. At 4.5 kg it
-still ships RedX (৳125), and it earns **৳741 at a 4.8x break-even** — nearly three
-times the contribution of a single bag for essentially the same ad cost.
+**It exists to have a reason to exist.** Three singles cost ৳3,570, so the pack saves
+**৳180**. Without that gap it is just a bigger basket with extra steps. ৳3,390 against
+a ৳4,140 compare-at is 18.1% off, in line with the sitewide 18%.
+
+**Five recipe variants, three identical bags in each.** Adult Chicken, Kitten Chicken,
+Urinary Chicken, Hairball Salmon, Sterilised Chicken. Same price across all five.
+**Never a mixed selection** — cats have sensitive stomachs and switching food causes
+upset, so a variety pack would work against the product. It is also what makes the
+symptom-first ad angles land: an ad about urinary trouble now has a 3-pack to point at.
+
+It is the **primary advertised product alongside the 1.5 kg single**. At 4.5 kg it
+still ships RedX (৳125).
 
 **The 15 kg is not advertised.** It stays listed for people who go looking for it.
 
-⚠️ **Open:** the 3-pack is currently three bags of Adult Chicken. If it should let the
-customer pick a recipe, that is a variant list, not a new product — say so and it is a
-ten-minute change. It also reuses the Adult Chicken photo and wants a real 3-bag shot.
+**Three months, and why that is defensible.** An adult cat of about 4 kg eats in the
+region of 50 g of dry food a day, so 4,500 g is roughly 90 days. Two cats, about six
+weeks. Reflex Plus does not publish its gram chart online — it is printed on the pack —
+so every claim is worded as "roughly" and points the customer at the pack.
+⚠️ **Confirm the printed chart before this goes into paid claims.**
+
+**Inventory is manual.** The pack is a bundle of existing 1.5 kg stock, but Shopify has
+no inventory tracker on it, so it can never show as sold out and it does not decrement
+the singles. At launch volume that is fine. Wire it to decrement three units of the
+matching 1.5 kg SKU per sale before volume makes hand-counting unsafe.
+
+**Free delivery, and what that cost.** The pack is one line item, so the "2+ items"
+rule missed it. Rather than reword the offer, it gets a **second automatic free-shipping
+discount scoped to that product** — the site says free delivery, so the cart has to
+agree. That is the ৳588 line in the contribution table, not the ৳648 one.
 
 ---
 
@@ -126,7 +146,7 @@ Two methods, split by parcel weight. Real RedX rates, not estimates.
 |---|---|---|
 | **Carrier** | RedX | Our own rider, Dhaka only |
 | **Customer pays** | **৳70 flat** | **৳150** |
-| **Free delivery** | **On 2+ items** | Never |
+| **Free delivery** | **On 2+ items, or the 3-pack alone** | Never |
 | **Our cost** | ৳65 at 1 kg, +৳15/kg | ~৳250 |
 | **COD fee** | 0% inside Dhaka | none, we collect cash directly |
 | **RTO** | 15% | ~5%, because every heavy order gets a phone call first |
@@ -135,7 +155,10 @@ Two methods, split by parcel weight. Real RedX rates, not estimates.
 weight-banded options — *Standard delivery* 0–5.0 kg at ৳70, and *Large bag - delivered by
 our own team* 5.01 kg+ at ৳150. The automatic discount *"Free delivery on 2 bags or more"*
 requires a minimum **quantity of 2 items** and **excludes shipping rates over ৳100**, so the
-rider rate can never be discounted to free.
+rider rate can never be discounted to free. A second automatic discount, *"Free delivery on
+the 3-Month Supply"*, is scoped to that one product at minimum quantity 1 and carries the
+**same ৳100 rate exclusion**. Both exclusions protect the heavy-bag margin. **Do not remove
+either.**
 
 ⚠️ **Shopify cannot geo-restrict to Dhaka.** Its region list offers Bangladesh as a whole
 country only, so checkout is technically open nationwide. Dhaka-only is enforced by Meta
@@ -168,8 +191,22 @@ Product-page wording for heavy bags, as agreed:
 | 1 × 1.5 kg | ৳1,190 | ৳254 | 21.3% | 4.7x |
 | 2 × 1.5 kg, charging delivery | ৳2,380 | ৳535 | 22.5% | 4.4x |
 | 2 × 1.5 kg, free delivery | ৳2,380 | ৳476 | 20.0% | 5.0x |
-| **3-pack, charging delivery** | ৳3,570 | ৳801 | 22.4% | 4.5x |
-| **3-pack, free delivery** | ৳3,570 | **৳741** | 20.8% | **4.8x** |
+| 3-pack, charging delivery | ৳3,390 | ৳648 | 19.1% | 5.2x |
+| **3-pack, free delivery (live)** | ৳3,390 | **৳588** | 17.3% | **5.8x** |
+
+⚠️ **The brief quoted ৳598 and ৳657 for the 3-pack, and the difference is not an error
+in either.** Those figures value a returned parcel at **1×** the courier fee; every row
+in this table and in the sheet values it at **1.5×**, on the basis that the return leg
+costs more than the delivery. That is ৳10 an order, so it changes nothing — but the
+table has to use one model or the rows stop being comparable, and 1.5× is the
+conservative one already applied to the other twenty-one rows.
+
+⚠️ **Read the 3-pack on contribution, not on break-even ROAS.** Dropping the price
+৳3,570 → ৳3,390 to create the ৳180 saving cost ৳153 of contribution, and pushed
+break-even from 4.8x to **5.8x — worse than a single bag's 4.7x**. That ratio is the
+wrong lens here. Advertising costs roughly the same per order either way, and the 3-pack
+returns **2.3× the contribution of a single bag** (৳588 against ৳254), so it can absorb
+a CAC more than twice as large. Judge it on taka per acquired order.
 
 **Heavy SKUs** — own rider ৳250, customer pays ৳150, no COD fee, RTO 5%:
 
