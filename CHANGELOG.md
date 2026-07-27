@@ -84,9 +84,25 @@ recipes, the ৳180, the RTO model and the manual stock. Snapshot exported as
 `Pricing Workshopping/6.csv`.
 
 The PDP trust block now shows *"Free delivery inside Dhaka, always"* on the bundle and the
-normal ৳70 line everywhere else. **Not pushed to the live theme** — Shopify-side changes are
-Z's to make. Three of them are outstanding: import the CSV, add the product-scoped discount,
-push the theme.
+normal ৳70 line everywhere else.
+
+### Shipped to the live store the same day
+
+All three admin steps are done and verified on the storefront:
+
+1. **CSV imported** with overwrite — Shopify's own preview confirmed 14 products / 26 SKUs /
+   17 images, matching the generator exactly. All five variants live at ৳3,390.
+2. **Theme pushed** to *Meow Belle Port* `#141067386942`.
+3. **Second free-delivery discount created** — and it could not be built the way the plan
+   said. **Shopify's free-shipping discount has no product scoping**; the only conditions
+   are country, minimum purchase amount and minimum quantity. So it runs on a **৳3,000
+   minimum**, which is equivalent here: the 3-pack at ৳3,390 is the only single item on the
+   store that reaches it, and any multi-item basket over ৳3,000 already qualified under the
+   2-item rule. Two 3-packs weigh 9 kg, and the ৳100 rate exclusion blocks that from ever
+   going free. ⚠️ Re-check this rule if a light SKU above ৳3,000 is ever added.
+
+Storefront verified: hero with the seal, five recipe pills, ৳4,140 struck through against
+৳3,390, and *"Free delivery inside Dhaka, always"* on the bundle only.
 
 ### A ৳10 disagreement, left visible on purpose
 

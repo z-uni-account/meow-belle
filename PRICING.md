@@ -156,9 +156,10 @@ weight-banded options — *Standard delivery* 0–5.0 kg at ৳70, and *Large ba
 our own team* 5.01 kg+ at ৳150. The automatic discount *"Free delivery on 2 bags or more"*
 requires a minimum **quantity of 2 items** and **excludes shipping rates over ৳100**, so the
 rider rate can never be discounted to free. A second automatic discount, *"Free delivery on
-the 3-Month Supply"*, is scoped to that one product at minimum quantity 1 and carries the
-**same ৳100 rate exclusion**. Both exclusions protect the heavy-bag margin. **Do not remove
-either.**
+the 3-Month Supply"*, catches the 3-pack at a **minimum purchase of ৳3,000** and carries the
+**same ৳100 rate exclusion**. (Shopify free-shipping discounts cannot be scoped to a product
+— ৳3,000 is the equivalent, because the 3-pack is the only single item that reaches it. See
+`README.md`.) Both exclusions protect the heavy-bag margin. **Do not remove either.**
 
 ⚠️ **Shopify cannot geo-restrict to Dhaka.** Its region list offers Bangladesh as a whole
 country only, so checkout is technically open nationwide. Dhaka-only is enforced by Meta

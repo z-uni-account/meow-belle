@@ -39,7 +39,8 @@ competitor intel — read first for anything ads or copy**) · **`PRODUCTS.md`**
 ### Open todos
 
 **✅ Configured in the Shopify admin on 2026-07-27:**
-- **Products imported** by Z. Live prices confirmed (৳1,190 / ৳1,450 etc.).
+- **Products imported.** Latest import 2026-07-27 (later): 14 products / 26 SKUs / 17 images,
+  overwrite ticked. All 3-pack variants live at ৳3,390 against a ৳4,140 compare-at.
 - **Shipping rates** — profile *General profile* → zone *Domestic (Bangladesh)*:
   | Option | Weight | Price | Transit |
   |---|---|---|---|
@@ -53,19 +54,19 @@ competitor intel — read first for anything ads or copy**) · **`PRODUCTS.md`**
   ৳100"** so the ৳150 rider rate can never become free. That exclusion is what protects
   the heavy-bag margin — do not remove it.
 
-**⚠️ NEEDS ONE ADMIN CHANGE — the 3-pack's free delivery:**
-The 3-Month Supply is **one line item**, so the "minimum 2 items" rule misses it, but its
-page and its images promise free delivery and its margin is modelled on free delivery.
-Add a **second automatic discount** in the Shopify admin:
-  | Field | Value |
-  |---|---|
-  | Type | Automatic → Free shipping |
-  | Title | Free delivery on the 3-Month Supply |
-  | Applies to | Specific products → *Meow Belle 3-Month Supply* |
-  | Minimum | Quantity of items = **1** |
-  | Exclude shipping rates over | **৳100** (mandatory — same reason as above) |
-Until this exists the cart charges ৳70 on a lone 3-pack and the page is lying. The static
-site already behaves correctly (`freeShipSolo` in `products.js`).
+- **Second free-delivery discount** — *"Free delivery on the 3-Month Supply"*, automatic,
+  free shipping, **Bangladesh only**, **minimum purchase ৳3,000**, **excludes shipping
+  rates over ৳100**. Active.
+
+  **Why a ৳3,000 minimum and not "specific products".** Shopify's free-shipping discount
+  has no product scoping at all — the only conditions available are country, minimum
+  purchase amount and minimum quantity. ৳3,000 is equivalent in practice: the 3-pack at
+  ৳3,390 is the **only single item on the store that reaches it** (the next-dearest light
+  item is a ৳1,190 bag), and any multi-item basket over ৳3,000 already qualified under the
+  2-item rule. Two 3-packs come to 9 kg, which is a ৳150 rider rate, and the ৳100
+  exclusion blocks that. **Do not remove the ৳100 exclusion.**
+
+  ⚠️ If a light SKU above ৳3,000 is ever added, this rule catches it too. Re-check then.
 
 **⚠️ STILL NEEDS A DECISION — Shopify cannot restrict to Dhaka city:**
 Shopify's region picker offers **Bangladesh as a whole country only**; there are no

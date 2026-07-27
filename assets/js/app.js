@@ -120,8 +120,9 @@
     const heavy = kg > C.redxMaxKg;
     // The 3-pack is ONE line item but three bags, so the 2-item rule would miss it
     // and the product page would be promising delivery the cart never gives. Products
-    // flagged `freeShipSolo` qualify on their own; Shopify mirrors this with a
-    // second automatic free-shipping discount scoped to that product. See README.md.
+    // flagged `freeShipSolo` qualify on their own; Shopify mirrors this with a second
+    // automatic free-shipping discount at a ৳3,000 minimum, which the 3-pack is the
+    // only single item to reach (Shopify cannot scope one to a product). See README.md.
     const soloFree = cart.some((l) => (getProduct(l.id) || {}).freeShipSolo);
     const freeShip = !heavy && (soloFree || count >= C.freeShipMinItems);
     const ship = count === 0 ? 0 : heavy ? C.shipHeavy : freeShip ? 0 : C.shipLight;
