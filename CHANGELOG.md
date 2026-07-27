@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-07-28 — Currency settled on Tk
+
+**Prices now render `Tk 3,390`, not `Tk 3,390.00`.** All four Shopify currency formats moved
+from `{{amount}}` to `{{amount_no_decimals}}`; the symbol stays **Tk**. Nothing in this
+market is priced in paisa, so the trailing `.00` was pure noise on every price on the site.
+
+**The plan to switch everything to `৳` is dead.** It had been sitting in the open todos since
+launch. Z's call is Tk.
+
+⚠️ **That leaves two currency symbols on one page.** Shopify prices say `Tk 3,390`; our own
+copy still says `৳70`, `৳150`, `৳180`. Copy is the side that is now out of step. Not swept,
+because it also means rebuilding the value-proof image, which has `৳4,140 / ৳3,390` baked
+into the artwork — about 8 strings plus one image rebuild. Sized in `README.md`. **Do it in
+one pass or not at all**; half-swept looks worse than either symbol used consistently.
+
+---
+
 ## 2026-07-27 (later still) — 3-pack page: per-recipe details, urgency, plainer copy
 
 ### Details now follow the recipe you pick

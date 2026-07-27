@@ -82,8 +82,12 @@ Until one of these is in place, "Dhaka city only" is a marketing and ops rule, n
 technical one.
 
 **Everything else:**
-- **Currency format** → Settings → General → Currency formatting → `৳{{amount_no_decimals}}`
-  so prices read `৳1,190` not `Tk 1190.00 BDT`. Still outstanding.
+- ⚠️ **Two currency symbols on the same page.** Shopify prices render **`Tk 3,390`** while our
+  own copy is written with **`৳`** (`৳70`, `৳150`, `৳180`). Z's call is **Tk**, so the copy is
+  the side that is out of step. Not swept yet, because it also means rebuilding
+  `meow-belle-3-month-supply-2-value.png`, which has `৳4,140 / ৳3,390` baked into the artwork.
+  Roughly 8 strings across `products.js`, `mb-pdp-trust.liquid`, `mb-values.liquid`, plus one
+  image rebuild. Do it in one pass or not at all — half-swept is worse than either.
 - **WhatsApp reorder nudge (day 24)** — replaces Subscribe & Save. Not built yet.
 - **3-pack photography** — the four images are **composited** from the single-bag photos
   by `build_3pack_images.py`, not shot. Good enough to launch on; a real three-bag

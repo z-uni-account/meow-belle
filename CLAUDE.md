@@ -132,8 +132,11 @@ are Shopify admin work. Current live config is recorded in `README.md`.
 - **☠️ Never import anything from `archive/`.** The two `DANGER-cost-prices-*` CSVs in there
   hold **supplier cost** in the price column — importing one sells a 15 kg bag for ৳6,100
   against a ৳7,600 retail. Kept as a record only. See `archive/README.md`.
-- **Currency displays as `Tk … BDT`** until Settings → General → Currency formatting is set
-  to `৳{{amount_no_decimals}}`. Still outstanding.
+- **Currency is `Tk`, not `৳` — settled 2026-07-28.** Shopify formatting is
+  `Tk {{amount_no_decimals}}` (and `Tk {{amount_no_decimals}} BDT` for the with-currency
+  variants), so prices render **`Tk 3,390`**, no trailing `.00`. The earlier plan to switch
+  to `৳` was dropped. ⚠️ Our written copy still uses `৳`, so the two are mixed on the same
+  page — see `README.md` for the size of that sweep before starting it.
 
 ---
 
