@@ -553,7 +553,7 @@
           <div class="pdp__rate"><span class="stars">${stars(p.rating)}</span> ${p.rating} <a href="#reviews">${p.reviews.toLocaleString()} reviews</a></div>
 
           <div class="pdp__pricing" id="pdpPricing"></div>
-          <p class="pdp__tax">Tax included. Dhaka only. ৳70 delivery, free on 2 bags or more. Large bags (8 kg &amp; 15 kg) are delivered by our own team for ৳150.</p>
+          <p class="pdp__tax">Tax included. Dhaka only. ৳70 delivery, free on 2 bags or more. Big bags (8 &amp; 15 kg) ৳150.</p>
 
           <div class="founding">
             <b>🐾 Founding customer price</b>
