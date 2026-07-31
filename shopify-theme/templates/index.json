@@ -63,7 +63,7 @@
         "g1": { "type": "item", "settings": { "icon": "🩺", "title": "Vet-approved", "text": "Formulated with feline vets" } },
         "g2": { "type": "item", "settings": { "icon": "↩️", "title": "30-day guarantee", "text": "Not loved? Full refund" } },
         "g3": { "type": "item", "settings": { "icon": "🇧🇩", "title": "Made for BD", "text": "Priced & delivered locally" } },
-        "g4": { "type": "item", "settings": { "icon": "🔒", "title": "Secure checkout", "text": "bKash · Nagad · Card · COD" } }
+        "g4": { "type": "item", "settings": { "icon": "🔒", "title": "Secure checkout", "text": "bKash · Cash on Delivery" } }
       },
       "block_order": ["g1", "g2", "g3", "g4"]
     }

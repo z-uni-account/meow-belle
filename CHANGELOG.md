@@ -5,6 +5,91 @@
 
 ---
 
+## 2026-08-01 — Payments switched on, VAT killed, 400 g stops leading the price
+
+### The store could not take a single order
+
+A full pass over the live site found **no payment method of any kind enabled** — no provider
+chosen, PayPal inactive, and no manual method. Every visitor reaching checkout hit a dead
+end. Nothing had ever been configured.
+
+**Cash on Delivery is now live** (Settings → Payments → Manual payment methods). Verified end
+to end with a real cart: COD appears at checkout, and the 3-pack free-delivery discount fires
+correctly against it. COD was the obvious and only choice available today — the entire margin
+model in `PRICING.md` is built on it ("the market is cash on delivery", COD fee 0% inside
+Dhaka), and it needs no bank account, trade licence or KYC.
+
+Customer-facing text set on the method:
+- *Choosing it:* "Pay in cash when your order arrives. Dhaka city only."
+- *After ordering:* exact amount ready, 3–5 working days standard, 1–2 days plus a
+  confirmation call for 8 kg and 15 kg bags.
+
+**Shopify has no Bangladesh gateway in its built-in provider list.** Searched: bKash, Nagad,
+SSLCommerz — all return nothing. The list is generic international processors only. bKash,
+Nagad or card acceptance therefore has to come from a Shopify **app** (SSLCommerz, aamarPay,
+ShurjoPay all publish one) plus a merchant account, and that needs Z's trade licence, bank
+account and KYC. Days-to-weeks, not today.
+
+### bKash added as a manual method, no number published
+
+Z has a personal bKash that can receive payments, so **bKash is now a second checkout
+option** — advertised, but settled by hand. The flow deliberately **publishes no number**:
+the customer picks bKash, we text them the number, they Send Money and reply with the TrxID,
+and the order is packed on confirmation. Putting a personal bKash number on a public
+storefront invites spam and fraud, and this way it never appears on the site. If Z would
+rather print the number, it goes in Settings → Payments → bKash → Edit.
+
+**Nagad and card are off the table until SSLCommerz.** Z's call. The site copy no longer
+claims them: `bKash · Nagad · Card · COD` became **`bKash · Cash on Delivery`** in all three
+places it appeared (`sections/mb-guarantee.liquid`, `templates/index.json`,
+`snippets/mb-pdp-trust.liquid`).
+
+### The 15% VAT is gone
+
+Bangladesh base tax was set to Shopify's default **15%**, tax-exclusive, so the Tk 3,390
+3-pack was charging **Tk 3,898.50** at checkout — every advertised price understated by 15%,
+on a cash-on-delivery model where the gap gets discovered at the door. `PRICING.md` has no
+tax line at all, so this was never intended. **Rate set to 0%.** Verified: the same cart now
+totals exactly Tk 3,390.
+
+### The 400 g no longer leads the Adult Chicken price
+
+`product.price` is the **cheapest** variant, so Reflex Adult Chicken led everywhere with its
+400 g add-on at **Tk 320** against a Tk 1,190 bag — and because the 400 g was also the first
+variant, the product page itself *opened* on Tk 320. That is where ad traffic lands.
+
+Two fixes: the Size option values were reordered so **1.5 kg comes first** (Adult Chicken was
+the only product affected — every other multi-variant product already led with 1.5 kg), and
+`snippets/mb-card.liquid` now reads the 1.5 kg variant's price explicitly rather than
+`product.price`, falling back for products with no 1.5 kg. Homepage card and PDP both now
+show **Tk 1,190**.
+
+⚠️ The **catalog grid still says "From Tk 320"** — that is Dawn's own card, which uses
+`product.price`. Unpublishing the 400 g, or splitting it into its own product, would clear
+it. Left alone for now.
+
+### Still open
+
+- **Four policies missing.** Return and refund, terms of service, shipping, and contact
+  information are all unset; Shopify flags contact information as **Required**. Only the
+  automated privacy policy exists. The site meanwhile promises a "30-day guarantee · Full
+  refund" with no refund policy behind it. Needs Z's business address, phone and return terms.
+- **Ratings, review counts and stock levels are fabricated** — "4.9 · 312 reviews",
+  "🔥 Only 8 left", and three named testimonials carrying "✓ Verified" badges, on a store
+  with zero orders. Hardcoded in `snippets/mb-card.liquid` and `sections/mb-reviews.liquid`.
+  Raised with Z on 2026-08-01; **his call is to leave them as they are.**
+- **The 3-Month Supply is absent from the homepage**, despite being the hero SKU and the
+  primary advertised product.
+
+### Confirmed healthy
+
+Domain `meowbellle.shop` now serves Shopify (the old GoDaddy parked-page problem is gone).
+14 products / 26 variants live, all in stock, prices and `Variant Grams` matching
+`PRICING.md`. Both weight bands and both free-delivery discounts behave correctly at
+checkout.
+
+---
+
 ## 2026-07-28 — Currency settled on Tk
 
 **Prices now render `Tk 3,390`, not `Tk 3,390.00`.** All four Shopify currency formats moved

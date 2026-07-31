@@ -38,7 +38,31 @@ competitor intel — read first for anything ads or copy**;
 | **Instagram** | **@meowbelle.bd** · Name field: `Meow Belle \| Cat Food Bangladesh` · bio set · feed art in `Instagram Feed/`. |
 | **Design source / image host** | Static site at https://z-uni-account.github.io/meow-belle/ (GitHub Pages). Shopify pulls product images from these URLs. Repo: https://github.com/z-uni-account/meow-belle |
 
+### Payments (2026-08-01)
+
+| | |
+|---|---|
+| **Cash on Delivery** | **Active.** The default. Whole margin model in `PRICING.md` assumes it. |
+| **bKash** | **Active**, manual. **No number is published** — we text it after the order, customer Send Moneys and replies with the TrxID. Number lives nowhere on the site; add it in Settings → Payments → bKash → Edit if that changes. |
+| **Nagad / card** | **Not offered** until SSLCommerz is approved. Site copy says `bKash · Cash on Delivery` and must not claim more. |
+| **Shopify Payments** | Not available in Bangladesh. Shopify's built-in provider list has **no** BD gateway either — bKash, Nagad and SSLCommerz all return nothing. A real gateway has to come from a Shopify **app** plus a merchant account (trade licence + bank + KYC). |
+| **VAT** | **0%.** Was Shopify's default 15% tax-exclusive, which charged Tk 3,898.50 on a Tk 3,390 3-pack. Do not re-enable without redoing every contribution figure in `PRICING.md`. |
+
+⚠️ **Manual methods do not auto-capture.** Every COD and bKash order lands as *Payment
+pending* and must be marked paid by hand in Orders before it counts as revenue.
+
 ### Open todos
+
+- ⚠️ **Four policies are still unset** — return and refund, terms of service, shipping, and
+  contact information (Shopify marks contact information **Required**). Only the automated
+  privacy policy exists, and the site promises a "30-day guarantee · Full refund" with no
+  refund policy behind it. Needs Z's business address, phone and the actual return terms.
+- **Catalog grid still shows "From Tk 320"** on Reflex Adult Chicken. The homepage card and
+  the PDP were fixed (2026-08-01) but Dawn's own collection card uses `product.price`, which
+  is the cheapest variant. Unpublishing the 400 g or splitting it into its own product clears
+  it.
+- **The 3-Month Supply is not on the homepage** despite being the hero SKU. `mb-featured`
+  takes a comma-separated `handles` setting — add `meow-belle-3-month-supply`.
 
 **✅ Configured in the Shopify admin on 2026-07-27:**
 - **Products imported.** Latest import 2026-07-27 (later): 14 products / 26 SKUs / 17 images,

@@ -61,8 +61,22 @@
       assign reviews = '39'
       assign stock = 12
   endcase
+  comment
+    Lead with the 1.5 kg price, never product.price. product.price is the CHEAPEST
+    variant, so Reflex Adult Chicken led with its 400 g add-on at Tk 320 against a
+    Tk 1,190 bag. The 400 g and the Prostar 1.2 kg are checkout add-ons and must
+    never set an advertised price. Falls back to product.price for products that
+    have no 1.5 kg (the Prostar 15 kg line, the 3-pack).
+  endcomment
   assign price = product.price
   assign compare = product.compare_at_price
+  for v in product.variants
+    if v.title contains '1.5 kg'
+      assign price = v.price
+      assign compare = v.compare_at_price
+      break
+    endif
+  endfor
 -%}
 <div class="mb-card">
   <a class="mb-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
