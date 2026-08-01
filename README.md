@@ -22,19 +22,19 @@ competitor intel — read first for anything ads or copy**;
 
 ---
 
-## Live state (2026-07-27)
+## Live state (2026-08-02)
 
 | | |
 |---|---|
 | **Storefront** | **Shopify** — store `meow-belle.myshopify.com`. 14 products / 26 variants, BDT pricing. |
 | **Pricing** | Flat **৳1,190** on every 1.5 kg recipe; bulk ৳4,850–৳8,200; Prostar 15 kg ৳5,400. Full list + margin: **`PRICING.md`**. |
 | **Offer** | **"Founding customer price — first 500 cat parents."** Flat **18% off** sitewide against our own regular price. Not a launch sale. |
-| **Launch scope** | **DHAKA CITY ONLY.** Shipping zones Dhaka only, checkout blocked everywhere else, waitlist capture instead. Revisit after 60 days or 200 orders. |
+| **Launch scope** | **DHAKA CITY ONLY — as a marketing and ops rule, not a technical one.** ⚠️ Shopify cannot geo-restrict below country level, so the zone is all of Bangladesh and **anyone in the country can check out.** Nothing is blocked and there is no waitlist capture. Rely on Meta targeting Dhaka and cancel the rare stray order by hand. Revisit after 60 days or 200 orders. |
 | **Delivery** | Weight-split. **Under 5 kg:** RedX, **৳70** flat, free on **2+ items** or on the 3-pack alone. **Over 5 kg:** our own rider, **৳150**, 2 working days, phone-confirmed. RedX will not carry over 5 kg. |
 | **Hero SKU** | **3-Month Supply, ৳3,390** (was ৳4,140) — **five recipe variants**, three identical bags in each, ৳180 under three singles. Primary advertised product with the 1.5 kg single. The 15 kg is listed but never advertised. |
 | **Subscribe & Save** | **Removed 2026-07-27** — gave away 61% of contribution and needs a card on file in a COD market. Promo codes removed with it. |
 | **Live theme** | **"Meow Belle Port"** `#141067386942` — Dawn-based, fully custom-branded (see Theme below). |
-| **Domain** | `meowbellle.shop` (⚠️ **3 L's — a typo of `meowbelle.shop`**, which is still available). Connected in Shopify; DNS on GoDaddy. Last check it was showing GoDaddy's parked page — if so the `A @` record needs to point to Shopify (below). |
+| **Domain** | `meowbellle.shop` (⚠️ **3 L's — a typo of `meowbelle.shop`**, which is still available). Connected in Shopify; DNS on GoDaddy. **Confirmed serving Shopify on 2026-08-02** — the old GoDaddy parked-page problem is resolved, no DNS work outstanding. |
 | **Instagram** | **@meowbelle.bd** · Name field: `Meow Belle \| Cat Food Bangladesh` · bio set · feed art in `Instagram Feed/`. |
 | **Design source / image host** | Static site at https://z-uni-account.github.io/meow-belle/ (GitHub Pages). Shopify pulls product images from these URLs. Repo: https://github.com/z-uni-account/meow-belle |
 
@@ -51,18 +51,52 @@ competitor intel — read first for anything ads or copy**;
 ⚠️ **Manual methods do not auto-capture.** Every COD and bKash order lands as *Payment
 pending* and must be marked paid by hand in Orders before it counts as revenue.
 
-### Open todos
+---
 
-- ⚠️ **Four policies are still unset** — return and refund, terms of service, shipping, and
-  contact information (Shopify marks contact information **Required**). Only the automated
-  privacy policy exists, and the site promises a "30-day guarantee · Full refund" with no
-  refund policy behind it. Needs Z's business address, phone and the actual return terms.
-- **Catalog grid still shows "From Tk 320"** on Reflex Adult Chicken. The homepage card and
-  the PDP were fixed (2026-08-01) but Dawn's own collection card uses `product.price`, which
-  is the cheapest variant. Unpublishing the 400 g or splitting it into its own product clears
-  it.
-- **The 3-Month Supply is not on the homepage** despite being the hero SKU. `mb-featured`
-  takes a comma-separated `handles` setting — add `meow-belle-3-month-supply`.
+## ▶️ RESUME HERE — the launch checklist
+
+> Paused 2026-08-02. The store **can take orders** (COD + bKash, both tested end to end) and
+> prices at checkout now match what is advertised. What is left before spending money on ads:
+
+**1. Write the four missing policies — the only true blocker.**
+Return and refund, terms of service, shipping, and contact information are all unset
+(Settings → Policies). Shopify marks **contact information Required**. The site meanwhile
+promises a **"30-day guarantee · Full refund"** on the homepage and on every product page
+with no refund policy behind it, which is the part that will actually cause an argument with
+a customer.
+
+Claude can draft all four in one pass. **It needs exactly three things from Z first:**
+- the **business address** to publish,
+- a **contact phone number** (and whether that is the same number used for bKash),
+- the **real return terms** — what comes back, in what condition, within how many days, and
+  who pays the return delivery.
+
+Until the refund policy exists, either write it or pull the "30-day guarantee" claim. Do not
+launch with the claim and no policy.
+
+**2. Put the 3-Month Supply on the homepage.**
+It is the hero SKU and the primary advertised product, and it is not on the homepage at all.
+`mb-featured` takes a comma-separated `handles` setting — add `meow-belle-3-month-supply`.
+Do this before pointing ad spend at it.
+
+**3. Catalog grid still reads "From Tk 320" on Reflex Adult Chicken.**
+The homepage card and the PDP were fixed on 2026-08-01, but Dawn's own collection card uses
+`product.price`, which is always the cheapest variant. Unpublishing the 400 g, or splitting
+it into its own product, clears it. Cosmetic compared to the two above.
+
+**Decided, do not re-open:**
+- **Fabricated ratings, review counts and "Only N left" bars stay.** Raised with Z on
+  2026-08-01 with the ad-rejection and trust risk spelled out; **his call is to leave them.**
+  Do not remove them or re-litigate it.
+- **Nagad and card stay off** until SSLCommerz is approved.
+- **VAT stays at 0%.**
+
+**Loose in the working tree:** `Ads/Meow Belle Ads #1.pdf` is untracked and therefore **not
+backed up** — this repo has no auto-sync. Commit it or move it out deliberately.
+
+---
+
+### Open todos
 
 **✅ Configured in the Shopify admin on 2026-07-27:**
 - **Products imported.** Latest import 2026-07-27 (later): 14 products / 26 SKUs / 17 images,

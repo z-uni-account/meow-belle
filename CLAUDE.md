@@ -77,6 +77,17 @@ Prostar** — we do not manufacture. Prices in Bangladeshi Taka (৳).
   nutrition across.
 - **Nutrition data is real and sourced.** Never invent an analytical value. If there is no
   published figure, leave the field empty (two Prostar SKUs are deliberately blank).
+- **VAT is 0% and stays there.** Shopify's default 15% tax-exclusive rate was charging
+  Tk 3,898.50 on a Tk 3,390 3-pack — every advertised price understated by 15%, discovered
+  by the customer at the door on a COD model. `PRICING.md` has no tax line and never did.
+  Re-enabling it means redoing every contribution figure in that file first.
+- **Payments are COD + a manual bKash, nothing else.** No Nagad, no card, until SSLCommerz.
+  The site copy must never claim more than it can take. **bKash publishes no number** — we
+  text it after the order and confirm on the TrxID. Both methods are manual, so orders land
+  as *Payment pending* and must be marked paid by hand.
+- **Never let `product.price` set an advertised price.** It is the CHEAPEST variant, so the
+  400 g add-on hijacked Reflex Adult Chicken at Tk 320 against a Tk 1,190 bag. `mb-card`
+  reads the 1.5 kg variant explicitly. Keep 1.5 kg first in every product's option values.
 
 ---
 
